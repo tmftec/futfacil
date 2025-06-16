@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema Profissional de Futebol - Versão Definitiva</title>
+    <title>Sistema Profissional de Futebol - Versão Aprimorada</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -53,7 +53,7 @@
             font-weight: 600;
         }
         .allied-player {
-            background: linear-gradient(45deg, #48bb78, #68d391);
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
             color: white;
             font-weight: 600;
         }
@@ -75,6 +75,13 @@
         .scoreboard {
             background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
             color: white;
+            transition: all 0.3s ease;
+        }
+        .scoreboard.sticky {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         .score-number {
             font-size: 4rem;
@@ -158,6 +165,13 @@
         .team-color-badge:hover {
             transform: scale(1.1);
         }
+        .match-active {
+            padding-top: 0 !important;
+        }
+        .scrollable-content {
+            max-height: calc(100vh - 200px);
+            overflow-y: auto;
+        }
     </style>
 </head>
 <!-- Google tag (gtag.js) -->Add commentMore actions
@@ -168,8 +182,8 @@
   gtag('js', new Date());
 
   gtag('config', 'G-HL8DRMJQSM');
-</script>
 <body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
     <header class="gradient-bg text-white py-8">
         <div class="container mx-auto px-4 text-center">
             <h1 class="text-4xl md:text-5xl font-bold mb-2">
@@ -180,7 +194,8 @@
         </div>
     </header>
 
-    <div class="container mx-auto px-4 py-8 max-w-6xl">
+    <div class="container mx-auto px-4 py-8 max-w-6xl" id="mainContainer">
+        <!-- Navigation Tabs -->
         <div id="navigationTabs" class="mb-8 hidden">
             <div class="flex space-x-4 justify-center">
                 <button id="tabDrawing" class="tab-button px-6 py-3 rounded-lg font-semibold active">
@@ -195,7 +210,9 @@
             </div>
         </div>
 
+        <!-- Drawing Section -->
         <div id="drawingSection">
+            <!-- Input Section -->
             <div class="bg-white rounded-2xl card-shadow p-6 md:p-8 mb-8">
                 <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
                     <i class="fas fa-users mr-3 text-blue-600"></i>
@@ -209,15 +226,16 @@
                         </label>
                         <textarea 
                             id="playersInput" 
-                            placeholder="Exemplo:&#10;João Silva@&#10;Maria* (goleira)&#10;Pedro Santos#&#10;Ana* (goleira)&#10;Carlos Lima@&#10;Fernanda Oliveira#"
+                            placeholder="Exemplo:&#10;João Silva&#10;Maria* (goleira)&#10;Pedro Santos#&#10;Ana* (goleira)&#10;Carlos Lima#&#10;Maria@ (aliada)&#10;Roberto@ (aliado)"
                             class="w-full h-48 p-4 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none resize-none transition-colors"
                         ></textarea>
                         <div class="text-sm text-gray-500 mt-2 space-y-1">
-                            <p><i class="fas fa-users mr-1 text-green-600"></i><strong>@</strong> = Aliados (mantidos no mesmo time)</p>
                             <p><i class="fas fa-hand-paper mr-1 text-yellow-600"></i><strong>*</strong> = Goleiros (distribuídos em times diferentes)</p>
                             <p><i class="fas fa-sword mr-1 text-red-600"></i><strong>#</strong> = Jogadores rivais (separados sempre que possível)</p>
+                            <p><i class="fas fa-handshake mr-1 text-teal-600"></i><strong>@</strong> = Jogadores aliados (ficam no mesmo time)</p>
                         </div>
                         
+                        <!-- Player Counter Section -->
                         <div class="mt-4 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border border-blue-100">
                             <h3 class="text-sm font-semibold text-gray-700 mb-3 flex items-center">
                                 <i class="fas fa-calculator mr-2 text-blue-600"></i>
@@ -231,7 +249,7 @@
                                     </div>
                                 </div>
                                 <div class="stat-item text-center p-3 rounded-lg">
-                                    <div class="counter-badge text-2xl font-bold text-gray-800" id="fieldPlayersCount">0</div>
+                                    <div class="counter-badge text-2xl font-bold text-green-600" id="fieldPlayersCount">0</div>
                                     <div class="text-xs text-gray-600 mt-1">
                                         <i class="fas fa-running mr-1"></i>Linha
                                     </div>
@@ -251,9 +269,9 @@
                                     </div>
                                 </div>
                                 <div class="stat-item text-center p-3 rounded-lg">
-                                    <div class="counter-badge text-2xl font-bold text-green-600" id="alliedPlayersCount">0</div>
+                                    <div class="counter-badge text-2xl font-bold text-teal-600" id="alliedPlayersCount">0</div>
                                     <div class="text-xs text-gray-600 mt-1">
-                                        <i class="fas fa-users mr-1"></i>Aliados
+                                        <i class="fas fa-handshake mr-1"></i>Aliados
                                     </div>
                                 </div>
                             </div>
@@ -284,10 +302,11 @@
                         <div>
                             <label class="block text-gray-700 font-semibold mb-3">
                                 <i class="fas fa-palette mr-2 text-purple-600"></i>
-                                Cores e Nomes dos Times
+                                Cores dos Times
                             </label>
                             <div id="colorSelectors" class="grid grid-cols-1 gap-3">
-                                </div>
+                                <!-- Color selectors will be generated here -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -303,6 +322,7 @@
                 </div>
             </div>
 
+            <!-- Results Section -->
             <div id="resultsSection" class="hidden">
                 <div class="flex items-center justify-between mb-6">
                     <h2 class="text-3xl font-bold text-gray-800 flex items-center">
@@ -327,13 +347,17 @@
                     </div>
                 </div>
                 <div id="distributionInfo" class="mb-6 p-4 bg-green-50 border border-green-200 rounded-xl">
-                    </div>
+                    <!-- Distribution information will be shown here -->
+                </div>
                 <div id="teamsResults" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                    </div>
+                    <!-- Teams will be displayed here -->
+                </div>
             </div>
         </div>
 
+        <!-- Match Section -->
         <div id="matchSection" class="hidden">
+            <!-- Substitution Alerts Panel -->
             <div class="bg-white rounded-2xl card-shadow p-6 mb-6">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-xl font-bold text-gray-800 flex items-center">
@@ -348,7 +372,7 @@
                     </div>
                 </div>
                 
-                <div id="substitutionControls" class="grid md:grid-cols-3 gap-4">
+                <div id="substitutionControls" class="grid md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Intervalo de Troca</label>
                         <select id="substitutionInterval" class="w-full p-2 border border-gray-300 rounded-lg">
@@ -366,32 +390,20 @@
                             --:--
                         </div>
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Ações</label>
-                        <div class="flex space-x-2">
-                            <button id="skipSubstitution" class="flex-1 bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-2 rounded-lg text-sm">
-                                <i class="fas fa-forward mr-1"></i>Pular
-                            </button>
-                            <button id="confirmSubstitution" class="flex-1 bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded-lg text-sm">
-                                <i class="fas fa-check mr-1"></i>OK
-                            </button>
-                        </div>
-                    </div>
                 </div>
             </div>
 
+            <!-- Substitution Alert Banner -->
             <div id="substitutionAlertBanner" class="substitution-alert-main rounded-2xl p-6 mb-6 text-center hidden">
                 <div class="flex flex-col items-center space-y-3">
                     <i class="fas fa-exchange-alt text-6xl"></i>
                     <h2 class="text-3xl font-bold">HORA DA TROCA!</h2>
                     <p class="text-lg opacity-90">Momento para substituir os jogadores</p>
-                    <button onclick="dismissSubstitutionAlert()" class="bg-white text-orange-600 px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
-                        <i class="fas fa-check mr-2"></i>Entendido
-                    </button>
                 </div>
             </div>
 
-            <div class="scoreboard rounded-2xl card-shadow p-6 mb-8">
+            <!-- Scoreboard -->
+            <div class="scoreboard rounded-2xl card-shadow p-6 mb-8" id="scoreboard">
                 <div class="text-center mb-6">
                     <div class="timer-display mb-2" id="matchTimer">00:00</div>
                     <div class="flex justify-center space-x-4">
@@ -408,42 +420,54 @@
                 </div>
                 
                 <div id="scoreboardTeams" class="grid gap-6">
-                    </div>
+                    <!-- Scoreboard teams will be populated here -->
+                </div>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-6 mb-8">
-                <div id="matchTeams" class="space-y-6">
+            <!-- Scrollable Match Content -->
+            <div class="scrollable-content">
+                <!-- Match Controls -->
+                <div class="grid md:grid-cols-2 gap-6 mb-8">
+                    <!-- Teams with clickable players -->
+                    <div id="matchTeams" class="space-y-6">
+                        <!-- Match teams will be populated here -->
                     </div>
-                
-                <div class="bg-white rounded-2xl card-shadow p-6">
-                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                        <i class="fas fa-list mr-3 text-blue-600"></i>
-                        Eventos da Partida
-                    </h3>
-                    <div id="eventsLog" class="space-y-2 max-h-96 overflow-y-auto">
-                        <p class="text-gray-500 text-center py-8">Nenhum evento registrado ainda</p>
-                    </div>
-                    <div class="mt-4 pt-4 border-t">
-                        <button id="clearEvents" class="w-full bg-red-100 hover:bg-red-200 text-red-700 py-2 px-4 rounded-lg transition-colors">
-                            <i class="fas fa-trash mr-2"></i>
-                            Limpar Eventos
-                        </button>
+                    
+                    <!-- Events Log -->
+                    <div class="bg-white rounded-2xl card-shadow p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-list mr-3 text-blue-600"></i>
+                            Eventos da Partida
+                        </h3>
+                        <div id="eventsLog" class="space-y-2 max-h-96 overflow-y-auto">
+                            <p class="text-gray-500 text-center py-8">Nenhum evento registrado ainda</p>
+                        </div>
+                        <div class="mt-4 pt-4 border-t">
+                            <button id="clearEvents" class="w-full bg-red-100 hover:bg-red-200 text-red-700 py-2 px-4 rounded-lg transition-colors">
+                                <i class="fas fa-trash mr-2"></i>
+                                Limpar Eventos
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- Statistics Section -->
         <div id="statsSection" class="hidden">
             <div class="grid md:grid-cols-2 gap-6">
+                <!-- Top Scorers -->
                 <div class="bg-white rounded-2xl card-shadow p-6">
                     <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
                         <i class="fas fa-crown mr-3 text-yellow-500"></i>
                         Artilheiros
                     </h3>
                     <div id="topScorers">
-                        </div>
+                        <!-- Top scorers will be populated here -->
+                    </div>
                 </div>
                 
+                <!-- Team Statistics -->
                 <div class="bg-white rounded-2xl card-shadow p-6">
                     <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
                         <i class="fas fa-chart-pie mr-3 text-green-600"></i>
@@ -466,6 +490,7 @@
             interval: null,
             events: [],
             playerStats: {},
+            startTime: null,
             substitutions: {
                 enabled: false,
                 interval: 300, // 5 minutes default
@@ -474,7 +499,9 @@
             }
         };
         let teamStatsChart = null;
+        let isMatchActive = false;
         
+        // Navigation
         function showSection(sectionName) {
             const sections = ['drawingSection', 'matchSection', 'statsSection'];
             const tabs = ['tabDrawing', 'tabMatch', 'tabStats'];
@@ -507,6 +534,15 @@
                     activeElement.classList.remove('bg-gray-200', 'text-gray-700');
                 }
             }
+
+            // Handle sticky scoreboard
+            if (sectionName === 'matchSection' && isMatchActive) {
+                document.getElementById('mainContainer').classList.add('match-active');
+                document.getElementById('scoreboard').classList.add('sticky');
+            } else {
+                document.getElementById('mainContainer').classList.remove('match-active');
+                document.getElementById('scoreboard').classList.remove('sticky');
+            }
         }
 
         function updatePlayerCount() {
@@ -514,9 +550,11 @@
             const teamsCount = parseInt(document.getElementById('teamsCount').value);
             
             if (!playersText) {
-                ['totalCount', 'fieldPlayersCount', 'goalkeepersCount', 'rivalPlayersCount', 'alliedPlayersCount'].forEach(id => {
-                    document.getElementById(id).textContent = '0';
-                });
+                document.getElementById('totalCount').textContent = '0';
+                document.getElementById('fieldPlayersCount').textContent = '0';
+                document.getElementById('goalkeepersCount').textContent = '0';
+                document.getElementById('rivalPlayersCount').textContent = '0';
+                document.getElementById('alliedPlayersCount').textContent = '0';
                 document.getElementById('playersPerTeam').textContent = 'Selecione o número de times para ver a distribuição';
                 return;
             }
@@ -528,9 +566,10 @@
             const goalkeepers = allPlayers.filter(player => player.includes('*'));
             const rivalPlayers = allPlayers.filter(player => player.includes('#'));
             const alliedPlayers = allPlayers.filter(player => player.includes('@'));
+            const regularPlayers = allPlayers.filter(player => !player.includes('*') && !player.includes('#') && !player.includes('@'));
 
             animateCounterUpdate('totalCount', allPlayers.length);
-            animateCounterUpdate('fieldPlayersCount', allPlayers.length - goalkeepers.length);
+            animateCounterUpdate('fieldPlayersCount', regularPlayers.length);
             animateCounterUpdate('goalkeepersCount', goalkeepers.length);
             animateCounterUpdate('rivalPlayersCount', rivalPlayers.length);
             animateCounterUpdate('alliedPlayersCount', alliedPlayers.length);
@@ -576,10 +615,11 @@
                 colorDiv.innerHTML = `
                     <div class="flex items-center space-x-2">
                         <div class="team-color-badge w-8 h-8 rounded-lg border-2 border-gray-300 cursor-pointer" 
-                             style="background-color: ${defaultColors[i % defaultColors.length] || '#FF6B6B'}">
-                            <input type="color" id="color${i}" value="${defaultColors[i % defaultColors.length] || '#FF6B6B'}" 
+                             style="background-color: ${defaultColors[i] || '#FF6B6B'}">
+                            <input type="color" id="color${i}" value="${defaultColors[i] || '#FF6B6B'}" 
                                    class="w-full h-full opacity-0 cursor-pointer">
                         </div>
+                        <label class="text-sm font-medium text-gray-600">Time ${i + 1}:</label>
                     </div>
                     <input type="text" id="teamName${i}" value="Time ${i + 1}" 
                            class="team-name-input flex-1 px-3 py-2 rounded-lg font-medium text-gray-800"
@@ -587,6 +627,7 @@
                 `;
                 colorSelectors.appendChild(colorDiv);
                 
+                // Update color preview when color changes
                 document.getElementById(`color${i}`).addEventListener('change', function() {
                     this.parentElement.style.backgroundColor = this.value;
                 });
@@ -607,14 +648,14 @@
         function parsePlayer(playerText) {
             const isGoalkeeper = playerText.includes('*');
             const isRival = playerText.includes('#');
-            const isAlly = playerText.includes('@');
+            const isAllied = playerText.includes('@');
             const name = playerText.replace(/[*#@]/g, '').trim();
             
             return {
                 name: name,
                 isGoalkeeper: isGoalkeeper,
                 isRival: isRival,
-                isAlly: isAlly,
+                isAllied: isAllied,
                 originalText: playerText,
                 goals: 0
             };
@@ -623,13 +664,15 @@
         function drawTeams() {
             const playersText = document.getElementById('playersInput').value.trim();
             const teamsCount = parseInt(document.getElementById('teamsCount').value);
-
+            
             if (!playersText) {
                 alert('Por favor, digite a lista de jogadores!');
                 return;
             }
 
-            const allPlayerTexts = playersText.split('\n').map(name => name.trim()).filter(name => name.length > 0);
+            const allPlayerTexts = playersText.split('\n')
+                .map(name => name.trim())
+                .filter(name => name.length > 0);
 
             if (allPlayerTexts.length < teamsCount) {
                 alert(`Você precisa de pelo menos ${teamsCount} jogadores para formar ${teamsCount} times!`);
@@ -638,71 +681,119 @@
 
             const allPlayers = allPlayerTexts.map(parsePlayer);
             
-            const alliedGroup = allPlayers.filter(p => p.isAlly);
-            const remainingPlayers = allPlayers.filter(p => !p.isAlly);
-
-            const goalkeepers = remainingPlayers.filter(p => p.isGoalkeeper);
-            const rivalPlayers = remainingPlayers.filter(p => p.isRival && !p.isGoalkeeper);
-            const regularPlayers = remainingPlayers.filter(p => !p.isGoalkeeper && !p.isRival);
+            const goalkeepers = allPlayers.filter(p => p.isGoalkeeper);
+            const rivalPlayers = allPlayers.filter(p => p.isRival && !p.isGoalkeeper && !p.isAllied);
+            const alliedPlayers = allPlayers.filter(p => p.isAllied && !p.isGoalkeeper);
+            const regularPlayers = allPlayers.filter(p => !p.isGoalkeeper && !p.isRival && !p.isAllied);
 
             if (goalkeepers.length > 0 && goalkeepers.length < teamsCount) {
                 const proceed = confirm(`Você tem ${goalkeepers.length} goleiro(s) para ${teamsCount} times. Alguns times ficarão sem goleiro. Deseja continuar?`);
                 if (!proceed) return;
             }
 
-            const maxPlayersPerTeam = Math.ceil(allPlayers.length / teamsCount);
-            if (alliedGroup.length > maxPlayersPerTeam) {
-                alert('Atenção: O grupo de aliados é grande e pode deixar os times desequilibrados.');
-            }
-
             const teams = Array.from({ length: teamsCount }, (_, i) => ({
                 name: document.getElementById(`teamName${i}`).value || `Time ${i + 1}`,
                 players: [],
                 color: document.getElementById(`color${i}`).value,
-                goals: 0,
-                originalIndex: i
+                goals: 0
             }));
 
-            // Step 1: Add the allied group to the first team
-            if (alliedGroup.length > 0) {
-                teams[0].players.push(...alliedGroup);
-            }
-
-            // Step 2: Create a pool of remaining players and shuffle them
-            const playersToDistribute = shuffleArray([...goalkeepers, ...rivalPlayers, ...regularPlayers]);
-
-            // Step 3: Distribute remaining players one by one to the team with the fewest members
-            playersToDistribute.forEach(player => {
-                teams.sort((a, b) => a.players.length - b.players.length);
-                teams[0].players.push(player);
+            // Step 1: Distribute goalkeepers
+            const shuffledGoalkeepers = shuffleArray(goalkeepers);
+            shuffledGoalkeepers.forEach((goalkeeper, index) => {
+                const teamIndex = index % teamsCount;
+                teams[teamIndex].players.push(goalkeeper);
             });
 
-            // Re-sort teams by their original index for consistent display
-            teams.sort((a, b) => a.originalIndex - b.originalIndex);
+            // Step 2: Keep allied players together (put all in first available team with space)
+            if (alliedPlayers.length > 0) {
+                // Find team with most space for allied players
+                let bestTeamIndex = 0;
+                for (let i = 1; i < teamsCount; i++) {
+                    if (teams[i].players.length < teams[bestTeamIndex].players.length) {
+                        bestTeamIndex = i;
+                    }
+                }
+                alliedPlayers.forEach(player => {
+                    teams[bestTeamIndex].players.push(player);
+                });
+            }
+
+            // Step 3: Distribute rival players
+            const shuffledRivalPlayers = shuffleArray(rivalPlayers);
+            shuffledRivalPlayers.forEach((rival, index) => {
+                const teamIndex = index % teamsCount;
+                teams[teamIndex].players.push(rival);
+            });
+
+            // Step 4: Distribute regular players
+            const shuffledRegularPlayers = shuffleArray(regularPlayers);
+            shuffledRegularPlayers.forEach((player, index) => {
+                const teamIndex = index % teamsCount;
+                teams[teamIndex].players.push(player);
+            });
 
             currentTeams = teams;
             initializeMatchData();
 
-            const distributionInfo = generateDistributionInfo(goalkeepers, rivalPlayers, alliedGroup, teamsCount);
+            const distributionInfo = generateDistributionInfo(goalkeepers, rivalPlayers, alliedPlayers, regularPlayers, teamsCount);
             displayTeams(teams, distributionInfo);
         }
-        
-        function generateDistributionInfo(goalkeepers, rivalPlayers, alliedGroup, teamsCount) {
+
+        function initializeMatchData() {
+            // Clear events when starting new draw
+            matchData = {
+                timer: 0,
+                isRunning: false,
+                interval: null,
+                events: [],
+                playerStats: {},
+                startTime: null,
+                substitutions: {
+                    enabled: false,
+                    interval: 300,
+                    nextSubstitution: 0,
+                    alertShown: false
+                }
+            };
+
+            currentTeams.forEach(team => {
+                team.goals = 0;
+                team.players.forEach(player => {
+                    player.goals = 0;
+                    matchData.playerStats[player.name] = {
+                        goals: 0,
+                        team: team.name,
+                        teamColor: team.color
+                    };
+                });
+            });
+        }
+
+        function generateDistributionInfo(goalkeepers, rivalPlayers, alliedPlayers, regularPlayers, teamsCount) {
             let info = [];
             
-            if (alliedGroup.length > 0) {
-                info.push(`✅ Grupo de ${alliedGroup.length} aliado(s) mantido junto.`);
-            }
-
             if (goalkeepers.length > 0) {
-                info.push(`✅ ${goalkeepers.length} goleiro(s) foram distribuídos para equilibrar.`);
+                if (goalkeepers.length >= teamsCount) {
+                    info.push(`✅ Goleiros distribuídos: cada time tem pelo menos 1 goleiro`);
+                } else {
+                    info.push(`⚠️ Apenas ${goalkeepers.length} goleiro(s) para ${teamsCount} times`);
+                }
             }
             
             if (rivalPlayers.length > 0) {
-                 info.push(`✅ ${rivalPlayers.length} rival(is) foram separados para balancear a disputa.`);
+                if (rivalPlayers.length <= teamsCount) {
+                    info.push(`✅ Jogadores rivais separados com sucesso`);
+                } else {
+                    info.push(`⚠️ ${rivalPlayers.length} jogadores rivais para ${teamsCount} times - alguns podem ficar juntos`);
+                }
+            }
+
+            if (alliedPlayers.length > 0) {
+                info.push(`✅ ${alliedPlayers.length} jogadores aliados mantidos no mesmo time`);
             }
             
-            info.push(`📊 Sorteio finalizado com sucesso!`);
+            info.push(`📊 Distribuição total: ${goalkeepers.length + rivalPlayers.length + alliedPlayers.length + regularPlayers.length} jogadores em ${teamsCount} times`);
             
             return info;
         }
@@ -728,9 +819,9 @@
                 teamDiv.style.animationDelay = `${index * 0.1}s`;
                 
                 const goalkeepers = team.players.filter(p => p.isGoalkeeper);
-                const rivalPlayers = team.players.filter(p => p.isRival);
-                const alliedPlayers = team.players.filter(p => p.isAlly);
-                const regularPlayers = team.players.filter(p => !p.isGoalkeeper && !p.isRival && !p.isAlly);
+                const rivalPlayers = team.players.filter(p => p.isRival && !p.isGoalkeeper && !p.isAllied);
+                const alliedPlayers = team.players.filter(p => p.isAllied && !p.isGoalkeeper);
+                const regularPlayers = team.players.filter(p => !p.isGoalkeeper && !p.isRival && !p.isAllied);
                 
                 teamDiv.innerHTML = `
                     <div class="flex items-center justify-between mb-4">
@@ -743,9 +834,9 @@
                             ${team.players.length} jogador${team.players.length !== 1 ? 'es' : ''}
                         </p>
                         <div class="flex flex-wrap gap-2 text-xs">
-                            ${alliedPlayers.length > 0 ? `<span class="bg-green-100 text-green-800 px-2 py-1 rounded-full">${alliedPlayers.length} aliado${alliedPlayers.length !== 1 ? 's' : ''}</span>` : ''}
                             ${goalkeepers.length > 0 ? `<span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">${goalkeepers.length} goleiro${goalkeepers.length !== 1 ? 's' : ''}</span>` : ''}
                             ${rivalPlayers.length > 0 ? `<span class="bg-red-100 text-red-800 px-2 py-1 rounded-full">${rivalPlayers.length} rival${rivalPlayers.length !== 1 ? 'is' : ''}</span>` : ''}
+                            ${alliedPlayers.length > 0 ? `<span class="bg-teal-100 text-teal-800 px-2 py-1 rounded-full">${alliedPlayers.length} aliado${alliedPlayers.length !== 1 ? 's' : ''}</span>` : ''}
                             ${regularPlayers.length > 0 ? `<span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full">${regularPlayers.length} regular${regularPlayers.length !== 1 ? 'es' : ''}</span>` : ''}
                         </div>
                     </div>
@@ -754,15 +845,15 @@
                             let className = 'player-item px-3 py-2 rounded-lg text-sm ';
                             let icon = '';
                             
-                            if (player.isAlly) {
-                                className += 'allied-player';
-                                icon = '<i class="fas fa-users mr-2"></i>';
-                            } else if (player.isGoalkeeper) {
+                            if (player.isGoalkeeper) {
                                 className += 'goalkeeper';
                                 icon = '<i class="fas fa-hand-paper mr-2"></i>';
                             } else if (player.isRival) {
                                 className += 'rival-player';
                                 icon = '<i class="fas fa-sword mr-2"></i>';
+                            } else if (player.isAllied) {
+                                className += 'allied-player';
+                                icon = '<i class="fas fa-handshake mr-2"></i>';
                             } else {
                                 className += 'bg-gray-50';
                                 icon = '<i class="fas fa-running mr-2"></i>';
@@ -783,40 +874,13 @@
             resultsSection.classList.remove('hidden');
             resultsSection.scrollIntoView({ behavior: 'smooth' });
         }
-        
-        function initializeMatchData() {
-            matchData = {
-                timer: 0,
-                isRunning: false,
-                interval: null,
-                events: [],
-                playerStats: {},
-                substitutions: {
-                    enabled: false,
-                    interval: 300,
-                    nextSubstitution: 0,
-                    alertShown: false
-                }
-            };
-
-            currentTeams.forEach(team => {
-                team.goals = 0;
-                team.players.forEach(player => {
-                    player.goals = 0;
-                    matchData.playerStats[player.name] = {
-                        goals: 0,
-                        team: team.name,
-                        teamColor: team.color
-                    };
-                });
-            });
-        }
 
         function setupMatchInterface() {
             document.getElementById('navigationTabs').classList.remove('hidden');
             setupScoreboard();
             setupMatchTeams();
             setupSubstitutionSystem();
+            isMatchActive = true;
             showSection('matchSection');
         }
 
@@ -826,7 +890,7 @@
             document.getElementById('enableSubstitutions').addEventListener('change', function() {
                 matchData.substitutions.enabled = this.checked;
                 matchData.substitutions.alertShown = false;
-                if (this.checked) {
+                if (this.checked && matchData.isRunning) {
                     calculateNextSubstitution();
                 } else {
                     matchData.substitutions.nextSubstitution = 0;
@@ -837,38 +901,10 @@
 
             document.getElementById('substitutionInterval').addEventListener('change', function() {
                 matchData.substitutions.interval = parseInt(this.value);
-                if (matchData.substitutions.enabled) {
+                if (matchData.substitutions.enabled && matchData.isRunning) {
                     calculateNextSubstitution();
                 }
                 updateSubstitutionControls();
-            });
-
-            document.getElementById('skipSubstitution').addEventListener('click', function() {
-                if (matchData.substitutions.enabled) {
-                    matchData.substitutions.alertShown = false;
-                    calculateNextSubstitution();
-                    updateSubstitutionControls();
-                    dismissSubstitutionAlert();
-                    addEventToLog({
-                        time: formatTime(matchData.timer),
-                        type: 'substitution_skipped',
-                        timestamp: Date.now()
-                    });
-                }
-            });
-
-            document.getElementById('confirmSubstitution').addEventListener('click', function() {
-                if (matchData.substitutions.enabled) {
-                    matchData.substitutions.alertShown = false;
-                    calculateNextSubstitution();
-                    updateSubstitutionControls();
-                    dismissSubstitutionAlert();
-                    addEventToLog({
-                        time: formatTime(matchData.timer),
-                        type: 'substitution_confirmed',
-                        timestamp: Date.now()
-                    });
-                }
             });
         }
 
@@ -877,6 +913,7 @@
             const interval = matchData.substitutions.interval;
             const nextInterval = Math.ceil((currentTime + 1) / interval) * interval;
             matchData.substitutions.nextSubstitution = nextInterval;
+            matchData.substitutions.alertShown = false;
         }
 
         function updateSubstitutionControls() {
@@ -899,19 +936,30 @@
                 
                 showSubstitutionAlert();
                 matchData.substitutions.alertShown = true;
+                // Automatically schedule next substitution
+                setTimeout(() => {
+                    calculateNextSubstitution();
+                    updateSubstitutionControls();
+                }, 3000); // Hide alert after 3 seconds
             }
         }
 
         function showSubstitutionAlert() {
             const banner = document.getElementById('substitutionAlertBanner');
             banner.classList.remove('hidden');
-            banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
             
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                dismissSubstitutionAlert();
+            }, 5000);
+            
+            // Play sound (if available)
             try {
-                const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmkcBTyZ3fPFfCcCJ4XM8Ng=');
+                const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBziR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmkcBTyZ3fPFfCcCJ4XM8Ng=');
                 audio.play().catch(() => {});
             } catch (e) {}
             
+            // Add to events log
             addEventToLog({
                 time: formatTime(matchData.timer),
                 type: 'substitution_alert',
@@ -976,15 +1024,15 @@
                             let className = 'player-item player-clickable px-3 py-2 rounded-lg text-sm cursor-pointer ';
                             let icon = '';
                             
-                            if (player.isAlly) {
-                                className += 'allied-player';
-                                icon = '<i class="fas fa-users mr-2"></i>';
-                            } else if (player.isGoalkeeper) {
+                            if (player.isGoalkeeper) {
                                 className += 'goalkeeper';
                                 icon = '<i class="fas fa-hand-paper mr-2"></i>';
                             } else if (player.isRival) {
                                 className += 'rival-player';
                                 icon = '<i class="fas fa-sword mr-2"></i>';
+                            } else if (player.isAllied) {
+                                className += 'allied-player';
+                                icon = '<i class="fas fa-handshake mr-2"></i>';
                             } else {
                                 className += 'bg-gray-50 hover:bg-green-100';
                                 icon = '<i class="fas fa-running mr-2"></i>';
@@ -1028,11 +1076,13 @@
             updateMatchDisplay();
             addEventToLog(event);
             
+            // Goal celebration animation
             animateGoal(teamIndex);
         }
 
         function addTeamGoal(teamIndex, increment) {
             if (increment > 0) {
+                // Add generic goal
                 currentTeams[teamIndex].goals += increment;
                 const event = {
                     time: formatTime(matchData.timer),
@@ -1044,8 +1094,12 @@
                 };
                 matchData.events.unshift(event);
                 addEventToLog(event);
+                
+                // Same animation as player goals
                 animateGoal(teamIndex);
+                
             } else if (increment < 0 && currentTeams[teamIndex].goals > 0) {
+                // Remove goal
                 currentTeams[teamIndex].goals += increment;
                 const event = {
                     time: formatTime(matchData.timer),
@@ -1070,6 +1124,7 @@
         }
 
         function updateMatchDisplay() {
+            // Update scoreboard
             currentTeams.forEach((team, index) => {
                 const scoreElement = document.getElementById(`score${index}`);
                 if (scoreElement) {
@@ -1077,6 +1132,7 @@
                 }
             });
             
+            // Update match teams display
             setupMatchTeams();
             updateStatistics();
         }
@@ -1131,28 +1187,6 @@
                         <span class="text-sm text-gray-500">${event.time}</span>
                     </div>
                 `;
-            } else if (event.type === 'substitution_skipped') {
-                eventDiv.classList.add('border-yellow-500');
-                eventDiv.innerHTML = `
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <span class="font-semibold text-yellow-700">⏭️ Troca pulada</span>
-                            <span class="text-gray-700">Próxima troca reagendada</span>
-                        </div>
-                        <span class="text-sm text-gray-500">${event.time}</span>
-                    </div>
-                `;
-            } else if (event.type === 'substitution_confirmed') {
-                eventDiv.classList.add('border-green-500');
-                eventDiv.innerHTML = `
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <span class="font-semibold text-green-700">✅ Troca confirmada</span>
-                            <span class="text-gray-700">Substituições realizadas</span>
-                        </div>
-                        <span class="text-sm text-gray-500">${event.time}</span>
-                    </div>
-                `;
             }
             
             eventsLog.prepend(eventDiv);
@@ -1170,30 +1204,39 @@
             updateSubstitutionControls();
         }
 
-
         function startTimer() {
             if (!matchData.isRunning) {
                 matchData.isRunning = true;
+                matchData.startTime = Date.now() - (matchData.timer * 1000);
+                
                 if (matchData.substitutions.enabled && matchData.substitutions.nextSubstitution === 0) {
                     calculateNextSubstitution();
                 }
-                matchData.interval = setInterval(() => {
-                    matchData.timer++;
-                    updateTimer();
-                }, 1000);
+                
+                // Use more accurate timing method
+                function updateAccurateTimer() {
+                    if (matchData.isRunning) {
+                        const now = Date.now();
+                        const elapsed = Math.floor((now - matchData.startTime) / 1000);
+                        matchData.timer = elapsed;
+                        updateTimer();
+                        requestAnimationFrame(updateAccurateTimer);
+                    }
+                }
+                updateAccurateTimer();
             }
         }
 
         function pauseTimer() {
             if (matchData.isRunning) {
                 matchData.isRunning = false;
-                clearInterval(matchData.interval);
             }
         }
 
         function resetTimer() {
             pauseTimer();
             matchData.timer = 0;
+            matchData.startTime = Date.now();
             matchData.substitutions.nextSubstitution = 0;
             matchData.substitutions.alertShown = false;
             dismissSubstitutionAlert();
@@ -1285,6 +1328,7 @@
             });
         }
 
+        // Event listeners
         document.getElementById('playersInput').addEventListener('input', updatePlayerCount);
         document.getElementById('teamsCount').addEventListener('change', generateColorSelectors);
         document.getElementById('drawTeams').addEventListener('click', drawTeams);
@@ -1292,18 +1336,23 @@
         document.getElementById('newDraw').addEventListener('click', () => {
             document.getElementById('resultsSection').classList.add('hidden');
             document.getElementById('navigationTabs').classList.add('hidden');
+            isMatchActive = false;
             showSection('drawingSection');
             document.getElementById('playersInput').focus();
             
+            // Reset match data when starting new draw
             initializeMatchData();
+            // Clear events log
             document.getElementById('eventsLog').innerHTML = '<p class="text-gray-500 text-center py-8">Nenhum evento registrado ainda</p>';
         });
 
+        // Timer controls
         document.getElementById('startTimer').addEventListener('click', startTimer);
         document.getElementById('pauseTimer').addEventListener('click', pauseTimer);
         document.getElementById('resetTimer').addEventListener('click', resetTimer);
         document.getElementById('clearEvents').addEventListener('click', clearEvents);
 
+        // Tab navigation
         document.getElementById('tabDrawing').addEventListener('click', () => showSection('drawingSection'));
         document.getElementById('tabMatch').addEventListener('click', () => showSection('matchSection'));
         document.getElementById('tabStats').addEventListener('click', () => {
@@ -1311,19 +1360,21 @@
             updateStatistics();
         });
 
+        // Initialize
         generateColorSelectors();
 
-        document.getElementById('playersInput').value = `João Silva@
-Maria*
+        // Sample data
+        document.getElementById('playersInput').value = `João Silva
+Maria* 
 Pedro Santos#
 Ana Costa*
-Carlos Lima@
-Maria Oliveira
-Roberto Ferreira#
+Carlos Lima#
+Fernanda@ 
+Roberto@
 Juliana*
-Marcos Souza
+Marcos Souza#
 Patrícia Lima
-André Mendes@
+André Mendes
 Camila Santos`;
 
         updatePlayerCount();

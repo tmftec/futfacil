@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema Profissional de Futebol - Versão Aprimorada</title>
+    <title>Sistema Profissional de Peladas - Versão Final</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -172,6 +172,22 @@
             max-height: calc(100vh - 200px);
             overflow-y: auto;
         }
+        .manual-section {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+        .manual-card {
+            background: white;
+            border-left: 4px solid #667eea;
+        }
+        .feature-example {
+            background: linear-gradient(135deg, #edf2f7 0%, #e2e8f0 100%);
+            border: 1px solid #cbd5e0;
+        }
+        .example-text {
+            font-family: 'Courier New', monospace;
+            background: #2d3748;
+            color: #68d391;
+        }
     </style>
 </head>
 <!-- Google tag (gtag.js) -->Add commentMore actions
@@ -189,7 +205,7 @@
         <div class="container mx-auto px-4 text-center">
             <h1 class="text-4xl md:text-5xl font-bold mb-2">
                 <i class="fas fa-futbol mr-3"></i>
-                Sistema Profissional de Futebol
+                Sistema Profissional de Peladas
             </h1>
             <p class="text-xl opacity-90">Sorteio inteligente, placar interativo e alertas de troca</p>
         </div>
@@ -198,15 +214,18 @@
     <div class="container mx-auto px-4 py-8 max-w-6xl" id="mainContainer">
         <!-- Navigation Tabs -->
         <div id="navigationTabs" class="mb-8 hidden">
-            <div class="flex space-x-4 justify-center">
-                <button id="tabDrawing" class="tab-button px-6 py-3 rounded-lg font-semibold active">
+            <div class="flex flex-wrap justify-center gap-2">
+                <button id="tabDrawing" class="tab-button px-4 py-2 rounded-lg font-semibold active text-sm md:text-base">
                     <i class="fas fa-random mr-2"></i>Sorteio
                 </button>
-                <button id="tabMatch" class="tab-button px-6 py-3 rounded-lg font-semibold bg-gray-200 text-gray-700">
+                <button id="tabMatch" class="tab-button px-4 py-2 rounded-lg font-semibold bg-gray-200 text-gray-700 text-sm md:text-base">
                     <i class="fas fa-futbol mr-2"></i>Placar
                 </button>
-                <button id="tabStats" class="tab-button px-6 py-3 rounded-lg font-semibold bg-gray-200 text-gray-700">
+                <button id="tabStats" class="tab-button px-4 py-2 rounded-lg font-semibold bg-gray-200 text-gray-700 text-sm md:text-base">
                     <i class="fas fa-chart-bar mr-2"></i>Estatísticas
+                </button>
+                <button id="tabManual" class="tab-button px-4 py-2 rounded-lg font-semibold bg-gray-200 text-gray-700 text-sm md:text-base">
+                    <i class="fas fa-book mr-2"></i>Manual
                 </button>
             </div>
         </div>
@@ -227,7 +246,7 @@
                         </label>
                         <textarea 
                             id="playersInput" 
-                            placeholder="Exemplo:&#10;João Silva&#10;Maria* (goleira)&#10;Pedro Santos#&#10;Ana* (goleira)&#10;Carlos Lima#&#10;Maria@ (aliada)&#10;Roberto@ (aliado)"
+                            placeholder="Exemplo:&#10;João Silva&#10;Maria* (goleira)&#10;Pedro Santos#&#10;Ana* (goleira)&#10;Carlos Lima#&#10;Fernanda@ (aliada)&#10;Roberto@ (aliado)"
                             class="w-full h-48 p-4 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none resize-none transition-colors"
                         ></textarea>
                         <div class="text-sm text-gray-500 mt-2 space-y-1">
@@ -394,15 +413,6 @@
                 </div>
             </div>
 
-            <!-- Substitution Alert Banner -->
-            <div id="substitutionAlertBanner" class="substitution-alert-main rounded-2xl p-6 mb-6 text-center hidden">
-                <div class="flex flex-col items-center space-y-3">
-                    <i class="fas fa-exchange-alt text-6xl"></i>
-                    <h2 class="text-3xl font-bold">HORA DA TROCA!</h2>
-                    <p class="text-lg opacity-90">Momento para substituir os jogadores</p>
-                </div>
-            </div>
-
             <!-- Scoreboard -->
             <div class="scoreboard rounded-2xl card-shadow p-6 mb-8" id="scoreboard">
                 <div class="text-center mb-6">
@@ -417,6 +427,15 @@
                         <button id="resetTimer" class="match-controls px-4 py-2 rounded-lg text-white">
                             <i class="fas fa-stop"></i>
                         </button>
+                    </div>
+                </div>
+                
+                <!-- Substitution Alert Banner - Moved here to be always visible when scoreboard is sticky -->
+                <div id="substitutionAlertBanner" class="substitution-alert-main rounded-xl p-4 mb-4 text-center hidden">
+                    <div class="flex flex-col items-center space-y-2">
+                        <i class="fas fa-exchange-alt text-3xl"></i>
+                        <h3 class="text-xl font-bold">HORA DA TROCA!</h3>
+                        <p class="text-sm opacity-90">Momento para substituir os jogadores</p>
                     </div>
                 </div>
                 
@@ -480,6 +499,343 @@
                 </div>
             </div>
         </div>
+
+        <!-- Manual Section -->
+        <div id="manualSection" class="hidden">
+            <div class="manual-section rounded-2xl p-8 mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center">
+                    <i class="fas fa-book mr-3 text-blue-600"></i>
+                    Manual do Sistema
+                </h2>
+                <p class="text-lg text-gray-700 mb-8">
+                    Guia completo de todas as funcionalidades do Sistema Profissional de Peladas
+                </p>
+
+                <div class="grid gap-8">
+                    <!-- Sorteio Inteligente -->
+                    <div class="manual-card rounded-xl p-6 card-shadow">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-magic mr-3 text-purple-600"></i>
+                            Sistema de Sorteio Inteligente
+                        </h3>
+                        
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-700 mb-3">Marcações Especiais</h4>
+                                <div class="grid md:grid-cols-3 gap-4">
+                                    <div class="feature-example p-4 rounded-lg">
+                                        <div class="flex items-center mb-2">
+                                            <i class="fas fa-hand-paper text-yellow-600 mr-2"></i>
+                                            <strong>Goleiros (*)</strong>
+                                        </div>
+                                        <p class="text-sm text-gray-600">Distribuídos automaticamente em times diferentes para garantir equilíbrio</p>
+                                        <div class="example-text p-2 rounded mt-2 text-xs">
+                                            João*<br>Maria*<br>Carlos*
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="feature-example p-4 rounded-lg">
+                                        <div class="flex items-center mb-2">
+                                            <i class="fas fa-sword text-red-600 mr-2"></i>
+                                            <strong>Rivais (#)</strong>
+                                        </div>
+                                        <p class="text-sm text-gray-600">Separados em times diferentes sempre que possível</p>
+                                        <div class="example-text p-2 rounded mt-2 text-xs">
+                                            Pedro#<br>Ana#<br>Lucas#
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="feature-example p-4 rounded-lg">
+                                        <div class="flex items-center mb-2">
+                                            <i class="fas fa-handshake text-teal-600 mr-2"></i>
+                                            <strong>Aliados (@)</strong>
+                                        </div>
+                                        <p class="text-sm text-gray-600">Mantidos juntos no mesmo time</p>
+                                        <div class="example-text p-2 rounded mt-2 text-xs">
+                                            Fernanda@<br>Roberto@<br>Camila@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-700 mb-3">Casos de Uso</h4>
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+                                        <h5 class="font-semibold text-blue-800">Peladas com Equipes Pré-formadas</h5>
+                                        <p class="text-sm text-blue-700 mt-2">Use @ para manter seu grupo unido contra outros</p>
+                                    </div>
+                                    <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
+                                        <h5 class="font-semibold text-green-800">Balanceamento de Nível</h5>
+                                        <p class="text-sm text-green-700 mt-2">Use # para separar jogadores muito experientes</p>
+                                    </div>
+                                    <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-500">
+                                        <h5 class="font-semibold text-yellow-800">Distribuição de Goleiros</h5>
+                                        <p class="text-sm text-yellow-700 mt-2">Use * para garantir goleiros em todos os times</p>
+                                    </div>
+                                    <div class="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-500">
+                                        <h5 class="font-semibold text-purple-800">Evitar Conflitos</h5>
+                                        <p class="text-sm text-purple-700 mt-2">Use # para separar jogadores que não se dão bem</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sistema de Placar -->
+                    <div class="manual-card rounded-xl p-6 card-shadow">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-futbol mr-3 text-green-600"></i>
+                            Sistema de Placar Interativo
+                        </h3>
+                        
+                        <div class="space-y-6">
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <h4 class="text-lg font-semibold text-gray-700 mb-3">Marcação de Gols</h4>
+                                    <ul class="space-y-2 text-gray-600">
+                                        <li class="flex items-center">
+                                            <i class="fas fa-mouse-pointer text-blue-600 mr-2"></i>
+                                            <strong>Clique no jogador</strong> para marcar gol individual
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fas fa-plus-circle text-green-600 mr-2"></i>
+                                            <strong>Botões +/-</strong> para gols genéricos
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fas fa-sparkles text-purple-600 mr-2"></i>
+                                            <strong>Animações</strong> em todos os tipos de gol
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fas fa-undo text-orange-600 mr-2"></i>
+                                            <strong>Desfazer</strong> último gol marcado
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold text-gray-700 mb-3">Cronômetro</h4>
+                                    <ul class="space-y-2 text-gray-600">
+                                        <li class="flex items-center">
+                                            <i class="fas fa-play text-green-600 mr-2"></i>
+                                            <strong>Precisão perfeita</strong> - sincronizado com relógio real
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fas fa-thumbtack text-blue-600 mr-2"></i>
+                                            <strong>Cronômetro fixo</strong> durante a partida
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fas fa-pause text-yellow-600 mr-2"></i>
+                                            <strong>Controles</strong> start/pause/reset
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Alertas de Troca -->
+                    <div class="manual-card rounded-xl p-6 card-shadow">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-exchange-alt mr-3 text-orange-600"></i>
+                            Sistema de Alertas de Troca
+                        </h3>
+                        
+                        <div class="space-y-6">
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <h4 class="text-lg font-semibold text-gray-700 mb-3">Configuração</h4>
+                                    <ul class="space-y-2 text-gray-600">
+                                        <li class="flex items-center">
+                                            <i class="fas fa-clock text-blue-600 mr-2"></i>
+                                            <strong>Intervalos:</strong> 1, 2, 5, 10, 15 ou 20 minutos
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fas fa-toggle-on text-green-600 mr-2"></i>
+                                            <strong>Ativar/Desativar</strong> a qualquer momento
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fas fa-eye text-purple-600 mr-2"></i>
+                                            <strong>Sempre visível</strong> no cronômetro fixo
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold text-gray-700 mb-3">Alertas</h4>
+                                    <ul class="space-y-2 text-gray-600">
+                                        <li class="flex items-center">
+                                            <i class="fas fa-bell text-orange-600 mr-2"></i>
+                                            <strong>Automáticos</strong> - sem necessidade de confirmação
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fas fa-eye-slash text-red-600 mr-2"></i>
+                                            <strong>Auto-ocultar</strong> após 5 segundos
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fas fa-volume-up text-blue-600 mr-2"></i>
+                                            <strong>Som opcional</strong> (se disponível)
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-orange-50 p-4 rounded-lg border-l-4 border-orange-500">
+                                <h5 class="font-semibold text-orange-800 mb-2">Perfeito para Peladas com Reservas</h5>
+                                <p class="text-sm text-orange-700">
+                                    Configure o tempo de troca e nunca mais esqueça de fazer as substituições! 
+                                    Ideal para manter todos os jogadores ativos e engajados.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Estatísticas e Personalização -->
+                    <div class="manual-card rounded-xl p-6 card-shadow">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-chart-bar mr-3 text-indigo-600"></i>
+                            Estatísticas e Personalização
+                        </h3>
+                        
+                        <div class="space-y-6">
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <h4 class="text-lg font-semibold text-gray-700 mb-3">Estatísticas em Tempo Real</h4>
+                                    <ul class="space-y-2 text-gray-600">
+                                        <li class="flex items-center">
+                                            <i class="fas fa-crown text-yellow-600 mr-2"></i>
+                                            <strong>Artilheiros </strong> com cores dos times
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fas fa-chart-pie text-green-600 mr-2"></i>
+                                            <strong>Gráfico de gols </strong> por time
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fas fa-list text-blue-600 mr-2"></i>
+                                            <strong>Histórico de eventos </strong> colorido
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold text-gray-700 mb-3">Personalização</h4>
+                                    <ul class="space-y-2 text-gray-600">
+                                        <li class="flex items-center">
+                                            <i class="fas fa-palette text-purple-600 mr-2"></i>
+                                            <strong>Cores personalizadas </strong> para cada time
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fas fa-edit text-orange-600 mr-2"></i>
+                                            <strong>Nomes dos times </strong> editáveis
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fas fa-mobile-alt text-teal-600 mr-2"></i>
+                                            <strong>Design responsivo </strong> para qualquer tela
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dicas Avançadas -->
+                    <div class="manual-card rounded-xl p-6 card-shadow">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-lightbulb mr-3 text-yellow-600"></i>
+                            Dicas Avançadas de Uso
+                        </h3>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="space-y-4">
+                                <div class="bg-blue-50 p-4 rounded-lg">
+                                    <h5 class="font-semibold text-blue-800 mb-2">🏢 Peladas de Empresa</h5>
+                                    <p class="text-sm text-blue-700">
+                                        Use @ para manter departamentos juntos e # para separar chefes/subordinados
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-green-50 p-4 rounded-lg">
+                                    <h5 class="font-semibold text-green-800 mb-2">👨‍👩‍👧‍👦 Peladas Familiares</h5>
+                                    <p class="text-sm text-green-700">
+                                        Configure alertas de 5-10 minutos para revezar pais e filhos
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-purple-50 p-4 rounded-lg">
+                                    <h5 class="font-semibold text-purple-800 mb-2">🏆 Campeonatos</h5>
+                                    <p class="text-sm text-purple-700">
+                                        Use estatísticas para ranking e exportar resultados
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <div class="bg-orange-50 p-4 rounded-lg">
+                                    <h5 class="font-semibold text-orange-800 mb-2">🎓 Educação Física</h5>
+                                    <p class="text-sm text-orange-700">
+                                        Alertas automáticos liberam o professor para focar no jogo
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-teal-50 p-4 rounded-lg">
+                                    <h5 class="font-semibold text-teal-800 mb-2">⚽ Peladas Grandes</h5>
+                                    <p class="text-sm text-teal-700">
+                                        Combine todas as marcações para organização perfeita
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-red-50 p-4 rounded-lg">
+                                    <h5 class="font-semibold text-red-800 mb-2">📱 Uso em Campo</h5>
+                                    <p class="text-sm text-red-700">
+                                        Cronômetro fixo facilita marcação de gols durante o jogo
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Resumo das Funcionalidades -->
+                    <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl p-6 card-shadow">
+                        <h3 class="text-2xl font-bold mb-4 flex items-center">
+                            <i class="fas fa-star mr-3"></i>
+                            Resumo das Funcionalidades
+                        </h3>
+                        
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <div>
+                                <h4 class="font-semibold mb-3">✨ Sorteio Inteligente</h4>
+                                <ul class="text-sm opacity-90 space-y-1">
+                                    <li>• Distribuição automática de goleiros</li>
+                                    <li>• Separação de jogadores rivais</li>
+                                    <li>• Manutenção de grupos aliados</li>
+                                    <li>• Balanceamento equilibrado</li>
+                                    <li>• Contador em tempo real</li>
+                                </ul>
+                            </div>
+                            
+                            <div>
+                                <h4 class="font-semibold mb-3">⚽ Controle de Partida</h4>
+                                <ul class="text-sm opacity-90 space-y-1">
+                                    <li>• Cronômetro preciso e fixo</li>
+                                    <li>• Placar interativo com animações</li>
+                                    <li>• Marcação por jogador ou genérica</li>
+                                    <li>• Alertas automáticos de troca</li>
+                                    <li>• Histórico de eventos</li>
+                                </ul>
+                            </div>
+                            
+                            <div>
+                                <h4 class="font-semibold mb-3">📊 Estatísticas e Mais</h4>
+                                <ul class="text-sm opacity-90 space-y-1">
+                                    <li>• Artilheiros em tempo real</li>
+                                    <li>• Gráficos de desempenho</li>
+                                    <li>• Personalização completa</li>
+                                    <li>• Design responsivo</li>
+                                    <li>• Interface profissional</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -504,8 +860,8 @@
         
         // Navigation
         function showSection(sectionName) {
-            const sections = ['drawingSection', 'matchSection', 'statsSection'];
-            const tabs = ['tabDrawing', 'tabMatch', 'tabStats'];
+            const sections = ['drawingSection', 'matchSection', 'statsSection', 'manualSection'];
+            const tabs = ['tabDrawing', 'tabMatch', 'tabStats', 'tabManual'];
             
             sections.forEach(section => {
                 document.getElementById(section).classList.add('hidden');
@@ -526,6 +882,7 @@
                 case 'drawingSection': activeTab = 'tabDrawing'; break;
                 case 'matchSection': activeTab = 'tabMatch'; break;
                 case 'statsSection': activeTab = 'tabStats'; break;
+                case 'manualSection': activeTab = 'tabManual'; break;
             }
             
             if (activeTab) {
@@ -1360,6 +1717,7 @@
             showSection('statsSection');
             updateStatistics();
         });
+        document.getElementById('tabManual').addEventListener('click', () => showSection('manualSection'));
 
         // Initialize
         generateColorSelectors();
@@ -1367,10 +1725,10 @@
         // Sample data
         document.getElementById('playersInput').value = `João Silva
 Maria* 
-Pedro Santos#
+Pedro Santos
 Ana Costa*
 Carlos Lima#
-Fernanda@ 
+Maria@ 
 Roberto@
 Juliana*
 Marcos Souza#

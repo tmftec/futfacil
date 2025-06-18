@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema Profissional de Peladas - Versão Final</title>
+    <title>Sistema Profissional de Peladas - Versão Master</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -57,6 +57,28 @@
             color: white;
             font-weight: 600;
         }
+        
+        /* Match mode styles - less colorful */
+        .match-mode .goalkeeper {
+            background: #f7fafc;
+            color: #2d3748;
+            border-left: 4px solid #ffd700;
+        }
+        .match-mode .rival-player {
+            background: #f7fafc;
+            color: #2d3748;
+            border-left: 4px solid #ff6b6b;
+        }
+        .match-mode .allied-player {
+            background: #f7fafc;
+            color: #2d3748;
+            border-left: 4px solid #4ecdc4;
+        }
+        .match-mode .player-clickable:hover {
+            background: #e2e8f0 !important;
+            color: #2d3748 !important;
+        }
+        
         .counter-badge {
             transition: all 0.3s ease;
         }
@@ -169,7 +191,7 @@
             padding-top: 0 !important;
         }
         .scrollable-content {
-            max-height: calc(100vh - 200px);
+            max-height: calc(100vh - 300px);
             overflow-y: auto;
         }
         .manual-section {
@@ -188,10 +210,45 @@
             background: #2d3748;
             color: #68d391;
         }
+        
+        /* Floating Manual Button */
+        .floating-manual-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        .floating-manual-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        /* Header manual button */
+        .header-manual-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        .header-manual-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
     </style>
 </head>
-<!-- Google tag (gtag.js) -->Add commentMore actions
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HL8DRMJQSM"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -200,14 +257,29 @@
   gtag('config', 'G-HL8DRMJQSM');
 </script>
 <body class="bg-gray-50 min-h-screen">
+    <!-- Floating Manual Button -->
+    <button id="floatingManualBtn" class="floating-manual-btn" onclick="showSection('manualSection')" title="Manual do Sistema">
+        <i class="fas fa-question"></i>
+    </button>
+
     <!-- Header -->
     <header class="gradient-bg text-white py-8">
-        <div class="container mx-auto px-4 text-center">
-            <h1 class="text-4xl md:text-5xl font-bold mb-2">
-                <i class="fas fa-futbol mr-3"></i>
-                Sistema Profissional de Peladas
-            </h1>
-            <p class="text-xl opacity-90">Sorteio inteligente, placar interativo e alertas de troca</p>
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="text-center md:text-left mb-4 md:mb-0">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-2">
+                        <i class="fas fa-futbol mr-3"></i>
+                        Sistema Profissional de Peladas
+                    </h1>
+                    <p class="text-xl opacity-90">Sorteio inteligente, placar interativo e alertas de troca</p>
+                </div>
+                <div>
+                    <button onclick="showSection('manualSection')" class="header-manual-btn px-4 py-2 rounded-lg font-semibold">
+                        <i class="fas fa-book mr-2"></i>
+                        Manual
+                    </button>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -430,7 +502,7 @@
                     </div>
                 </div>
                 
-                <!-- Substitution Alert Banner - Moved here to be always visible when scoreboard is sticky -->
+                <!-- Substitution Alert Banner - Positioned here for always visible area -->
                 <div id="substitutionAlertBanner" class="substitution-alert-main rounded-xl p-4 mb-4 text-center hidden">
                     <div class="flex flex-col items-center space-y-2">
                         <i class="fas fa-exchange-alt text-3xl"></i>
@@ -702,15 +774,15 @@
                                     <ul class="space-y-2 text-gray-600">
                                         <li class="flex items-center">
                                             <i class="fas fa-crown text-yellow-600 mr-2"></i>
-                                            <strong>Artilheiros </strong> com cores dos times
+                                            <strong>Artilheiros</strong> com cores dos times
                                         </li>
                                         <li class="flex items-center">
                                             <i class="fas fa-chart-pie text-green-600 mr-2"></i>
-                                            <strong>Gráfico de gols </strong> por time
+                                            <strong>Gráfico de gols</strong> por time
                                         </li>
                                         <li class="flex items-center">
                                             <i class="fas fa-list text-blue-600 mr-2"></i>
-                                            <strong>Histórico de eventos </strong> colorido
+                                            <strong>Histórico de eventos</strong> colorido
                                         </li>
                                     </ul>
                                 </div>
@@ -719,15 +791,15 @@
                                     <ul class="space-y-2 text-gray-600">
                                         <li class="flex items-center">
                                             <i class="fas fa-palette text-purple-600 mr-2"></i>
-                                            <strong>Cores personalizadas </strong> para cada time
+                                            <strong>Cores personalizadas</strong> para cada time
                                         </li>
                                         <li class="flex items-center">
                                             <i class="fas fa-edit text-orange-600 mr-2"></i>
-                                            <strong>Nomes dos times </strong> editáveis
+                                            <strong>Nomes dos times</strong> editáveis
                                         </li>
                                         <li class="flex items-center">
                                             <i class="fas fa-mobile-alt text-teal-600 mr-2"></i>
-                                            <strong>Design responsivo </strong> para qualquer tela
+                                            <strong>Design responsivo</strong> para qualquer tela
                                         </li>
                                     </ul>
                                 </div>
@@ -893,13 +965,18 @@
                 }
             }
 
-            // Handle sticky scoreboard
+            // Handle sticky scoreboard and match mode styling
             if (sectionName === 'matchSection' && isMatchActive) {
                 document.getElementById('mainContainer').classList.add('match-active');
                 document.getElementById('scoreboard').classList.add('sticky');
+                document.getElementById('matchTeams').classList.add('match-mode');
             } else {
                 document.getElementById('mainContainer').classList.remove('match-active');
                 document.getElementById('scoreboard').classList.remove('sticky');
+                const matchTeamsElement = document.getElementById('matchTeams');
+                if (matchTeamsElement) {
+                    matchTeamsElement.classList.remove('match-mode');
+                }
             }
         }
 
@@ -1295,10 +1372,8 @@
                 showSubstitutionAlert();
                 matchData.substitutions.alertShown = true;
                 // Automatically schedule next substitution
-                setTimeout(() => {
-                    calculateNextSubstitution();
-                    updateSubstitutionControls();
-                }, 3000); // Hide alert after 3 seconds
+                calculateNextSubstitution();
+                updateSubstitutionControls();
             }
         }
 
@@ -1725,13 +1800,13 @@
         // Sample data
         document.getElementById('playersInput').value = `João Silva
 Maria* 
-Pedro Santos
+Pedro Santos#
 Ana Costa*
 Carlos Lima#
 Maria@ 
 Roberto@
-Juliana*
-Marcos Souza#
+Juliana
+Marcos Souza
 Patrícia Lima
 André Mendes
 Camila Santos`;

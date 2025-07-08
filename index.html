@@ -3,13 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema Profissional de Peladas - Versão Master</title>
+    <title>Sistema Profissional de Futebol - Perfect Edition</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         .gradient-bg {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .premium-header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
         }
         .card-shadow {
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
@@ -247,34 +251,179 @@
             background: rgba(255, 255, 255, 0.3);
             transform: translateY(-2px);
         }
+
+        /* Back button for manual */
+        .manual-back-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .manual-back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Premium Header Styles */
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1e3c72;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .app-title {
+            background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 900;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Compact Footer for Mobile */
+        .footer {
+            background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+            color: white;
+            margin-top: 4rem;
+        }
+        .footer-link {
+            color: #cbd5e0;
+            transition: color 0.3s ease;
+        }
+        .footer-link:hover {
+            color: #667eea;
+        }
+        
+        /* Mobile-specific footer adjustments */
+        @media (max-width: 768px) {
+            .footer {
+                margin-top: 2rem;
+            }
+            .footer-compact {
+                padding: 1rem 0;
+            }
+            .footer-text {
+                font-size: 0.75rem;
+            }
+        }
+
+        /* Collapsible Add Player Section Styles */
+        .add-player-section {
+            background: linear-gradient(135deg, #e6fffa 0%, #f0fff4 100%);
+            border: 2px solid #38b2ac;
+            transition: all 0.3s ease;
+        }
+        
+        .add-player-header {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .add-player-header:hover {
+            background: rgba(56, 178, 172, 0.1);
+        }
+        
+        .add-player-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-in-out;
+        }
+        
+        .add-player-content.expanded {
+            max-height: 500px;
+        }
+        
+        .add-player-form {
+            background: white;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .team-selector {
+            transition: all 0.3s ease;
+        }
+        
+        .team-selector:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .marking-checkbox {
+            transition: all 0.3s ease;
+        }
+        
+        .success-animation {
+            animation: successPulse 0.6s ease-in-out;
+        }
+        
+        @keyframes successPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); background-color: #48bb78; }
+            100% { transform: scale(1); }
+        }
+
+        .expand-icon {
+            transition: transform 0.3s ease;
+        }
+        
+        .expand-icon.rotated {
+            transform: rotate(180deg);
+        }
+
+        /* Sound controls styling */
+        .sound-toggle {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .sound-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        
+        .sound-toggle.disabled {
+            background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%);
+        }
     </style>
 </head>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-HL8DRMJQSM');
-</script>
 <body class="bg-gray-50 min-h-screen">
     <!-- Floating Manual Button -->
     <button id="floatingManualBtn" class="floating-manual-btn" onclick="showSection('manualSection')" title="Manual do Sistema">
         <i class="fas fa-question"></i>
     </button>
 
-    <!-- Header -->
-    <header class="gradient-bg text-white py-8">
+    <!-- Premium Header -->
+    <header class="premium-header text-white py-6">
         <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row items-center justify-between">
-                <div class="text-center md:text-left mb-4 md:mb-0">
-                    <h1 class="text-4xl md:text-5xl font-bold mb-2">
-                        <i class="fas fa-futbol mr-3"></i>
-                        Sistema Profissional de Peladas
-                    </h1>
-                    <p class="text-xl opacity-90">Sorteio inteligente, placar interativo e alertas de troca</p>
+            <div class="flex flex-col lg:flex-row items-center justify-between">
+                <div class="flex items-center space-x-4 mb-4 lg:mb-0">
+                    <div class="logo-icon">
+                        <i class="fas fa-futbol"></i>
+                    </div>
+                    <div>
+                        <h1 class="app-title text-2xl lg:text-4xl font-black mb-1">
+                            FutebolPro
+                        </h1>
+                        <p class="text-sm lg:text-lg opacity-90 font-medium">
+                            Sistema Profissional Completo
+                        </p>
+                    </div>
                 </div>
-                <div>
-                    <button onclick="showSection('manualSection')" class="header-manual-btn px-4 py-2 rounded-lg font-semibold">
+                <div class="flex items-center space-x-3">
+                    <button onclick="showSection('manualSection')" class="header-manual-btn px-4 py-2 rounded-lg font-semibold text-sm lg:text-base">
                         <i class="fas fa-book mr-2"></i>
                         Manual
                     </button>
@@ -287,17 +436,17 @@
         <!-- Navigation Tabs -->
         <div id="navigationTabs" class="mb-8 hidden">
             <div class="flex flex-wrap justify-center gap-2">
-                <button id="tabDrawing" class="tab-button px-4 py-2 rounded-lg font-semibold active text-sm md:text-base">
-                    <i class="fas fa-random mr-2"></i>Sorteio
+                <button id="tabDrawing" class="tab-button px-3 py-2 lg:px-4 lg:py-2 rounded-lg font-semibold active text-xs lg:text-base">
+                    <i class="fas fa-random mr-1 lg:mr-2"></i>Sorteio
                 </button>
-                <button id="tabMatch" class="tab-button px-4 py-2 rounded-lg font-semibold bg-gray-200 text-gray-700 text-sm md:text-base">
-                    <i class="fas fa-futbol mr-2"></i>Placar
+                <button id="tabMatch" class="tab-button px-3 py-2 lg:px-4 lg:py-2 rounded-lg font-semibold bg-gray-200 text-gray-700 text-xs lg:text-base">
+                    <i class="fas fa-futbol mr-1 lg:mr-2"></i>Placar
                 </button>
-                <button id="tabStats" class="tab-button px-4 py-2 rounded-lg font-semibold bg-gray-200 text-gray-700 text-sm md:text-base">
-                    <i class="fas fa-chart-bar mr-2"></i>Estatísticas
+                <button id="tabStats" class="tab-button px-3 py-2 lg:px-4 lg:py-2 rounded-lg font-semibold bg-gray-200 text-gray-700 text-xs lg:text-base">
+                    <i class="fas fa-chart-bar mr-1 lg:mr-2"></i>Estatísticas
                 </button>
-                <button id="tabManual" class="tab-button px-4 py-2 rounded-lg font-semibold bg-gray-200 text-gray-700 text-sm md:text-base">
-                    <i class="fas fa-book mr-2"></i>Manual
+                <button id="tabManual" class="tab-button px-3 py-2 lg:px-4 lg:py-2 rounded-lg font-semibold bg-gray-200 text-gray-700 text-xs lg:text-base">
+                    <i class="fas fa-book mr-1 lg:mr-2"></i>Manual
                 </button>
             </div>
         </div>
@@ -436,11 +585,84 @@
                             <i class="fas fa-redo mr-2"></i>
                             Novo Sorteio
                         </button>
+                        <button 
+                            id="undoLastGoal" 
+                            class="bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors hidden"
+                        >
+                            <i class="fas fa-undo mr-2"></i>
+                            Desfazer Gol
+                        </button>
                     </div>
                 </div>
                 <div id="distributionInfo" class="mb-6 p-4 bg-green-50 border border-green-200 rounded-xl">
                     <!-- Distribution information will be shown here -->
                 </div>
+
+                <!-- Collapsible Add Player Section -->
+                <div id="addPlayerSection" class="add-player-section rounded-xl mb-6">
+                    <div class="add-player-header p-4" onclick="toggleAddPlayerSection()">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-xl font-bold text-gray-800 flex items-center">
+                                <i class="fas fa-user-plus mr-3 text-teal-600"></i>
+                                Adicionar Jogador Atrasado
+                            </h3>
+                            <i class="fas fa-chevron-down expand-icon text-teal-600 text-xl" id="expandIcon"></i>
+                        </div>
+                        <p class="text-sm text-teal-700 mt-1">Clique para expandir e adicionar jogadores que chegaram atrasados</p>
+                    </div>
+                    
+                    <div class="add-player-content" id="addPlayerContent">
+                        <div class="add-player-form rounded-lg p-4 mx-4 mb-4">
+                            <div class="grid md:grid-cols-3 gap-4 items-end">
+                                <div>
+                                    <label class="block text-gray-700 font-medium mb-2">Nome do Jogador</label>
+                                    <input 
+                                        type="text" 
+                                        id="newPlayerName" 
+                                        placeholder="Ex: João Silva"
+                                        class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-teal-500 focus:outline-none transition-colors"
+                                    >
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-gray-700 font-medium mb-2">Selecionar Time</label>
+                                    <select id="teamSelector" class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-teal-500 focus:outline-none transition-colors">
+                                        <!-- Options will be populated dynamically -->
+                                    </select>
+                                </div>
+                                
+                                <div>
+                                    <button 
+                                        id="addPlayerBtn" 
+                                        class="w-full bg-teal-600 hover:bg-teal-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors"
+                                    >
+                                        <i class="fas fa-plus mr-2"></i>
+                                        Adicionar
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4">
+                                <label class="block text-gray-700 font-medium mb-2">Marcações Especiais (opcional)</label>
+                                <div class="flex flex-wrap gap-4">
+                                    <label class="flex items-center marking-checkbox">
+                                        <input type="checkbox" id="newPlayerGoalkeeper" class="mr-2 text-teal-600 focus:ring-teal-500">
+                                        <span class="text-sm"><i class="fas fa-hand-paper mr-1 text-yellow-600"></i>Goleiro (*)</span>
+                                    </label>
+                                    <label class="flex items-center marking-checkbox">
+                                        <input type="checkbox" id="newPlayerRival" class="mr-2 text-teal-600 focus:ring-teal-500">
+                                        <span class="text-sm"><i class="fas fa-sword mr-1 text-red-600"></i>Rival (#)</span>
+                                    </label>
+                                    <label class="flex items-center marking-checkbox">
+                                        <input type="checkbox" id="newPlayerAllied" class="mr-2 text-teal-600 focus:ring-teal-500">
+                                        <span class="text-sm"><i class="fas fa-handshake mr-1 text-teal-600"></i>Aliado (@)</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div id="teamsResults" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                     <!-- Teams will be displayed here -->
                 </div>
@@ -461,6 +683,10 @@
                             <input type="checkbox" id="enableSubstitutions" class="form-checkbox">
                             <span class="text-sm font-medium">Ativar alertas</span>
                         </label>
+                        <button id="soundToggle" class="sound-toggle" onclick="toggleSound()">
+                            <i class="fas fa-volume-up" id="soundIcon"></i>
+                            <span id="soundText">Som ON</span>
+                        </button>
                     </div>
                 </div>
                 
@@ -574,13 +800,21 @@
 
         <!-- Manual Section -->
         <div id="manualSection" class="hidden">
+            <!-- Back button for manual - Always visible when in manual section -->
+            <div id="manualBackButton" class="mb-4">
+                <button onclick="showSection('drawingSection')" class="manual-back-btn px-4 py-2 rounded-lg font-semibold">
+                    <i class="fas fa-arrow-left mr-2"></i>
+                    Voltar ao Sorteio
+                </button>
+            </div>
+
             <div class="manual-section rounded-2xl p-8 mb-8">
                 <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center">
                     <i class="fas fa-book mr-3 text-blue-600"></i>
                     Manual do Sistema
                 </h2>
                 <p class="text-lg text-gray-700 mb-8">
-                    Guia completo de todas as funcionalidades do Sistema Profissional de Peladas
+                    Guia completo de todas as funcionalidades do Sistema Profissional de Futebol
                 </p>
 
                 <div class="grid gap-8">
@@ -627,6 +861,22 @@
                                             Fernanda@<br>Roberto@<br>Camila@
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-700 mb-3">Novo Sorteio</h4>
+                                <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+                                    <h5 class="font-semibold text-blue-800">Sorteios Ilimitados!</h5>
+                                    <p class="text-sm text-blue-700 mt-2">Não gostou da divisão? Clique novamente em "Sortear Times" para gerar uma nova distribuição. Funciona quantas vezes quiser até encontrar a combinação ideal!</p>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-700 mb-3">Adicionar Jogadores Atrasados</h4>
+                                <div class="bg-teal-50 p-4 rounded-lg border-l-4 border-teal-500">
+                                    <h5 class="font-semibold text-teal-800">Funcionalidade Flexível!</h5>
+                                    <p class="text-sm text-teal-700 mt-2">Após sortear os times, você pode adicionar jogadores que chegaram atrasados. A seção fica recolhida por padrão para manter a interface limpa. Clique na seta para expandir quando necessário.</p>
                                 </div>
                             </div>
 
@@ -729,6 +979,10 @@
                                             <i class="fas fa-eye text-purple-600 mr-2"></i>
                                             <strong>Sempre visível</strong> no cronômetro fixo
                                         </li>
+                                        <li class="flex items-center">
+                                            <i class="fas fa-volume-up text-orange-600 mr-2"></i>
+                                            <strong>Som de apito</strong> opcional para alertas
+                                        </li>
                                     </ul>
                                 </div>
                                 <div>
@@ -736,7 +990,7 @@
                                     <ul class="space-y-2 text-gray-600">
                                         <li class="flex items-center">
                                             <i class="fas fa-bell text-orange-600 mr-2"></i>
-                                            <strong>Automáticos</strong> - sem necessidade de confirmação
+                                            <strong>Automáticos</strong> - aparecem automaticamente
                                         </li>
                                         <li class="flex items-center">
                                             <i class="fas fa-eye-slash text-red-600 mr-2"></i>
@@ -744,7 +998,7 @@
                                         </li>
                                         <li class="flex items-center">
                                             <i class="fas fa-volume-up text-blue-600 mr-2"></i>
-                                            <strong>Som opcional</strong> (se disponível)
+                                            <strong>Som de apito</strong> audível durante o jogo
                                         </li>
                                     </ul>
                                 </div>
@@ -754,6 +1008,7 @@
                                 <h5 class="font-semibold text-orange-800 mb-2">Perfeito para Peladas com Reservas</h5>
                                 <p class="text-sm text-orange-700">
                                     Configure o tempo de troca e nunca mais esqueça de fazer as substituições! 
+                                    O som de apito garante que você ouça o alerta mesmo sem olhar para a tela.
                                     Ideal para manter todos os jogadores ativos e engajados.
                                 </p>
                             </div>
@@ -875,10 +1130,12 @@
                                 <h4 class="font-semibold mb-3">✨ Sorteio Inteligente</h4>
                                 <ul class="text-sm opacity-90 space-y-1">
                                     <li>• Distribuição automática de goleiros</li>
-                                    <li>• Separação de jogadores rivais</li>
+                                    <li>• Separação garantida de rivais</li>
                                     <li>• Manutenção de grupos aliados</li>
                                     <li>• Balanceamento equilibrado</li>
                                     <li>• Contador em tempo real</li>
+                                    <li>• Sorteios ilimitados</li>
+                                    <li>• Adicionar jogadores atrasados</li>
                                 </ul>
                             </div>
                             
@@ -889,7 +1146,9 @@
                                     <li>• Placar interativo com animações</li>
                                     <li>• Marcação por jogador ou genérica</li>
                                     <li>• Alertas automáticos de troca</li>
+                                    <li>• Som de apito para alertas</li>
                                     <li>• Histórico de eventos</li>
+                                    <li>• Desfazer último gol</li>
                                 </ul>
                             </div>
                             
@@ -910,6 +1169,68 @@
         </div>
     </div>
 
+    <!-- Compact Footer -->
+    <footer class="footer footer-compact">
+        <div class="container mx-auto px-4 max-w-6xl">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
+                <div class="text-center md:text-left">
+                    <h3 class="text-lg font-bold mb-2 flex items-center justify-center md:justify-start">
+                        <i class="fas fa-futbol mr-2"></i>
+                        FutebolPro
+                    </h3>
+                    <p class="text-gray-300 footer-text">
+                        Sistema completo para organização de peladas e controle profissional de partidas.
+                    </p>
+                </div>
+                
+                <div class="text-center">
+                    <h4 class="font-semibold mb-2">Contato</h4>
+                    <div class="footer-text">
+                        <a href="mailto:feedback@futebolpro.com" class="footer-link flex items-center justify-center">
+                            <i class="fas fa-envelope mr-2 text-blue-400"></i>
+                            feedback@futebolpro.com
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="text-center md:text-right">
+                    <div class="footer-text text-gray-300">
+                        <div class="flex items-center justify-center md:justify-end mb-1">
+                            <i class="fas fa-code-branch mr-2 text-purple-400"></i>
+                            <span>v3.1 Perfect</span>
+                        </div>
+                        <div class="flex items-center justify-center md:justify-end">
+                            <i class="fas fa-calendar mr-2 text-yellow-400"></i>
+                            <span>Dezembro 2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-600 mt-4 pt-4 text-center">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="footer-text text-gray-400 mb-2 md:mb-0">
+                        © 2024 FutebolPro. Desenvolvido com ❤️ para a comunidade do futebol.
+                    </p>
+                    <div class="flex space-x-2">
+                        <span class="text-xs bg-blue-600 px-2 py-1 rounded text-white">
+                            <i class="fas fa-shield-alt mr-1"></i>
+                            Gratuito
+                        </span>
+                        <span class="text-xs bg-green-600 px-2 py-1 rounded text-white">
+                            <i class="fas fa-code mr-1"></i>
+                            Open Source
+                        </span>
+                        <span class="text-xs bg-purple-600 px-2 py-1 rounded text-white">
+                            <i class="fas fa-heart mr-1"></i>
+                            Feito por IA
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     <script>
         let defaultColors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD', '#98D8C8', '#F7DC6F', '#BB8FCE', '#85C1E9'];
         let currentTeams = [];
@@ -920,15 +1241,102 @@
             events: [],
             playerStats: {},
             startTime: null,
+            lastGoal: null, // Track last goal for undo functionality
             substitutions: {
                 enabled: false,
                 interval: 300, // 5 minutes default
                 nextSubstitution: 0,
-                alertShown: false
+                alertShown: false,
+                soundEnabled: true
             }
         };
         let teamStatsChart = null;
         let isMatchActive = false;
+        let addPlayerSectionExpanded = false;
+        
+        // Audio context for whistle sound - Initialize lazily
+        let audioContext = null;
+        let whistleAudio = null;
+        let audioInitialized = false;
+
+        // Initialize audio only on first user interaction
+        function initializeAudio() {
+            if (audioInitialized) return;
+            
+            try {
+                // Use a user interaction event to initialize audio context
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                
+                // Create whistle sound data (simple beep)
+                const sampleRate = 44100;
+                const duration = 1.3;
+                const frequency = 800;
+                const length = sampleRate * duration;
+                const buffer = audioContext.createBuffer(1, length, sampleRate);
+                const data = buffer.getChannelData(0);
+                
+                for (let i = 0; i < length; i++) {
+                    const t = i / sampleRate;
+                    data[i] = Math.sin(2 * Math.PI * frequency * t) * Math.exp(-t * 3) * 0.3;
+                }
+                
+                whistleAudio = buffer;
+                audioInitialized = true;
+                
+                // Resume audio context if it's suspended
+                if (audioContext.state === 'suspended') {
+                    audioContext.resume();
+                }
+            } catch (e) {
+                console.log('Audio not supported');
+                matchData.substitutions.soundEnabled = false;
+                updateSoundToggle();
+            }
+        }
+
+        function playWhistleSound() {
+            if (!matchData.substitutions.soundEnabled || !audioContext || !whistleAudio) return;
+            
+            try {
+                // Resume context if suspended
+                if (audioContext.state === 'suspended') {
+                    audioContext.resume();
+                }
+                
+                const source = audioContext.createBufferSource();
+                source.buffer = whistleAudio;
+                source.connect(audioContext.destination);
+                source.start();
+            } catch (e) {
+                console.log('Could not play sound');
+            }
+        }
+
+        function toggleSound() {
+            // Initialize audio on first user interaction
+            if (!audioInitialized) {
+                initializeAudio();
+            }
+            
+            matchData.substitutions.soundEnabled = !matchData.substitutions.soundEnabled;
+            updateSoundToggle();
+        }
+
+        function updateSoundToggle() {
+            const button = document.getElementById('soundToggle');
+            const icon = document.getElementById('soundIcon');
+            const text = document.getElementById('soundText');
+            
+            if (matchData.substitutions.soundEnabled) {
+                button.classList.remove('disabled');
+                icon.className = 'fas fa-volume-up';
+                text.textContent = 'Som ON';
+            } else {
+                button.classList.add('disabled');
+                icon.className = 'fas fa-volume-mute';
+                text.textContent = 'Som OFF';
+            }
+        }
         
         // Navigation
         function showSection(sectionName) {
@@ -980,6 +1388,22 @@
             }
         }
 
+        // Toggle Add Player Section
+        function toggleAddPlayerSection() {
+            const content = document.getElementById('addPlayerContent');
+            const icon = document.getElementById('expandIcon');
+            
+            addPlayerSectionExpanded = !addPlayerSectionExpanded;
+            
+            if (addPlayerSectionExpanded) {
+                content.classList.add('expanded');
+                icon.classList.add('rotated');
+            } else {
+                content.classList.remove('expanded');
+                icon.classList.remove('rotated');
+            }
+        }
+
         function updatePlayerCount() {
             const playersText = document.getElementById('playersInput').value.trim();
             const teamsCount = parseInt(document.getElementById('teamsCount').value);
@@ -1001,10 +1425,11 @@
             const goalkeepers = allPlayers.filter(player => player.includes('*'));
             const rivalPlayers = allPlayers.filter(player => player.includes('#'));
             const alliedPlayers = allPlayers.filter(player => player.includes('@'));
-            const regularPlayers = allPlayers.filter(player => !player.includes('*') && !player.includes('#') && !player.includes('@'));
+            // Fixed: Field players = All players except goalkeepers (includes rivals, allies, and regular players)
+            const fieldPlayers = allPlayers.filter(player => !player.includes('*'));
 
             animateCounterUpdate('totalCount', allPlayers.length);
-            animateCounterUpdate('fieldPlayersCount', regularPlayers.length);
+            animateCounterUpdate('fieldPlayersCount', fieldPlayers.length);
             animateCounterUpdate('goalkeepersCount', goalkeepers.length);
             animateCounterUpdate('rivalPlayersCount', rivalPlayers.length);
             animateCounterUpdate('alliedPlayersCount', alliedPlayers.length);
@@ -1096,6 +1521,82 @@
             };
         }
 
+        // NEW: Fixed distribution algorithm that properly handles rivals
+        function distributePlayersIntelligently(allPlayers, teamsCount) {
+            const teams = Array.from({ length: teamsCount }, () => []);
+            
+            // Separate players by type
+            const goalkeepers = shuffleArray(allPlayers.filter(p => p.isGoalkeeper));
+            const rivalPlayers = shuffleArray(allPlayers.filter(p => p.isRival && !p.isGoalkeeper && !p.isAllied));
+            const alliedPlayers = shuffleArray(allPlayers.filter(p => p.isAllied && !p.isGoalkeeper));
+            const regularPlayers = shuffleArray(allPlayers.filter(p => !p.isGoalkeeper && !p.isRival && !p.isAllied));
+            
+            // Helper function to get team with minimum players
+            function getTeamWithMinPlayers() {
+                let minIndex = 0;
+                for (let i = 1; i < teamsCount; i++) {
+                    if (teams[i].length < teams[minIndex].length) {
+                        minIndex = i;
+                    }
+                }
+                return minIndex;
+            }
+            
+            // Helper function to check if a team has a rival
+            function teamHasRival(teamIndex) {
+                return teams[teamIndex].some(player => player.isRival);
+            }
+            
+            // Step 1: Distribute goalkeepers evenly
+            goalkeepers.forEach((goalkeeper, index) => {
+                const teamIndex = index % teamsCount;
+                teams[teamIndex].push(goalkeeper);
+            });
+            
+            // Step 2: Place allied players together in team with least players
+            if (alliedPlayers.length > 0) {
+                const bestTeamIndex = getTeamWithMinPlayers();
+                alliedPlayers.forEach(player => {
+                    teams[bestTeamIndex].push(player);
+                });
+            }
+            
+            // Step 3: Distribute rival players - FIXED LOGIC
+            // Try to place each rival in a team that doesn't have any other rival
+            for (let i = 0; i < rivalPlayers.length; i++) {
+                const rival = rivalPlayers[i];
+                let placed = false;
+                
+                // First, try to find a team with no rivals and minimum players
+                let availableTeams = [];
+                for (let teamIndex = 0; teamIndex < teamsCount; teamIndex++) {
+                    if (!teamHasRival(teamIndex)) {
+                        availableTeams.push(teamIndex);
+                    }
+                }
+                
+                if (availableTeams.length > 0) {
+                    // Sort available teams by player count (ascending)
+                    availableTeams.sort((a, b) => teams[a].length - teams[b].length);
+                    teams[availableTeams[0]].push(rival);
+                    placed = true;
+                } else {
+                    // If all teams have rivals, place in team with minimum players
+                    const minTeamIndex = getTeamWithMinPlayers();
+                    teams[minTeamIndex].push(rival);
+                    placed = true;
+                }
+            }
+            
+            // Step 4: Distribute regular players to balance teams
+            regularPlayers.forEach(player => {
+                const minTeamIndex = getTeamWithMinPlayers();
+                teams[minTeamIndex].push(player);
+            });
+            
+            return teams;
+        }
+
         function drawTeams() {
             const playersText = document.getElementById('playersInput').value.trim();
             const teamsCount = parseInt(document.getElementById('teamsCount').value);
@@ -1126,53 +1627,36 @@
                 if (!proceed) return;
             }
 
-            const teams = Array.from({ length: teamsCount }, (_, i) => ({
+            // Use fixed distribution algorithm
+            const teamPlayers = distributePlayersIntelligently(allPlayers, teamsCount);
+            
+            // Validate rival separation
+            let rivalConflicts = 0;
+            for (let i = 0; i < teamPlayers.length; i++) {
+                const teamRivals = teamPlayers[i].filter(p => p.isRival);
+                if (teamRivals.length > 1) {
+                    rivalConflicts++;
+                }
+            }
+            
+            const teams = teamPlayers.map((players, i) => ({
                 name: document.getElementById(`teamName${i}`).value || `Time ${i + 1}`,
-                players: [],
+                players: players,
                 color: document.getElementById(`color${i}`).value,
                 goals: 0
             }));
 
-            // Step 1: Distribute goalkeepers
-            const shuffledGoalkeepers = shuffleArray(goalkeepers);
-            shuffledGoalkeepers.forEach((goalkeeper, index) => {
-                const teamIndex = index % teamsCount;
-                teams[teamIndex].players.push(goalkeeper);
-            });
-
-            // Step 2: Keep allied players together (put all in first available team with space)
-            if (alliedPlayers.length > 0) {
-                // Find team with most space for allied players
-                let bestTeamIndex = 0;
-                for (let i = 1; i < teamsCount; i++) {
-                    if (teams[i].players.length < teams[bestTeamIndex].players.length) {
-                        bestTeamIndex = i;
-                    }
-                }
-                alliedPlayers.forEach(player => {
-                    teams[bestTeamIndex].players.push(player);
-                });
-            }
-
-            // Step 3: Distribute rival players
-            const shuffledRivalPlayers = shuffleArray(rivalPlayers);
-            shuffledRivalPlayers.forEach((rival, index) => {
-                const teamIndex = index % teamsCount;
-                teams[teamIndex].players.push(rival);
-            });
-
-            // Step 4: Distribute regular players
-            const shuffledRegularPlayers = shuffleArray(regularPlayers);
-            shuffledRegularPlayers.forEach((player, index) => {
-                const teamIndex = index % teamsCount;
-                teams[teamIndex].players.push(player);
-            });
-
             currentTeams = teams;
             initializeMatchData();
 
-            const distributionInfo = generateDistributionInfo(goalkeepers, rivalPlayers, alliedPlayers, regularPlayers, teamsCount);
+            const distributionInfo = generateDistributionInfo(goalkeepers, rivalPlayers, alliedPlayers, regularPlayers, teamsCount, rivalConflicts);
             displayTeams(teams, distributionInfo);
+            setupAddPlayerSection();
+            
+            // Reset collapsible section to closed state
+            addPlayerSectionExpanded = false;
+            document.getElementById('addPlayerContent').classList.remove('expanded');
+            document.getElementById('expandIcon').classList.remove('rotated');
         }
 
         function initializeMatchData() {
@@ -1184,11 +1668,13 @@
                 events: [],
                 playerStats: {},
                 startTime: null,
+                lastGoal: null, // Track for undo functionality
                 substitutions: {
                     enabled: false,
                     interval: 300,
                     nextSubstitution: 0,
-                    alertShown: false
+                    alertShown: false,
+                    soundEnabled: matchData.substitutions?.soundEnabled || true
                 }
             };
 
@@ -1205,7 +1691,7 @@
             });
         }
 
-        function generateDistributionInfo(goalkeepers, rivalPlayers, alliedPlayers, regularPlayers, teamsCount) {
+        function generateDistributionInfo(goalkeepers, rivalPlayers, alliedPlayers, regularPlayers, teamsCount, rivalConflicts) {
             let info = [];
             
             if (goalkeepers.length > 0) {
@@ -1217,10 +1703,10 @@
             }
             
             if (rivalPlayers.length > 0) {
-                if (rivalPlayers.length <= teamsCount) {
-                    info.push(`✅ Jogadores rivais separados com sucesso`);
+                if (rivalConflicts === 0) {
+                    info.push(`✅ Jogadores rivais separados com sucesso - nenhum conflito`);
                 } else {
-                    info.push(`⚠️ ${rivalPlayers.length} jogadores rivais para ${teamsCount} times - alguns podem ficar juntos`);
+                    info.push(`⚠️ ${rivalConflicts} time(s) com rivais juntos - tente sortear novamente`);
                 }
             }
 
@@ -1228,9 +1714,100 @@
                 info.push(`✅ ${alliedPlayers.length} jogadores aliados mantidos no mesmo time`);
             }
             
+            // Show team balance info
+            const teamSizes = currentTeams.map(team => team.players.length);
+            const minSize = Math.min(...teamSizes);
+            const maxSize = Math.max(...teamSizes);
+            
+            if (maxSize - minSize <= 1) {
+                info.push(`✅ Times perfeitamente balanceados: diferença máxima de 1 jogador`);
+            } else {
+                info.push(`⚠️ Times com pequeno desbalanceamento: ${minSize}-${maxSize} jogadores`);
+            }
+            
             info.push(`📊 Distribuição total: ${goalkeepers.length + rivalPlayers.length + alliedPlayers.length + regularPlayers.length} jogadores em ${teamsCount} times`);
             
+            // Add re-draw suggestion if there are conflicts
+            if (rivalConflicts > 0) {
+                info.push(`🔄 Sugestão: Clique em "Sortear Times" novamente para tentar uma nova distribuição`);
+            }
+            
             return info;
+        }
+
+        function setupAddPlayerSection() {
+            const teamSelector = document.getElementById('teamSelector');
+            teamSelector.innerHTML = '';
+            
+            currentTeams.forEach((team, index) => {
+                const option = document.createElement('option');
+                option.value = index;
+                option.textContent = `${team.name} (${team.players.length} jogadores)`;
+                teamSelector.appendChild(option);
+            });
+        }
+
+        function addNewPlayer() {
+            const playerName = document.getElementById('newPlayerName').value.trim();
+            const teamIndex = parseInt(document.getElementById('teamSelector').value);
+            const isGoalkeeper = document.getElementById('newPlayerGoalkeeper').checked;
+            const isRival = document.getElementById('newPlayerRival').checked;
+            const isAllied = document.getElementById('newPlayerAllied').checked;
+            
+            if (!playerName) {
+                alert('Por favor, digite o nome do jogador!');
+                return;
+            }
+            
+            // Check if player already exists
+            const existingPlayer = currentTeams.some(team => 
+                team.players.some(player => player.name.toLowerCase() === playerName.toLowerCase())
+            );
+            
+            if (existingPlayer) {
+                alert('Este jogador já existe nos times!');
+                return;
+            }
+            
+            const newPlayer = {
+                name: playerName,
+                isGoalkeeper: isGoalkeeper,
+                isRival: isRival,
+                isAllied: isAllied,
+                originalText: playerName + (isGoalkeeper ? '*' : '') + (isRival ? '#' : '') + (isAllied ? '@' : ''),
+                goals: 0
+            };
+            
+            currentTeams[teamIndex].players.push(newPlayer);
+            
+            // Update match data if needed
+            if (matchData.playerStats) {
+                matchData.playerStats[newPlayer.name] = {
+                    goals: 0,
+                    team: currentTeams[teamIndex].name,
+                    teamColor: currentTeams[teamIndex].color
+                };
+            }
+            
+            // Clear form
+            document.getElementById('newPlayerName').value = '';
+            document.getElementById('newPlayerGoalkeeper').checked = false;
+            document.getElementById('newPlayerRival').checked = false;
+            document.getElementById('newPlayerAllied').checked = false;
+            
+            // Show success animation
+            const addBtn = document.getElementById('addPlayerBtn');
+            addBtn.classList.add('success-animation');
+            setTimeout(() => addBtn.classList.remove('success-animation'), 600);
+            
+            // Refresh displays
+            displayTeams(currentTeams, []);
+            setupAddPlayerSection();
+            
+            // If match is active, update match interface
+            if (isMatchActive) {
+                setupMatchTeams();
+            }
         }
 
         function displayTeams(teams, distributionInfo) {
@@ -1238,13 +1815,18 @@
             const teamsResults = document.getElementById('teamsResults');
             const distributionInfoDiv = document.getElementById('distributionInfo');
             
-            distributionInfoDiv.innerHTML = `
-                <h3 class="font-semibold text-green-800 mb-2 flex items-center">
-                    <i class="fas fa-info-circle mr-2"></i>
-                    Informações da Distribuição
-                </h3>
-                ${distributionInfo.map(info => `<p class="text-sm text-green-700">${info}</p>`).join('')}
-            `;
+            if (distributionInfo.length > 0) {
+                distributionInfoDiv.innerHTML = `
+                    <h3 class="font-semibold text-green-800 mb-2 flex items-center">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        Informações da Distribuição
+                    </h3>
+                    ${distributionInfo.map(info => `<p class="text-sm text-green-700">${info}</p>`).join('')}
+                `;
+                distributionInfoDiv.classList.remove('hidden');
+            } else {
+                distributionInfoDiv.classList.add('hidden');
+            }
             
             teamsResults.innerHTML = '';
             
@@ -1317,10 +1899,19 @@
             setupSubstitutionSystem();
             isMatchActive = true;
             showSection('matchSection');
+            
+            // Initialize audio when match starts with user interaction
+            if (matchData.substitutions.soundEnabled && !audioInitialized) {
+                initializeAudio();
+            }
+            
+            // Show undo button
+            document.getElementById('undoLastGoal').classList.remove('hidden');
         }
 
         function setupSubstitutionSystem() {
             updateSubstitutionControls();
+            updateSoundToggle();
             
             document.getElementById('enableSubstitutions').addEventListener('change', function() {
                 matchData.substitutions.enabled = this.checked;
@@ -1381,16 +1972,15 @@
             const banner = document.getElementById('substitutionAlertBanner');
             banner.classList.remove('hidden');
             
+            // Play whistle sound
+            if (matchData.substitutions.soundEnabled) {
+                playWhistleSound();
+            }
+            
             // Auto-hide after 5 seconds
             setTimeout(() => {
                 dismissSubstitutionAlert();
             }, 5000);
-            
-            // Play sound (if available)
-            try {
-                const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBziR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmkcBTyZ3fPFfCcCJ4XM8Ng=');
-                audio.play().catch(() => {});
-            } catch (e) {}
             
             // Add to events log
             addEventToLog({
@@ -1501,9 +2091,13 @@
                 player: player.name,
                 team: team.name,
                 teamColor: team.color,
+                teamIndex: teamIndex,
+                playerIndex: playerIndex,
                 timestamp: Date.now()
             };
             
+            // Store as last goal for undo functionality
+            matchData.lastGoal = event;
             matchData.events.unshift(event);
             
             updateMatchDisplay();
@@ -1523,8 +2117,13 @@
                     player: 'Não especificado',
                     team: currentTeams[teamIndex].name,
                     teamColor: currentTeams[teamIndex].color,
+                    teamIndex: teamIndex,
+                    playerIndex: null,
                     timestamp: Date.now()
                 };
+                
+                // Store as last goal for undo functionality
+                matchData.lastGoal = event;
                 matchData.events.unshift(event);
                 addEventToLog(event);
                 
@@ -1532,20 +2131,78 @@
                 animateGoal(teamIndex);
                 
             } else if (increment < 0 && currentTeams[teamIndex].goals > 0) {
-                // Remove goal
-                currentTeams[teamIndex].goals += increment;
-                const event = {
-                    time: formatTime(matchData.timer),
-                    type: 'goal_removed',
-                    team: currentTeams[teamIndex].name,
-                    teamColor: currentTeams[teamIndex].color,
-                    timestamp: Date.now()
-                };
-                matchData.events.unshift(event);
-                addEventToLog(event);
+                // Remove goal - this is handled by undo function now
+                undoLastGoal();
+                return;
             }
             
             updateMatchDisplay();
+        }
+
+        // NEW: Fixed undo goal functionality
+        function undoLastGoal() {
+            if (!matchData.lastGoal) {
+                alert('Nenhum gol para desfazer!');
+                return;
+            }
+            
+            const lastGoal = matchData.lastGoal;
+            const team = currentTeams[lastGoal.teamIndex];
+            
+            // Remove goal from team
+            if (team.goals > 0) {
+                team.goals--;
+            }
+            
+            // If it was a specific player goal, remove from player stats
+            if (lastGoal.playerIndex !== null) {
+                const player = team.players[lastGoal.playerIndex];
+                if (player && player.goals > 0) {
+                    player.goals--;
+                    matchData.playerStats[player.name].goals--;
+                }
+            }
+            
+            // Remove from events (find and remove the last goal)
+            const eventIndex = matchData.events.findIndex(e => 
+                e.timestamp === lastGoal.timestamp && e.type === 'goal'
+            );
+            if (eventIndex !== -1) {
+                matchData.events.splice(eventIndex, 1);
+            }
+            
+            // Add undo event to log
+            const undoEvent = {
+                time: formatTime(matchData.timer),
+                type: 'goal_removed',
+                player: lastGoal.player,
+                team: lastGoal.team,
+                teamColor: lastGoal.teamColor,
+                timestamp: Date.now()
+            };
+            
+            matchData.events.unshift(undoEvent);
+            addEventToLog(undoEvent);
+            
+            // Clear last goal
+            matchData.lastGoal = null;
+            
+            updateMatchDisplay();
+            refreshEventsLog();
+        }
+
+        function refreshEventsLog() {
+            const eventsLog = document.getElementById('eventsLog');
+            eventsLog.innerHTML = '';
+            
+            if (matchData.events.length === 0) {
+                eventsLog.innerHTML = '<p class="text-gray-500 text-center py-8">Nenhum evento registrado ainda</p>';
+                return;
+            }
+            
+            matchData.events.forEach(event => {
+                addEventToLog(event);
+            });
         }
 
         function animateGoal(teamIndex) {
@@ -1601,6 +2258,7 @@
                     <div class="flex justify-between items-center">
                         <div>
                             <span class="font-semibold text-red-700">❌ Gol removido</span>
+                            <span class="text-gray-700">${event.player}</span>
                             <span class="text-sm px-2 py-1 rounded-full text-white ml-2" 
                                   style="background-color: ${event.teamColor}">
                                 ${event.team}
@@ -1638,6 +2296,11 @@
         }
 
         function startTimer() {
+            // Initialize audio on first timer start (user interaction)
+            if (!audioInitialized && matchData.substitutions.soundEnabled) {
+                initializeAudio();
+            }
+            
             if (!matchData.isRunning) {
                 matchData.isRunning = true;
                 matchData.startTime = Date.now() - (matchData.timer * 1000);
@@ -1679,6 +2342,7 @@
         function clearEvents() {
             if (confirm('Tem certeza que deseja limpar todos os eventos?')) {
                 matchData.events = [];
+                matchData.lastGoal = null; // Clear last goal reference
                 document.getElementById('eventsLog').innerHTML = '<p class="text-gray-500 text-center py-8">Nenhum evento registrado ainda</p>';
             }
         }
@@ -1766,17 +2430,17 @@
         document.getElementById('teamsCount').addEventListener('change', generateColorSelectors);
         document.getElementById('drawTeams').addEventListener('click', drawTeams);
         document.getElementById('startMatch').addEventListener('click', setupMatchInterface);
+        document.getElementById('addPlayerBtn').addEventListener('click', addNewPlayer);
+        document.getElementById('undoLastGoal').addEventListener('click', undoLastGoal);
+        document.getElementById('newPlayerName').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addNewPlayer();
+            }
+        });
+        
         document.getElementById('newDraw').addEventListener('click', () => {
-            document.getElementById('resultsSection').classList.add('hidden');
-            document.getElementById('navigationTabs').classList.add('hidden');
-            isMatchActive = false;
-            showSection('drawingSection');
-            document.getElementById('playersInput').focus();
-            
-            // Reset match data when starting new draw
-            initializeMatchData();
-            // Clear events log
-            document.getElementById('eventsLog').innerHTML = '<p class="text-gray-500 text-center py-8">Nenhum evento registrado ainda</p>';
+            // Allow multiple draws - don't hide results, just regenerate
+            drawTeams();
         });
 
         // Timer controls
@@ -1798,15 +2462,15 @@
         generateColorSelectors();
 
         // Sample data
-        document.getElementById('playersInput').value = `João Silva
-Maria* 
+        document.getElementById('playersInput').value = `João Silva*
+Maria Costa* 
 Pedro Santos#
-Ana Costa*
-Carlos Lima#
+Ana Lima
+Carlos Silva
 Maria@ 
 Roberto@
-Juliana
-Marcos Souza
+Juliana Oliveira
+Marcos Souza#
 Patrícia Lima
 André Mendes
 Camila Santos`;

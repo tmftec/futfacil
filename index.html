@@ -397,8 +397,8 @@
         .sound-toggle.disabled {
             background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%);
         }
-
-        /* Fixed Add Player Button Styling */
+		
+		/* Fixed Add Player Button Styling */
         .add-player-btn {
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             color: white;
@@ -410,91 +410,8 @@
             transition: all 0.3s ease;
             box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
         }
-        
-        .add-player-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
-            background: linear-gradient(135deg, #059669 0%, #047857 100%);
-        }
-
-        /* Drag and Drop Styles */
-        .draggable-player {
-            cursor: grab;
-            user-select: none;
-            position: relative;
-        }
-        
-        .draggable-player:active {
-            cursor: grabbing;
-        }
-        
-        .draggable-player.dragging {
-            opacity: 0.5;
-            transform: rotate(5deg) scale(0.95);
-            z-index: 1000;
-        }
-        
-        .drop-zone {
-            min-height: 60px;
-            border: 2px dashed transparent;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-        
-        .drop-zone.drag-over {
-            border-color: #667eea;
-            background-color: rgba(102, 126, 234, 0.1);
-        }
-        
-        .drag-indicator {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            color: #9ca3af;
-            font-size: 0.75rem;
-        }
-
-        /* Data Persistence Styles */
-        .saved-lists-section {
-            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-            border: 2px solid #f59e0b;
-        }
-        
-        .saved-list-item {
-            background: white;
-            border: 1px solid #e5e7eb;
-            transition: all 0.3s ease;
-        }
-        
-        .saved-list-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Tournament Mode Styles */
-        .tournament-bracket {
-            background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
-            border: 2px solid #6366f1;
-        }
-        
-        .match-card {
-            background: white;
-            border: 2px solid #e5e7eb;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-        
-        .match-card:hover {
-            border-color: #6366f1;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
-        }
-
-        .match-card.winner {
-            border-color: #10b981;
-            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
-        }
     </style>
-<!-- Google tag (gtag.js) -->
+	<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-HL8DRMJQSM"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -502,7 +419,7 @@
   gtag('js', new Date());
 
   gtag('config', 'G-HL8DRMJQSM');
-</script>
+</script
 </head>
 <body class="bg-gray-50 min-h-screen">
     <!-- Floating Manual Button -->
@@ -520,10 +437,10 @@
                     </div>
                     <div>
                         <h1 class="app-title text-2xl lg:text-4xl font-black mb-1">
-                            FutFacil
+                            FutebolPro
                         </h1>
                         <p class="text-sm lg:text-lg opacity-90 font-medium">
-                            Sistema Profissional de Peladas
+                            Sistema Profissional Completo
                         </p>
                     </div>
                 </div>
@@ -541,62 +458,23 @@
         <!-- Navigation Tabs -->
         <div id="navigationTabs" class="mb-8 hidden">
             <div class="flex flex-wrap justify-center gap-2">
-                <button id="tabDrawing" class="tab-button px-3 py-2 lg:px-4 lg:py-2 rounded-lg font-semibold active text-xs lg:text-base" onclick="showSection('drawingSection')">
+                <button id="tabDrawing" class="tab-button px-3 py-2 lg:px-4 lg:py-2 rounded-lg font-semibold active text-xs lg:text-base">
                     <i class="fas fa-random mr-1 lg:mr-2"></i>Sorteio
                 </button>
-                <button id="tabMatch" class="tab-button px-3 py-2 lg:px-4 lg:py-2 rounded-lg font-semibold bg-gray-200 text-gray-700 text-xs lg:text-base" onclick="showSection('matchSection')">
+                <button id="tabMatch" class="tab-button px-3 py-2 lg:px-4 lg:py-2 rounded-lg font-semibold bg-gray-200 text-gray-700 text-xs lg:text-base">
                     <i class="fas fa-futbol mr-1 lg:mr-2"></i>Placar
                 </button>
-                <button id="tabStats" class="tab-button px-3 py-2 lg:px-4 lg:py-2 rounded-lg font-semibold bg-gray-200 text-gray-700 text-xs lg:text-base" onclick="showSection('statsSection')">
+                <button id="tabStats" class="tab-button px-3 py-2 lg:px-4 lg:py-2 rounded-lg font-semibold bg-gray-200 text-gray-700 text-xs lg:text-base">
                     <i class="fas fa-chart-bar mr-1 lg:mr-2"></i>Estatísticas
                 </button>
-                <button id="tabTournament" class="tab-button px-3 py-2 lg:px-4 lg:py-2 rounded-lg font-semibold bg-gray-200 text-gray-700 text-xs lg:text-base" onclick="showSection('tournamentSection')">
-                    <i class="fas fa-trophy mr-1 lg:mr-2"></i>Torneio
-                </button>
-                <button id="tabManual" class="tab-button px-3 py-2 lg:px-4 lg:py-2 rounded-lg font-semibold bg-gray-200 text-gray-700 text-xs lg:text-base" onclick="showSection('manualSection')">
+                <button id="tabManual" class="tab-button px-3 py-2 lg:px-4 lg:py-2 rounded-lg font-semibold bg-gray-200 text-gray-700 text-xs lg:text-base">
                     <i class="fas fa-book mr-1 lg:mr-2"></i>Manual
                 </button>
             </div>
         </div>
 
-        <!-- Drawing Section - DEFAULT VISIBLE -->
+        <!-- Drawing Section -->
         <div id="drawingSection">
-            <!-- Saved Lists Section -->
-            <div class="saved-lists-section rounded-2xl p-6 mb-8">
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-xl font-bold text-gray-800 flex items-center">
-                        <i class="fas fa-save mr-3 text-yellow-600"></i>
-                        Listas Salvas
-                    </h3>
-                    <button onclick="toggleSavedListsSection()" class="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded-lg">
-                        <i class="fas fa-chevron-down expand-icon" id="savedListsIcon"></i>
-                    </button>
-                </div>
-                
-                <div id="savedListsContent" class="hidden">
-                    <div class="grid md:grid-cols-2 gap-4 mb-4">
-                        <div>
-                            <input type="text" id="listNameInput" placeholder="Nome da lista (ex: Galera do Trabalho)" 
-                                   class="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-yellow-500 focus:outline-none">
-                        </div>
-                        <div class="flex space-x-2">
-                            <button onclick="saveCurrentList()" class="flex-1 bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded-lg">
-                                <i class="fas fa-save mr-2"></i>
-                                Salvar Lista Atual
-                            </button>
-                            <button onclick="clearAllLists()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg">
-                                <i class="fas fa-trash mr-2"></i>
-                                Limpar Todas
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div id="savedListsDisplay" class="space-y-3">
-                        <!-- Saved lists will be displayed here -->
-                    </div>
-                </div>
-            </div>
-
             <!-- Input Section -->
             <div class="bg-white rounded-2xl card-shadow p-6 md:p-8 mb-8">
                 <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
@@ -611,7 +489,7 @@
                         </label>
                         <textarea 
                             id="playersInput" 
-                            placeholder="Exemplo:&#10;João Silva&#10;Maria* (goleira)&#10;Pedro Santos#&#10;Ana* (goleira)&#10;Carlos Lima#&#10;Fernanda@ (aliada)&#10;Roberto@ (aliado)"
+                            placeholder="Exemplo:&#10;João Silva&#10;Maria* (goleira)&#10;Pedro Santos#(rival)&#10;Ana* (goleira)&#10;Carlos Lima#(rival)&#10;Maria@ (aliada)&#10;Roberto@ (aliado)"
                             class="w-full h-48 p-4 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none resize-none transition-colors"
                         ></textarea>
                         <div class="text-sm text-gray-500 mt-2 space-y-1">
@@ -700,7 +578,6 @@
                     <button 
                         id="drawTeams" 
                         class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
-                        onclick="drawTeams()"
                     >
                         <i class="fas fa-magic mr-3"></i>
                         Sortear Times Inteligente
@@ -719,7 +596,6 @@
                         <button 
                             id="startMatch" 
                             class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors"
-                            onclick="setupMatchInterface()"
                         >
                             <i class="fas fa-play mr-2"></i>
                             Iniciar Partida
@@ -727,7 +603,6 @@
                         <button 
                             id="newDraw" 
                             class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors"
-                            onclick="drawTeams()"
                         >
                             <i class="fas fa-redo mr-2"></i>
                             Novo Sorteio
@@ -735,7 +610,6 @@
                         <button 
                             id="undoLastGoal" 
                             class="bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors hidden"
-                            onclick="undoLastGoal()"
                         >
                             <i class="fas fa-undo mr-2"></i>
                             Desfazer Gol
@@ -865,13 +739,13 @@
                 <div class="text-center mb-6">
                     <div class="timer-display mb-2" id="matchTimer">00:00</div>
                     <div class="flex justify-center space-x-4">
-                        <button id="startTimer" class="match-controls px-4 py-2 rounded-lg text-white" onclick="startTimer()">
+                        <button id="startTimer" class="match-controls px-4 py-2 rounded-lg text-white">
                             <i class="fas fa-play"></i>
                         </button>
-                        <button id="pauseTimer" class="match-controls px-4 py-2 rounded-lg text-white" onclick="pauseTimer()">
+                        <button id="pauseTimer" class="match-controls px-4 py-2 rounded-lg text-white">
                             <i class="fas fa-pause"></i>
                         </button>
-                        <button id="resetTimer" class="match-controls px-4 py-2 rounded-lg text-white" onclick="resetTimer()">
+                        <button id="resetTimer" class="match-controls px-4 py-2 rounded-lg text-white">
                             <i class="fas fa-stop"></i>
                         </button>
                     </div>
@@ -895,7 +769,7 @@
             <div class="scrollable-content">
                 <!-- Match Controls -->
                 <div class="grid md:grid-cols-2 gap-6 mb-8">
-                    <!-- Teams with clickable players and drag & drop -->
+                    <!-- Teams with clickable players -->
                     <div id="matchTeams" class="space-y-6">
                         <!-- Match teams will be populated here -->
                     </div>
@@ -910,7 +784,7 @@
                             <p class="text-gray-500 text-center py-8">Nenhum evento registrado ainda</p>
                         </div>
                         <div class="mt-4 pt-4 border-t">
-                            <button id="clearEvents" class="w-full bg-red-100 hover:bg-red-200 text-red-700 py-2 px-4 rounded-lg transition-colors" onclick="clearEvents()">
+                            <button id="clearEvents" class="w-full bg-red-100 hover:bg-red-200 text-red-700 py-2 px-4 rounded-lg transition-colors">
                                 <i class="fas fa-trash mr-2"></i>
                                 Limpar Eventos
                             </button>
@@ -947,55 +821,6 @@
             </div>
         </div>
 
-        <!-- Tournament Section -->
-        <div id="tournamentSection" class="hidden">
-            <div class="tournament-bracket rounded-2xl p-6 mb-8">
-                <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center">
-                    <i class="fas fa-trophy mr-3 text-yellow-500"></i>
-                    Modo Torneio
-                </h2>
-                <p class="text-gray-700 mb-6">
-                    Configure um torneio com múltiplas partidas e acompanhe o ranking geral.
-                </p>
-                
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="bg-white rounded-xl p-6">
-                        <h3 class="text-xl font-bold mb-4">Configurar Torneio</h3>
-                        <div class="space-y-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Nome do Torneio</label>
-                                <input type="text" id="tournamentName" placeholder="Ex: Copa Empresa 2024" 
-                                       class="w-full p-3 border border-gray-300 rounded-lg">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Tipo de Torneio</label>
-                                <select id="tournamentType" class="w-full p-3 border border-gray-300 rounded-lg">
-                                    <option value="round_robin">Todos contra Todos</option>
-                                    <option value="knockout">Eliminatória</option>
-                                    <option value="groups">Fase de Grupos + Eliminatória</option>
-                                </select>
-                            </div>
-                            <button onclick="createTournament()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-4 rounded-lg">
-                                <i class="fas fa-plus mr-2"></i>
-                                Criar Torneio
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-white rounded-xl p-6">
-                        <h3 class="text-xl font-bold mb-4">Ranking Geral</h3>
-                        <div id="tournamentRanking">
-                            <p class="text-gray-500 text-center py-8">Nenhum torneio ativo</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div id="tournamentMatches" class="mt-8">
-                    <!-- Tournament matches will be displayed here -->
-                </div>
-            </div>
-        </div>
-
         <!-- Manual Section -->
         <div id="manualSection" class="hidden">
             <!-- Back button for manual - Always visible when in manual section -->
@@ -1009,110 +834,355 @@
             <div class="manual-section rounded-2xl p-8 mb-8">
                 <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center">
                     <i class="fas fa-book mr-3 text-blue-600"></i>
-                    Manual do Sistema Stable
+                    Manual do Sistema
                 </h2>
                 <p class="text-lg text-gray-700 mb-8">
-                    Guia completo de todas as funcionalidades estáveis do sistema
+                    Guia completo de todas as funcionalidades do Sistema Profissional de Futebol
                 </p>
 
                 <div class="grid gap-8">
-                    <!-- Core Features -->
+                    <!-- Sorteio Inteligente -->
                     <div class="manual-card rounded-xl p-6 card-shadow">
                         <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
-                            <i class="fas fa-star mr-3 text-yellow-600"></i>
-                            Funcionalidades Principais
+                            <i class="fas fa-magic mr-3 text-purple-600"></i>
+                            Sistema de Sorteio Inteligente
                         </h3>
                         
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <div class="feature-example p-4 rounded-lg">
-                                <h4 class="font-semibold text-gray-700 mb-2">
-                                    <i class="fas fa-arrows-alt mr-2 text-blue-600"></i>
-                                    Drag & Drop de Jogadores
-                                </h4>
-                                <p class="text-sm text-gray-600">Arraste jogadores entre times após o sorteio para ajustes manuais. Perfeito para equilibrar ou atender preferências específicas.</p>
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-700 mb-3">Marcações Especiais</h4>
+                                <div class="grid md:grid-cols-3 gap-4">
+                                    <div class="feature-example p-4 rounded-lg">
+                                        <div class="flex items-center mb-2">
+                                            <i class="fas fa-hand-paper text-yellow-600 mr-2"></i>
+                                            <strong>Goleiros (*)</strong>
+                                        </div>
+                                        <p class="text-sm text-gray-600">Distribuídos automaticamente em times diferentes para garantir equilíbrio</p>
+                                        <div class="example-text p-2 rounded mt-2 text-xs">
+                                            João*<br>Maria*<br>Carlos*
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="feature-example p-4 rounded-lg">
+                                        <div class="flex items-center mb-2">
+                                            <i class="fas fa-sword text-red-600 mr-2"></i>
+                                            <strong>Rivais (#)</strong>
+                                        </div>
+                                        <p class="text-sm text-gray-600">Separados em times diferentes sempre que possível</p>
+                                        <div class="example-text p-2 rounded mt-2 text-xs">
+                                            Pedro#<br>Ana#<br>Lucas#
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="feature-example p-4 rounded-lg">
+                                        <div class="flex items-center mb-2">
+                                            <i class="fas fa-handshake text-teal-600 mr-2"></i>
+                                            <strong>Aliados (@)</strong>
+                                        </div>
+                                        <p class="text-sm text-gray-600">Mantidos juntos no mesmo time</p>
+                                        <div class="example-text p-2 rounded mt-2 text-xs">
+                                            Fernanda@<br>Roberto@<br>Camila@
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            
-                            <div class="feature-example p-4 rounded-lg">
-                                <h4 class="font-semibold text-gray-700 mb-2">
-                                    <i class="fas fa-save mr-2 text-green-600"></i>
-                                    Listas Persistentes
-                                </h4>
-                                <p class="text-sm text-gray-600">Salve suas listas de jogadores favoritas (galera do trabalho, amigos do bairro) e carregue rapidamente quando precisar.</p>
+
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-700 mb-3">Novo Sorteio</h4>
+                                <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+                                    <h5 class="font-semibold text-blue-800">Sorteios Ilimitados!</h5>
+                                    <p class="text-sm text-blue-700 mt-2">Não gostou da divisão? Clique novamente em "Sortear Times" para gerar uma nova distribuição. Funciona quantas vezes quiser até encontrar a combinação ideal!</p>
+                                </div>
                             </div>
-                            
-                            <div class="feature-example p-4 rounded-lg">
-                                <h4 class="font-semibold text-gray-700 mb-2">
-                                    <i class="fas fa-trophy mr-2 text-yellow-600"></i>
-                                    Modo Torneio
-                                </h4>
-                                <p class="text-sm text-gray-600">Organize campeonatos completos com múltiplas partidas, ranking geral e sistema de eliminatórias.</p>
+
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-700 mb-3">Adicionar Jogadores Atrasados</h4>
+                                <div class="bg-teal-50 p-4 rounded-lg border-l-4 border-teal-500">
+                                    <h5 class="font-semibold text-teal-800">Funcionalidade Flexível!</h5>
+                                    <p class="text-sm text-teal-700 mt-2">Após sortear os times, você pode adicionar jogadores que chegaram atrasados. A seção fica recolhida por padrão para manter a interface limpa. Clique na seta para expandir quando necessário.</p>
+                                </div>
                             </div>
-                            
-                            <div class="feature-example p-4 rounded-lg">
-                                <h4 class="font-semibold text-gray-700 mb-2">
-                                    <i class="fas fa-bell mr-2 text-orange-600"></i>
-                                    Alertas de Troca
-                                </h4>
-                                <p class="text-sm text-gray-600">Sistema automático de alertas sonoros para trocar jogadores em intervalos configuráveis.</p>
+
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-700 mb-3">Casos de Uso</h4>
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+                                        <h5 class="font-semibold text-blue-800">Peladas com Equipes Pré-formadas</h5>
+                                        <p class="text-sm text-blue-700 mt-2">Use @ para manter seu grupo unido contra outros</p>
+                                    </div>
+                                    <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
+                                        <h5 class="font-semibold text-green-800">Balanceamento de Nível</h5>
+                                        <p class="text-sm text-green-700 mt-2">Use # para separar jogadores muito experientes</p>
+                                    </div>
+                                    <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-500">
+                                        <h5 class="font-semibold text-yellow-800">Distribuição de Goleiros</h5>
+                                        <p class="text-sm text-yellow-700 mt-2">Use * para garantir goleiros em todos os times</p>
+                                    </div>
+                                    <div class="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-500">
+                                        <h5 class="font-semibold text-purple-800">Evitar Conflitos</h5>
+                                        <p class="text-sm text-purple-700 mt-2">Use # para separar jogadores que não se dão bem</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- All Features Summary -->
-                    <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl p-6 card-shadow">
-                        <h3 class="text-2xl font-bold mb-4 flex items-center">
-                            <i class="fas fa-cog mr-3"></i>
-                            Todas as Funcionalidades
+                    <!-- Sistema de Placar -->
+                    <div class="manual-card rounded-xl p-6 card-shadow">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-futbol mr-3 text-green-600"></i>
+                            Sistema de Placar Interativo
                         </h3>
                         
-                        <div class="grid md:grid-cols-4 gap-6">
+                        <div class="space-y-6">
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <h4 class="text-lg font-semibold text-gray-700 mb-3">Marcação de Gols</h4>
+                                    <ul class="space-y-2 text-gray-600">
+                                        <li class="flex items-center">
+                                            <i class="fas fa-mouse-pointer text-blue-600 mr-2"></i>
+                                            <strong>Clique no jogador</strong> para marcar gol individual
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fas fa-plus-circle text-green-600 mr-2"></i>
+                                            <strong>Botões +/-</strong> para gols genéricos
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fas fa-sparkles text-purple-600 mr-2"></i>
+                                            <strong>Animações</strong> em todos os tipos de gol
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fas fa-undo text-orange-600 mr-2"></i>
+                                            <strong>Desfazer</strong> último gol marcado
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold text-gray-700 mb-3">Cronômetro</h4>
+                                    <ul class="space-y-2 text-gray-600">
+                                        <li class="flex items-center">
+                                            <i class="fas fa-play text-green-600 mr-2"></i>
+                                            <strong>Precisão perfeita</strong> - sincronizado com relógio real
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fas fa-thumbtack text-blue-600 mr-2"></i>
+                                            <strong>Cronômetro fixo</strong> durante a partida
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fas fa-pause text-yellow-600 mr-2"></i>
+                                            <strong>Controles</strong> start/pause/reset
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Alertas de Troca -->
+                    <div class="manual-card rounded-xl p-6 card-shadow">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-exchange-alt mr-3 text-orange-600"></i>
+                            Sistema de Alertas de Troca
+                        </h3>
+                        
+                        <div class="space-y-6">
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <h4 class="text-lg font-semibold text-gray-700 mb-3">Configuração</h4>
+                                    <ul class="space-y-2 text-gray-600">
+                                        <li class="flex items-center">
+                                            <i class="fas fa-clock text-blue-600 mr-2"></i>
+                                            <strong>Intervalos:</strong> 1, 2, 5, 10, 15 ou 20 minutos
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fas fa-toggle-on text-green-600 mr-2"></i>
+                                            <strong>Ativar/Desativar</strong> a qualquer momento
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fas fa-eye text-purple-600 mr-2"></i>
+                                            <strong>Sempre visível</strong> no cronômetro fixo
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fas fa-volume-up text-orange-600 mr-2"></i>
+                                            <strong>Som de apito</strong> opcional para alertas
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold text-gray-700 mb-3">Alertas</h4>
+                                    <ul class="space-y-2 text-gray-600">
+                                        <li class="flex items-center">
+                                            <i class="fas fa-bell text-orange-600 mr-2"></i>
+                                            <strong>Automáticos</strong> - aparecem automaticamente
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fas fa-eye-slash text-red-600 mr-2"></i>
+                                            <strong>Auto-ocultar</strong> após 5 segundos
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fas fa-volume-up text-blue-600 mr-2"></i>
+                                            <strong>Som de apito</strong> audível durante o jogo
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-orange-50 p-4 rounded-lg border-l-4 border-orange-500">
+                                <h5 class="font-semibold text-orange-800 mb-2">Perfeito para Peladas com Reservas</h5>
+                                <p class="text-sm text-orange-700">
+                                    Configure o tempo de troca e nunca mais esqueça de fazer as substituições! 
+                                    O som de apito garante que você ouça o alerta mesmo sem olhar para a tela.
+                                    Ideal para manter todos os jogadores ativos e engajados.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Estatísticas e Personalização -->
+                    <div class="manual-card rounded-xl p-6 card-shadow">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-chart-bar mr-3 text-indigo-600"></i>
+                            Estatísticas e Personalização
+                        </h3>
+                        
+                        <div class="space-y-6">
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <h4 class="text-lg font-semibold text-gray-700 mb-3">Estatísticas em Tempo Real</h4>
+                                    <ul class="space-y-2 text-gray-600">
+                                        <li class="flex items-center">
+                                            <i class="fas fa-crown text-yellow-600 mr-2"></i>
+                                            <strong>Artilheiros</strong> com cores dos times
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fas fa-chart-pie text-green-600 mr-2"></i>
+                                            <strong>Gráfico de gols</strong> por time
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fas fa-list text-blue-600 mr-2"></i>
+                                            <strong>Histórico de eventos</strong> colorido
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold text-gray-700 mb-3">Personalização</h4>
+                                    <ul class="space-y-2 text-gray-600">
+                                        <li class="flex items-center">
+                                            <i class="fas fa-palette text-purple-600 mr-2"></i>
+                                            <strong>Cores personalizadas</strong> para cada time
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fas fa-edit text-orange-600 mr-2"></i>
+                                            <strong>Nomes dos times</strong> editáveis
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fas fa-mobile-alt text-teal-600 mr-2"></i>
+                                            <strong>Design responsivo</strong> para qualquer tela
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dicas Avançadas -->
+                    <div class="manual-card rounded-xl p-6 card-shadow">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-lightbulb mr-3 text-yellow-600"></i>
+                            Dicas Avançadas de Uso
+                        </h3>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="space-y-4">
+                                <div class="bg-blue-50 p-4 rounded-lg">
+                                    <h5 class="font-semibold text-blue-800 mb-2">🏢 Peladas de Empresa</h5>
+                                    <p class="text-sm text-blue-700">
+                                        Use @ para manter departamentos juntos e # para separar chefes/subordinados
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-green-50 p-4 rounded-lg">
+                                    <h5 class="font-semibold text-green-800 mb-2">👨‍👩‍👧‍👦 Peladas Familiares</h5>
+                                    <p class="text-sm text-green-700">
+                                        Configure alertas de 5-10 minutos para revezar pais e filhos
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-purple-50 p-4 rounded-lg">
+                                    <h5 class="font-semibold text-purple-800 mb-2">🏆 Campeonatos</h5>
+                                    <p class="text-sm text-purple-700">
+                                        Use estatísticas para ranking e exportar resultados
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <div class="bg-orange-50 p-4 rounded-lg">
+                                    <h5 class="font-semibold text-orange-800 mb-2">🎓 Educação Física</h5>
+                                    <p class="text-sm text-orange-700">
+                                        Alertas automáticos liberam o professor para focar no jogo
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-teal-50 p-4 rounded-lg">
+                                    <h5 class="font-semibold text-teal-800 mb-2">⚽ Peladas Grandes</h5>
+                                    <p class="text-sm text-teal-700">
+                                        Combine todas as marcações para organização perfeita
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-red-50 p-4 rounded-lg">
+                                    <h5 class="font-semibold text-red-800 mb-2">📱 Uso em Campo</h5>
+                                    <p class="text-sm text-red-700">
+                                        Cronômetro fixo facilita marcação de gols durante o jogo
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Resumo das Funcionalidades -->
+                    <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl p-6 card-shadow">
+                        <h3 class="text-2xl font-bold mb-4 flex items-center">
+                            <i class="fas fa-star mr-3"></i>
+                            Resumo das Funcionalidades
+                        </h3>
+                        
+                        <div class="grid md:grid-cols-3 gap-6">
                             <div>
-                                <h4 class="font-semibold mb-3">🎲 Sorteio Inteligente</h4>
+                                <h4 class="font-semibold mb-3">✨ Sorteio Inteligente</h4>
                                 <ul class="text-sm opacity-90 space-y-1">
                                     <li>• Distribuição automática de goleiros</li>
                                     <li>• Separação garantida de rivais</li>
-                                    <li>• Grupos aliados juntos</li>
-                                    <li>• Balanceamento perfeito</li>
+                                    <li>• Manutenção de grupos aliados</li>
+                                    <li>• Balanceamento equilibrado</li>
+                                    <li>• Contador em tempo real</li>
                                     <li>• Sorteios ilimitados</li>
-                                    <li>• Adição de atrasados</li>
-                                    <li>• Drag & drop manual</li>
+                                    <li>• Adicionar jogadores atrasados</li>
                                 </ul>
                             </div>
                             
                             <div>
-                                <h4 class="font-semibold mb-3">⚽ Controle Total</h4>
+                                <h4 class="font-semibold mb-3">⚽ Controle de Partida</h4>
                                 <ul class="text-sm opacity-90 space-y-1">
-                                    <li>• Cronômetro ultra preciso</li>
-                                    <li>• Placar com animações</li>
-                                    <li>• Alertas sonoros de troca</li>
-                                    <li>• Marcação por jogador</li>
-                                    <li>• Histórico completo</li>
-                                    <li>• Desfazer gols</li>
-                                    <li>• Interface adaptativa</li>
+                                    <li>• Cronômetro preciso e fixo</li>
+                                    <li>• Placar interativo com animações</li>
+                                    <li>• Marcação por jogador ou genérica</li>
+                                    <li>• Alertas automáticos de troca</li>
+                                    <li>• Som de apito para alertas</li>
+                                    <li>• Histórico de eventos</li>
+                                    <li>• Desfazer último gol</li>
                                 </ul>
                             </div>
                             
                             <div>
-                                <h4 class="font-semibold mb-3">📊 Estatísticas</h4>
+                                <h4 class="font-semibold mb-3">📊 Estatísticas e Mais</h4>
                                 <ul class="text-sm opacity-90 space-y-1">
                                     <li>• Artilheiros em tempo real</li>
-                                    <li>• Gráficos interativos</li>
-                                    <li>• Estatísticas coloridas</li>
-                                    <li>• Ranking de torneios</li>
-                                    <li>• Relatórios visuais</li>
-                                    <li>• Análise de performance</li>
-                                </ul>
-                            </div>
-                            
-                            <div>
-                                <h4 class="font-semibold mb-3">🚀 Features Estáveis</h4>
-                                <ul class="text-sm opacity-90 space-y-1">
-                                    <li>• Listas persistentes</li>
-                                    <li>• Modo torneio</li>
+                                    <li>• Gráficos de desempenho</li>
+                                    <li>• Personalização completa</li>
                                     <li>• Design responsivo</li>
-                                    <li>• Interface premium</li>
-                                    <li>• Manual completo</li>
-                                    <li>• Suporte móvel perfeito</li>
+                                    <li>• Interface profissional</li>
                                 </ul>
                             </div>
                         </div>
@@ -1132,7 +1202,7 @@
                         FutFácil PRO
                     </h3>
                     <p class="text-gray-300 footer-text">
-                        Sistema Profissional de Peladas. Agora ficou fácil de organizar aquele jogo.
+                        Sistema Profissional de Peladas. Agora ficou fácil de organizar aquela pelada.
                     </p>
                 </div>
                 
@@ -1151,7 +1221,7 @@
                     <div class="footer-text text-gray-300">
                         <div class="flex items-center justify-center md:justify-end mb-1">
                             <i class="fas fa-code-branch mr-2 text-purple-400"></i>
-                            <span>v3.0 Stable</span>
+                            <span>v3.0 Stable</span>							
                         </div>
                         <div class="flex items-center justify-center md:justify-end">
                             <i class="fas fa-calendar mr-2 text-yellow-400"></i>
@@ -1181,10 +1251,10 @@
             events: [],
             playerStats: {},
             startTime: null,
-            lastGoal: null,
+            lastGoal: null, // Track last goal for undo functionality
             substitutions: {
                 enabled: false,
-                interval: 300,
+                interval: 300, // 5 minutes default
                 nextSubstitution: 0,
                 alertShown: false,
                 soundEnabled: true
@@ -1193,65 +1263,37 @@
         let teamStatsChart = null;
         let isMatchActive = false;
         let addPlayerSectionExpanded = false;
-        let savedListsExpanded = false;
-        let draggedPlayer = null;
-        let draggedFromTeam = null;
-        let tournamentData = {
-            active: false,
-            name: '',
-            type: '',
-            matches: [],
-            teams: [],
-            ranking: []
-        };
         
         // Audio context for whistle sound - Initialize lazily
         let audioContext = null;
         let whistleAudio = null;
         let audioInitialized = false;
 
-        // Initialize page on load - ENSURE DRAWING SECTION IS SHOWN
-        document.addEventListener('DOMContentLoaded', function() {
-            // Make sure we start on the drawing section
-            showSection('drawingSection');
-            generateColorSelectors();
-            updatePlayerCount();
-            updateSavedListsDisplay();
-            
-            // Add event listeners
-            document.getElementById('playersInput').addEventListener('input', updatePlayerCount);
-            document.getElementById('teamsCount').addEventListener('change', function() {
-                generateColorSelectors();
-                updatePlayerCount();
-            });
-            
-            // Initialize audio on first user interaction
-            document.addEventListener('click', initializeAudio, { once: true });
-            document.addEventListener('touchstart', initializeAudio, { once: true });
-        });
-
         // Initialize audio only on first user interaction
         function initializeAudio() {
             if (audioInitialized) return;
             
             try {
+                // Use a user interaction event to initialize audio context
                 audioContext = new (window.AudioContext || window.webkitAudioContext)();
                 
+                // Create whistle sound data (simple beep)
                 const sampleRate = 44100;
-                const duration = 0.3;
-                const frequency = 800;
+                const duration = 3;
+                const frequency = 3000;
                 const length = sampleRate * duration;
                 const buffer = audioContext.createBuffer(1, length, sampleRate);
                 const data = buffer.getChannelData(0);
                 
                 for (let i = 0; i < length; i++) {
                     const t = i / sampleRate;
-                    data[i] = Math.sin(2 * Math.PI * frequency * t) * Math.exp(-t * 3) * 0.3;
+                    data[i] = Math.sin(2 * Math.PI * frequency * t) * Math.exp(-t * 1.5) * 0.3;
                 }
                 
                 whistleAudio = buffer;
                 audioInitialized = true;
                 
+                // Resume audio context if it's suspended
                 if (audioContext.state === 'suspended') {
                     audioContext.resume();
                 }
@@ -1266,6 +1308,7 @@
             if (!matchData.substitutions.soundEnabled || !audioContext || !whistleAudio) return;
             
             try {
+                // Resume context if suspended
                 if (audioContext.state === 'suspended') {
                     audioContext.resume();
                 }
@@ -1280,6 +1323,7 @@
         }
 
         function toggleSound() {
+            // Initialize audio on first user interaction
             if (!audioInitialized) {
                 initializeAudio();
             }
@@ -1293,29 +1337,24 @@
             const icon = document.getElementById('soundIcon');
             const text = document.getElementById('soundText');
             
-            if (button && icon && text) {
-                if (matchData.substitutions.soundEnabled) {
-                    button.classList.remove('disabled');
-                    icon.className = 'fas fa-volume-up';
-                    text.textContent = 'Som ON';
-                } else {
-                    button.classList.add('disabled');
-                    icon.className = 'fas fa-volume-mute';
-                    text.textContent = 'Som OFF';
-                }
+            if (matchData.substitutions.soundEnabled) {
+                button.classList.remove('disabled');
+                icon.className = 'fas fa-volume-up';
+                text.textContent = 'Som ON';
+            } else {
+                button.classList.add('disabled');
+                icon.className = 'fas fa-volume-mute';
+                text.textContent = 'Som OFF';
             }
         }
         
-        // Navigation - CORRECTED TO ALWAYS START ON DRAWING SECTION
+        // Navigation
         function showSection(sectionName) {
-            const sections = ['drawingSection', 'matchSection', 'statsSection', 'tournamentSection', 'manualSection'];
-            const tabs = ['tabDrawing', 'tabMatch', 'tabStats', 'tabTournament', 'tabManual'];
+            const sections = ['drawingSection', 'matchSection', 'statsSection', 'manualSection'];
+            const tabs = ['tabDrawing', 'tabMatch', 'tabStats', 'tabManual'];
             
             sections.forEach(section => {
-                const element = document.getElementById(section);
-                if (element) {
-                    element.classList.add('hidden');
-                }
+                document.getElementById(section).classList.add('hidden');
             });
             
             tabs.forEach(tab => {
@@ -1326,17 +1365,13 @@
                 }
             });
             
-            const targetSection = document.getElementById(sectionName);
-            if (targetSection) {
-                targetSection.classList.remove('hidden');
-            }
+            document.getElementById(sectionName).classList.remove('hidden');
             
             let activeTab;
             switch(sectionName) {
                 case 'drawingSection': activeTab = 'tabDrawing'; break;
                 case 'matchSection': activeTab = 'tabMatch'; break;
                 case 'statsSection': activeTab = 'tabStats'; break;
-                case 'tournamentSection': activeTab = 'tabTournament'; break;
                 case 'manualSection': activeTab = 'tabManual'; break;
             }
             
@@ -1348,16 +1383,14 @@
                 }
             }
 
+            // Handle sticky scoreboard and match mode styling
             if (sectionName === 'matchSection' && isMatchActive) {
                 document.getElementById('mainContainer').classList.add('match-active');
                 document.getElementById('scoreboard').classList.add('sticky');
                 document.getElementById('matchTeams').classList.add('match-mode');
             } else {
                 document.getElementById('mainContainer').classList.remove('match-active');
-                const scoreboard = document.getElementById('scoreboard');
-                if (scoreboard) {
-                    scoreboard.classList.remove('sticky');
-                }
+                document.getElementById('scoreboard').classList.remove('sticky');
                 const matchTeamsElement = document.getElementById('matchTeams');
                 if (matchTeamsElement) {
                     matchTeamsElement.classList.remove('match-mode');
@@ -1365,7 +1398,22 @@
             }
         }
 
-        // Basic functions that are required
+        // Toggle Add Player Section
+        function toggleAddPlayerSection() {
+            const content = document.getElementById('addPlayerContent');
+            const icon = document.getElementById('expandIcon');
+            
+            addPlayerSectionExpanded = !addPlayerSectionExpanded;
+            
+            if (addPlayerSectionExpanded) {
+                content.classList.add('expanded');
+                icon.classList.add('rotated');
+            } else {
+                content.classList.remove('expanded');
+                icon.classList.remove('rotated');
+            }
+        }
+
         function updatePlayerCount() {
             const playersText = document.getElementById('playersInput').value.trim();
             const teamsCount = parseInt(document.getElementById('teamsCount').value);
@@ -1387,13 +1435,14 @@
             const goalkeepers = allPlayers.filter(player => player.includes('*'));
             const rivalPlayers = allPlayers.filter(player => player.includes('#'));
             const alliedPlayers = allPlayers.filter(player => player.includes('@'));
+            // Fixed: Field players = All players except goalkeepers (includes rivals, allies, and regular players)
             const fieldPlayers = allPlayers.filter(player => !player.includes('*'));
 
-            document.getElementById('totalCount').textContent = allPlayers.length;
-            document.getElementById('fieldPlayersCount').textContent = fieldPlayers.length;
-            document.getElementById('goalkeepersCount').textContent = goalkeepers.length;
-            document.getElementById('rivalPlayersCount').textContent = rivalPlayers.length;
-            document.getElementById('alliedPlayersCount').textContent = alliedPlayers.length;
+            animateCounterUpdate('totalCount', allPlayers.length);
+            animateCounterUpdate('fieldPlayersCount', fieldPlayers.length);
+            animateCounterUpdate('goalkeepersCount', goalkeepers.length);
+            animateCounterUpdate('rivalPlayersCount', rivalPlayers.length);
+            animateCounterUpdate('alliedPlayersCount', alliedPlayers.length);
 
             if (allPlayers.length > 0 && teamsCount > 0) {
                 const playersPerTeam = Math.floor(allPlayers.length / teamsCount);
@@ -1411,11 +1460,23 @@
             }
         }
 
+        function animateCounterUpdate(elementId, newValue) {
+            const element = document.getElementById(elementId);
+            const currentValue = parseInt(element.textContent);
+            
+            if (currentValue !== newValue) {
+                element.classList.add('pulse');
+                element.textContent = newValue;
+                
+                setTimeout(() => {
+                    element.classList.remove('pulse');
+                }, 500);
+            }
+        }
+
         function generateColorSelectors() {
             const teamsCount = parseInt(document.getElementById('teamsCount').value);
             const colorSelectors = document.getElementById('colorSelectors');
-            if (!colorSelectors) return;
-            
             colorSelectors.innerHTML = '';
             
             for (let i = 0; i < teamsCount; i++) {
@@ -1436,15 +1497,22 @@
                 `;
                 colorSelectors.appendChild(colorDiv);
                 
-                const colorInput = document.getElementById(`color${i}`);
-                if (colorInput) {
-                    colorInput.addEventListener('change', function() {
-                        this.parentElement.style.backgroundColor = this.value;
-                    });
-                }
+                // Update color preview when color changes
+                document.getElementById(`color${i}`).addEventListener('change', function() {
+                    this.parentElement.style.backgroundColor = this.value;
+                });
             }
             
             updatePlayerCount();
+        }
+
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
         }
 
         function parsePlayer(playerText) {
@@ -1463,23 +1531,17 @@
             };
         }
 
-        function shuffleArray(array) {
-            const shuffled = [...array];
-            for (let i = shuffled.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-            }
-            return shuffled;
-        }
-
+        // NEW: Fixed distribution algorithm that properly handles rivals
         function distributePlayersIntelligently(allPlayers, teamsCount) {
             const teams = Array.from({ length: teamsCount }, () => []);
             
+            // Separate players by type
             const goalkeepers = shuffleArray(allPlayers.filter(p => p.isGoalkeeper));
-            const alliedPlayers = shuffleArray(allPlayers.filter(p => p.isAllied && !p.isGoalkeeper));
             const rivalPlayers = shuffleArray(allPlayers.filter(p => p.isRival && !p.isGoalkeeper && !p.isAllied));
+            const alliedPlayers = shuffleArray(allPlayers.filter(p => p.isAllied && !p.isGoalkeeper));
             const regularPlayers = shuffleArray(allPlayers.filter(p => !p.isGoalkeeper && !p.isRival && !p.isAllied));
             
+            // Helper function to get team with minimum players
             function getTeamWithMinPlayers() {
                 let minIndex = 0;
                 for (let i = 1; i < teamsCount; i++) {
@@ -1490,18 +1552,9 @@
                 return minIndex;
             }
             
-            function getTeamWithMinRivals() {
-                let minIndex = 0;
-                let minRivalCount = teams[0].filter(p => p.isRival).length;
-                
-                for (let i = 1; i < teamsCount; i++) {
-                    const rivalCount = teams[i].filter(p => p.isRival).length;
-                    if (rivalCount < minRivalCount) {
-                        minIndex = i;
-                        minRivalCount = rivalCount;
-                    }
-                }
-                return minIndex;
+            // Helper function to check if a team has a rival
+            function teamHasRival(teamIndex) {
+                return teams[teamIndex].some(player => player.isRival);
             }
             
             // Step 1: Distribute goalkeepers evenly
@@ -1518,11 +1571,32 @@
                 });
             }
             
-            // Step 3: Distribute rival players - CORRECTED LOGIC
-            rivalPlayers.forEach(rival => {
-                const bestTeamIndex = getTeamWithMinRivals();
-                teams[bestTeamIndex].push(rival);
-            });
+            // Step 3: Distribute rival players - FIXED LOGIC
+            // Try to place each rival in a team that doesn't have any other rival
+            for (let i = 0; i < rivalPlayers.length; i++) {
+                const rival = rivalPlayers[i];
+                let placed = false;
+                
+                // First, try to find a team with no rivals and minimum players
+                let availableTeams = [];
+                for (let teamIndex = 0; teamIndex < teamsCount; teamIndex++) {
+                    if (!teamHasRival(teamIndex)) {
+                        availableTeams.push(teamIndex);
+                    }
+                }
+                
+                if (availableTeams.length > 0) {
+                    // Sort available teams by player count (ascending)
+                    availableTeams.sort((a, b) => teams[a].length - teams[b].length);
+                    teams[availableTeams[0]].push(rival);
+                    placed = true;
+                } else {
+                    // If all teams have rivals, place in team with minimum players
+                    const minTeamIndex = getTeamWithMinPlayers();
+                    teams[minTeamIndex].push(rival);
+                    placed = true;
+                }
+            }
             
             // Step 4: Distribute regular players to balance teams
             regularPlayers.forEach(player => {
@@ -1552,7 +1626,28 @@
             }
 
             const allPlayers = allPlayerTexts.map(parsePlayer);
+            
+            const goalkeepers = allPlayers.filter(p => p.isGoalkeeper);
+            const rivalPlayers = allPlayers.filter(p => p.isRival && !p.isGoalkeeper && !p.isAllied);
+            const alliedPlayers = allPlayers.filter(p => p.isAllied && !p.isGoalkeeper);
+            const regularPlayers = allPlayers.filter(p => !p.isGoalkeeper && !p.isRival && !p.isAllied);
+
+            if (goalkeepers.length > 0 && goalkeepers.length < teamsCount) {
+                const proceed = confirm(`Você tem ${goalkeepers.length} goleiro(s) para ${teamsCount} times. Alguns times ficarão sem goleiro. Deseja continuar?`);
+                if (!proceed) return;
+            }
+
+            // Use fixed distribution algorithm
             const teamPlayers = distributePlayersIntelligently(allPlayers, teamsCount);
+            
+            // Validate rival separation
+            let rivalConflicts = 0;
+            for (let i = 0; i < teamPlayers.length; i++) {
+                const teamRivals = teamPlayers[i].filter(p => p.isRival);
+                if (teamRivals.length > 1) {
+                    rivalConflicts++;
+                }
+            }
             
             const teams = teamPlayers.map((players, i) => ({
                 name: document.getElementById(`teamName${i}`).value || `Time ${i + 1}`,
@@ -1564,17 +1659,18 @@
             currentTeams = teams;
             initializeMatchData();
 
-            displayTeams(teams, []);
+            const distributionInfo = generateDistributionInfo(goalkeepers, rivalPlayers, alliedPlayers, regularPlayers, teamsCount, rivalConflicts);
+            displayTeams(teams, distributionInfo);
             setupAddPlayerSection();
             
+            // Reset collapsible section to closed state
             addPlayerSectionExpanded = false;
-            const addPlayerContent = document.getElementById('addPlayerContent');
-            const expandIcon = document.getElementById('expandIcon');
-            if (addPlayerContent) addPlayerContent.classList.remove('expanded');
-            if (expandIcon) expandIcon.classList.remove('rotated');
+            document.getElementById('addPlayerContent').classList.remove('expanded');
+            document.getElementById('expandIcon').classList.remove('rotated');
         }
 
         function initializeMatchData() {
+            // Clear events when starting new draw
             matchData = {
                 timer: 0,
                 isRunning: false,
@@ -1582,7 +1678,7 @@
                 events: [],
                 playerStats: {},
                 startTime: null,
-                lastGoal: null,
+                lastGoal: null, // Track for undo functionality
                 substitutions: {
                     enabled: false,
                     interval: 300,
@@ -1605,19 +1701,154 @@
             });
         }
 
+        function generateDistributionInfo(goalkeepers, rivalPlayers, alliedPlayers, regularPlayers, teamsCount, rivalConflicts) {
+            let info = [];
+            
+            if (goalkeepers.length > 0) {
+                if (goalkeepers.length >= teamsCount) {
+                    info.push(`✅ Goleiros distribuídos: cada time tem pelo menos 1 goleiro`);
+                } else {
+                    info.push(`⚠️ Apenas ${goalkeepers.length} goleiro(s) para ${teamsCount} times`);
+                }
+            }
+            
+            if (rivalPlayers.length > 0) {
+                if (rivalConflicts === 0) {
+                    info.push(`✅ Jogadores rivais separados com sucesso - nenhum conflito`);
+                } else {
+                    info.push(`⚠️ ${rivalConflicts} time(s) com rivais juntos - tente sortear novamente`);
+                }
+            }
+
+            if (alliedPlayers.length > 0) {
+                info.push(`✅ ${alliedPlayers.length} jogadores aliados mantidos no mesmo time`);
+            }
+            
+            // Show team balance info
+            const teamSizes = currentTeams.map(team => team.players.length);
+            const minSize = Math.min(...teamSizes);
+            const maxSize = Math.max(...teamSizes);
+            
+            if (maxSize - minSize <= 1) {
+                info.push(`✅ Times perfeitamente balanceados: diferença máxima de 1 jogador`);
+            } else {
+                info.push(`⚠️ Times com pequeno desbalanceamento: ${minSize}-${maxSize} jogadores`);
+            }
+            
+            info.push(`📊 Distribuição total: ${goalkeepers.length + rivalPlayers.length + alliedPlayers.length + regularPlayers.length} jogadores em ${teamsCount} times`);
+            
+            // Add re-draw suggestion if there are conflicts
+            if (rivalConflicts > 0) {
+                info.push(`🔄 Sugestão: Clique em "Sortear Times" novamente para tentar uma nova distribuição`);
+            }
+            
+            return info;
+        }
+
+        function setupAddPlayerSection() {
+            const teamSelector = document.getElementById('teamSelector');
+            teamSelector.innerHTML = '';
+            
+            currentTeams.forEach((team, index) => {
+                const option = document.createElement('option');
+                option.value = index;
+                option.textContent = `${team.name} (${team.players.length} jogadores)`;
+                teamSelector.appendChild(option);
+            });
+        }
+
+        function addNewPlayer() {
+            const playerName = document.getElementById('newPlayerName').value.trim();
+            const teamIndex = parseInt(document.getElementById('teamSelector').value);
+            const isGoalkeeper = document.getElementById('newPlayerGoalkeeper').checked;
+            const isRival = document.getElementById('newPlayerRival').checked;
+            const isAllied = document.getElementById('newPlayerAllied').checked;
+            
+            if (!playerName) {
+                alert('Por favor, digite o nome do jogador!');
+                return;
+            }
+            
+            // Check if player already exists
+            const existingPlayer = currentTeams.some(team => 
+                team.players.some(player => player.name.toLowerCase() === playerName.toLowerCase())
+            );
+            
+            if (existingPlayer) {
+                alert('Este jogador já existe nos times!');
+                return;
+            }
+            
+            const newPlayer = {
+                name: playerName,
+                isGoalkeeper: isGoalkeeper,
+                isRival: isRival,
+                isAllied: isAllied,
+                originalText: playerName + (isGoalkeeper ? '*' : '') + (isRival ? '#' : '') + (isAllied ? '@' : ''),
+                goals: 0
+            };
+            
+            currentTeams[teamIndex].players.push(newPlayer);
+            
+            // Update match data if needed
+            if (matchData.playerStats) {
+                matchData.playerStats[newPlayer.name] = {
+                    goals: 0,
+                    team: currentTeams[teamIndex].name,
+                    teamColor: currentTeams[teamIndex].color
+                };
+            }
+            
+            // Clear form
+            document.getElementById('newPlayerName').value = '';
+            document.getElementById('newPlayerGoalkeeper').checked = false;
+            document.getElementById('newPlayerRival').checked = false;
+            document.getElementById('newPlayerAllied').checked = false;
+            
+            // Show success animation
+            const addBtn = document.getElementById('addPlayerBtn');
+            addBtn.classList.add('success-animation');
+            setTimeout(() => addBtn.classList.remove('success-animation'), 600);
+            
+            // Refresh displays
+            displayTeams(currentTeams, []);
+            setupAddPlayerSection();
+            
+            // If match is active, update match interface
+            if (isMatchActive) {
+                setupMatchTeams();
+            }
+        }
+
         function displayTeams(teams, distributionInfo) {
             const resultsSection = document.getElementById('resultsSection');
             const teamsResults = document.getElementById('teamsResults');
+            const distributionInfoDiv = document.getElementById('distributionInfo');
             
-            if (!resultsSection || !teamsResults) return;
+            if (distributionInfo.length > 0) {
+                distributionInfoDiv.innerHTML = `
+                    <h3 class="font-semibold text-green-800 mb-2 flex items-center">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        Informações da Distribuição
+                    </h3>
+                    ${distributionInfo.map(info => `<p class="text-sm text-green-700">${info}</p>`).join('')}
+                `;
+                distributionInfoDiv.classList.remove('hidden');
+            } else {
+                distributionInfoDiv.classList.add('hidden');
+            }
             
             teamsResults.innerHTML = '';
             
-            teams.forEach((team, teamIndex) => {
+            teams.forEach((team, index) => {
                 const teamDiv = document.createElement('div');
-                teamDiv.className = 'team-card bg-white rounded-2xl card-shadow p-6 animate-bounce-in drop-zone';
-                teamDiv.style.animationDelay = `${teamIndex * 0.1}s`;
-                teamDiv.dataset.teamIndex = teamIndex;
+                teamDiv.className = 'team-card bg-white rounded-2xl card-shadow p-6 animate-bounce-in';
+                teamDiv.style.animationDelay = `${index * 0.1}s`;
+                
+                const goalkeepers = team.players.filter(p => p.isGoalkeeper);
+                const rivalPlayers = team.players.filter(p => p.isRival && !p.isGoalkeeper && !p.isAllied);
+                const alliedPlayers = team.players.filter(p => p.isAllied && !p.isGoalkeeper);
+                const regularPlayers = team.players.filter(p => !p.isGoalkeeper && !p.isRival && !p.isAllied);
                 
                 teamDiv.innerHTML = `
                     <div class="flex items-center justify-between mb-4">
@@ -1629,9 +1860,15 @@
                             <i class="fas fa-users mr-1"></i>
                             ${team.players.length} jogador${team.players.length !== 1 ? 'es' : ''}
                         </p>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            ${goalkeepers.length > 0 ? `<span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">${goalkeepers.length} goleiro${goalkeepers.length !== 1 ? 's' : ''}</span>` : ''}
+                            ${rivalPlayers.length > 0 ? `<span class="bg-red-100 text-red-800 px-2 py-1 rounded-full">${rivalPlayers.length} rival${rivalPlayers.length !== 1 ? 'is' : ''}</span>` : ''}
+                            ${alliedPlayers.length > 0 ? `<span class="bg-teal-100 text-teal-800 px-2 py-1 rounded-full">${alliedPlayers.length} aliado${alliedPlayers.length !== 1 ? 's' : ''}</span>` : ''}
+                            ${regularPlayers.length > 0 ? `<span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full">${regularPlayers.length} regular${regularPlayers.length !== 1 ? 'es' : ''}</span>` : ''}
+                        </div>
                     </div>
                     <div class="space-y-2">
-                        ${team.players.map((player, playerIndex) => {
+                        ${team.players.map(player => {
                             let className = 'player-item px-3 py-2 rounded-lg text-sm ';
                             let icon = '';
                             
@@ -1650,7 +1887,7 @@
                             }
                             
                             return `
-                                <div class="${className}" data-team-index="${teamIndex}" data-player-index="${playerIndex}">
+                                <div class="${className}">
                                     ${icon}${player.name}
                                 </div>
                             `;
@@ -1665,122 +1902,395 @@
             resultsSection.scrollIntoView({ behavior: 'smooth' });
         }
 
-        function setupAddPlayerSection() {
-            const teamSelector = document.getElementById('teamSelector');
-            if (!teamSelector) return;
-            
-            teamSelector.innerHTML = '';
-            
-            currentTeams.forEach((team, index) => {
-                const option = document.createElement('option');
-                option.value = index;
-                option.textContent = `${team.name} (${team.players.length} jogadores)`;
-                teamSelector.appendChild(option);
-            });
-        }
-
-        function toggleAddPlayerSection() {
-            const content = document.getElementById('addPlayerContent');
-            const icon = document.getElementById('expandIcon');
-            
-            if (!content || !icon) return;
-            
-            addPlayerSectionExpanded = !addPlayerSectionExpanded;
-            
-            if (addPlayerSectionExpanded) {
-                content.classList.add('expanded');
-                icon.classList.add('rotated');
-            } else {
-                content.classList.remove('expanded');
-                icon.classList.remove('rotated');
-            }
-        }
-
-        function addNewPlayer() {
-            const playerName = document.getElementById('newPlayerName').value.trim();
-            const teamIndex = parseInt(document.getElementById('teamSelector').value);
-            const isGoalkeeper = document.getElementById('newPlayerGoalkeeper').checked;
-            const isRival = document.getElementById('newPlayerRival').checked;
-            const isAllied = document.getElementById('newPlayerAllied').checked;
-            
-            if (!playerName) {
-                alert('Por favor, digite o nome do jogador!');
-                return;
-            }
-            
-            const newPlayer = {
-                name: playerName,
-                isGoalkeeper: isGoalkeeper,
-                isRival: isRival,
-                isAllied: isAllied,
-                originalText: playerName + (isGoalkeeper ? '*' : '') + (isRival ? '#' : '') + (isAllied ? '@' : ''),
-                goals: 0
-            };
-            
-            currentTeams[teamIndex].players.push(newPlayer);
-            
-            // Clear form
-            document.getElementById('newPlayerName').value = '';
-            document.getElementById('newPlayerGoalkeeper').checked = false;
-            document.getElementById('newPlayerRival').checked = false;
-            document.getElementById('newPlayerAllied').checked = false;
-            
-            displayTeams(currentTeams, []);
-            setupAddPlayerSection();
-        }
-
         function setupMatchInterface() {
             document.getElementById('navigationTabs').classList.remove('hidden');
+            setupScoreboard();
+            setupMatchTeams();
+            setupSubstitutionSystem();
             isMatchActive = true;
             showSection('matchSection');
             
+            // Initialize audio when match starts with user interaction
             if (matchData.substitutions.soundEnabled && !audioInitialized) {
                 initializeAudio();
             }
             
+            // Show undo button
             document.getElementById('undoLastGoal').classList.remove('hidden');
         }
 
-        // Timer functions
-        function startTimer() {
-            if (!matchData.isRunning) {
-                matchData.isRunning = true;
-                matchData.interval = setInterval(updateTimer, 1000);
-                
-                if (matchData.substitutions.enabled && !matchData.substitutions.nextSubstitution) {
+        function setupSubstitutionSystem() {
+            updateSubstitutionControls();
+            updateSoundToggle();
+            
+            document.getElementById('enableSubstitutions').addEventListener('change', function() {
+                matchData.substitutions.enabled = this.checked;
+                matchData.substitutions.alertShown = false;
+                if (this.checked && matchData.isRunning) {
+                    calculateNextSubstitution();
+                } else {
+                    matchData.substitutions.nextSubstitution = 0;
+                    dismissSubstitutionAlert();
+                }
+                updateSubstitutionControls();
+            });
+
+            document.getElementById('substitutionInterval').addEventListener('change', function() {
+                matchData.substitutions.interval = parseInt(this.value);
+                if (matchData.substitutions.enabled && matchData.isRunning) {
                     calculateNextSubstitution();
                 }
-            }
+                updateSubstitutionControls();
+            });
         }
 
-        function pauseTimer() {
-            matchData.isRunning = false;
-            if (matchData.interval) {
-                clearInterval(matchData.interval);
-                matchData.interval = null;
-            }
-        }
-
-        function resetTimer() {
-            pauseTimer();
-            matchData.timer = 0;
-            matchData.substitutions.nextSubstitution = 0;
+        function calculateNextSubstitution() {
+            const currentTime = matchData.timer;
+            const interval = matchData.substitutions.interval;
+            const nextInterval = Math.ceil((currentTime + 1) / interval) * interval;
+            matchData.substitutions.nextSubstitution = nextInterval;
             matchData.substitutions.alertShown = false;
-            updateTimerDisplay();
-            dismissSubstitutionAlert();
         }
 
-        function updateTimer() {
-            matchData.timer++;
-            updateTimerDisplay();
-            checkSubstitutionTime();
-        }
-
-        function updateTimerDisplay() {
-            const timerElement = document.getElementById('matchTimer');
-            if (timerElement) {
-                timerElement.textContent = formatTime(matchData.timer);
+        function updateSubstitutionControls() {
+            const nextSubElement = document.getElementById('nextSubstitution');
+            
+            if (matchData.substitutions.enabled && matchData.substitutions.nextSubstitution > 0) {
+                nextSubElement.textContent = formatTime(matchData.substitutions.nextSubstitution);
+                nextSubElement.classList.remove('opacity-50');
+            } else {
+                nextSubElement.textContent = '--:--';
+                nextSubElement.classList.add('opacity-50');
             }
+        }
+
+        function checkSubstitutionAlert() {
+            if (matchData.substitutions.enabled && 
+                matchData.substitutions.nextSubstitution > 0 && 
+                matchData.timer >= matchData.substitutions.nextSubstitution &&
+                !matchData.substitutions.alertShown) {
+                
+                showSubstitutionAlert();
+                matchData.substitutions.alertShown = true;
+                // Automatically schedule next substitution
+                calculateNextSubstitution();
+                updateSubstitutionControls();
+            }
+        }
+
+        function showSubstitutionAlert() {
+            const banner = document.getElementById('substitutionAlertBanner');
+            banner.classList.remove('hidden');
+            
+            // Play whistle sound
+            if (matchData.substitutions.soundEnabled) {
+                playWhistleSound();
+            }
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                dismissSubstitutionAlert();
+            }, 5000);
+            
+            // Add to events log
+            addEventToLog({
+                time: formatTime(matchData.timer),
+                type: 'substitution_alert',
+                timestamp: Date.now()
+            });
+        }
+
+        function dismissSubstitutionAlert() {
+            document.getElementById('substitutionAlertBanner').classList.add('hidden');
+        }
+
+        function setupScoreboard() {
+            const scoreboardTeams = document.getElementById('scoreboardTeams');
+            
+            if (currentTeams.length === 2) {
+                scoreboardTeams.className = 'flex justify-between items-center';
+                scoreboardTeams.innerHTML = `
+                    <div class="text-center">
+                        <h3 class="text-xl font-bold mb-2" style="color: ${currentTeams[0].color}">${currentTeams[0].name}</h3>
+                        <div class="score-number" id="score0">${currentTeams[0].goals}</div>
+                        <div class="flex justify-center space-x-2 mt-2">
+                            <button onclick="addTeamGoal(0, 1)" class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded">+</button>
+                            <button onclick="addTeamGoal(0, -1)" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded">-</button>
+                        </div>
+                    </div>
+                    <div class="text-6xl font-bold mx-8">VS</div>
+                    <div class="text-center">
+                        <h3 class="text-xl font-bold mb-2" style="color: ${currentTeams[1].color}">${currentTeams[1].name}</h3>
+                        <div class="score-number" id="score1">${currentTeams[1].goals}</div>
+                        <div class="flex justify-center space-x-2 mt-2">
+                            <button onclick="addTeamGoal(1, 1)" class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded">+</button>
+                            <button onclick="addTeamGoal(1, -1)" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded">-</button>
+                        </div>
+                    </div>
+                `;
+            } else {
+                scoreboardTeams.className = 'grid gap-4';
+                scoreboardTeams.style.gridTemplateColumns = `repeat(${Math.min(currentTeams.length, 3)}, 1fr)`;
+                scoreboardTeams.innerHTML = currentTeams.map((team, index) => `
+                    <div class="text-center p-4 bg-gray-800 rounded-lg">
+                        <h3 class="text-lg font-bold mb-2" style="color: ${team.color}">${team.name}</h3>
+                        <div class="text-3xl font-bold mb-2" id="score${index}">${team.goals}</div>
+                        <div class="flex justify-center space-x-2">
+                            <button onclick="addTeamGoal(${index}, 1)" class="bg-green-600 hover:bg-green-700 text-white px-2 py-1 rounded text-sm">+</button>
+                            <button onclick="addTeamGoal(${index}, -1)" class="bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded text-sm">-</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function setupMatchTeams() {
+            const matchTeams = document.getElementById('matchTeams');
+            matchTeams.innerHTML = currentTeams.map((team, teamIndex) => `
+                <div class="bg-white rounded-2xl card-shadow p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-gray-800">${team.name}</h3>
+                        <div class="w-6 h-6 rounded-full border-2 border-gray-300" style="background-color: ${team.color}"></div>
+                    </div>
+                    <div class="space-y-2">
+                        ${team.players.map((player, playerIndex) => {
+                            let className = 'player-item player-clickable px-3 py-2 rounded-lg text-sm cursor-pointer ';
+                            let icon = '';
+                            
+                            if (player.isGoalkeeper) {
+                                className += 'goalkeeper';
+                                icon = '<i class="fas fa-hand-paper mr-2"></i>';
+                            } else if (player.isRival) {
+                                className += 'rival-player';
+                                icon = '<i class="fas fa-sword mr-2"></i>';
+                            } else if (player.isAllied) {
+                                className += 'allied-player';
+                                icon = '<i class="fas fa-handshake mr-2"></i>';
+                            } else {
+                                className += 'bg-gray-50 hover:bg-green-100';
+                                icon = '<i class="fas fa-running mr-2"></i>';
+                            }
+                            
+                            return `
+                                <div class="${className}" onclick="addPlayerGoal(${teamIndex}, ${playerIndex})">
+                                    <div class="flex justify-between items-center">
+                                        <span>${icon}${player.name}</span>
+                                        <span class="text-xs bg-white bg-opacity-50 px-2 py-1 rounded-full">
+                                            ⚽ ${player.goals}
+                                        </span>
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addPlayerGoal(teamIndex, playerIndex) {
+            const team = currentTeams[teamIndex];
+            const player = team.players[playerIndex];
+            
+            player.goals++;
+            team.goals++;
+            matchData.playerStats[player.name].goals++;
+            
+            const event = {
+                time: formatTime(matchData.timer),
+                type: 'goal',
+                player: player.name,
+                team: team.name,
+                teamColor: team.color,
+                teamIndex: teamIndex,
+                playerIndex: playerIndex,
+                timestamp: Date.now()
+            };
+            
+            // Store as last goal for undo functionality
+            matchData.lastGoal = event;
+            matchData.events.unshift(event);
+            
+            updateMatchDisplay();
+            addEventToLog(event);
+            
+            // Goal celebration animation
+            animateGoal(teamIndex);
+        }
+
+        function addTeamGoal(teamIndex, increment) {
+            if (increment > 0) {
+                // Add generic goal
+                currentTeams[teamIndex].goals += increment;
+                const event = {
+                    time: formatTime(matchData.timer),
+                    type: 'goal',
+                    player: 'Não especificado',
+                    team: currentTeams[teamIndex].name,
+                    teamColor: currentTeams[teamIndex].color,
+                    teamIndex: teamIndex,
+                    playerIndex: null,
+                    timestamp: Date.now()
+                };
+                
+                // Store as last goal for undo functionality
+                matchData.lastGoal = event;
+                matchData.events.unshift(event);
+                addEventToLog(event);
+                
+                // Same animation as player goals
+                animateGoal(teamIndex);
+                
+            } else if (increment < 0 && currentTeams[teamIndex].goals > 0) {
+                // Remove goal - this is handled by undo function now
+                undoLastGoal();
+                return;
+            }
+            
+            updateMatchDisplay();
+        }
+
+        // NEW: Fixed undo goal functionality
+        function undoLastGoal() {
+            if (!matchData.lastGoal) {
+                alert('Nenhum gol para desfazer!');
+                return;
+            }
+            
+            const lastGoal = matchData.lastGoal;
+            const team = currentTeams[lastGoal.teamIndex];
+            
+            // Remove goal from team
+            if (team.goals > 0) {
+                team.goals--;
+            }
+            
+            // If it was a specific player goal, remove from player stats
+            if (lastGoal.playerIndex !== null) {
+                const player = team.players[lastGoal.playerIndex];
+                if (player && player.goals > 0) {
+                    player.goals--;
+                    matchData.playerStats[player.name].goals--;
+                }
+            }
+            
+            // Remove from events (find and remove the last goal)
+            const eventIndex = matchData.events.findIndex(e => 
+                e.timestamp === lastGoal.timestamp && e.type === 'goal'
+            );
+            if (eventIndex !== -1) {
+                matchData.events.splice(eventIndex, 1);
+            }
+            
+            // Add undo event to log
+            const undoEvent = {
+                time: formatTime(matchData.timer),
+                type: 'goal_removed',
+                player: lastGoal.player,
+                team: lastGoal.team,
+                teamColor: lastGoal.teamColor,
+                timestamp: Date.now()
+            };
+            
+            matchData.events.unshift(undoEvent);
+            addEventToLog(undoEvent);
+            
+            // Clear last goal
+            matchData.lastGoal = null;
+            
+            updateMatchDisplay();
+            refreshEventsLog();
+        }
+
+        function refreshEventsLog() {
+            const eventsLog = document.getElementById('eventsLog');
+            eventsLog.innerHTML = '';
+            
+            if (matchData.events.length === 0) {
+                eventsLog.innerHTML = '<p class="text-gray-500 text-center py-8">Nenhum evento registrado ainda</p>';
+                return;
+            }
+            
+            matchData.events.forEach(event => {
+                addEventToLog(event);
+            });
+        }
+
+        function animateGoal(teamIndex) {
+            const scoreElement = document.getElementById(`score${teamIndex}`);
+            if (scoreElement) {
+                scoreElement.classList.add('goal-celebration');
+                setTimeout(() => scoreElement.classList.remove('goal-celebration'), 1000);
+            }
+        }
+
+        function updateMatchDisplay() {
+            // Update scoreboard
+            currentTeams.forEach((team, index) => {
+                const scoreElement = document.getElementById(`score${index}`);
+                if (scoreElement) {
+                    scoreElement.textContent = team.goals;
+                }
+            });
+            
+            // Update match teams display
+            setupMatchTeams();
+            updateStatistics();
+        }
+
+        function addEventToLog(event) {
+            const eventsLog = document.getElementById('eventsLog');
+            
+            if (eventsLog.children.length === 1 && eventsLog.children[0].textContent.includes('Nenhum evento')) {
+                eventsLog.innerHTML = '';
+            }
+            
+            const eventDiv = document.createElement('div');
+            eventDiv.className = 'event-item bg-gray-50 p-3 rounded-lg border-l-4';
+            
+            if (event.type === 'goal') {
+                eventDiv.classList.add('border-green-500');
+                eventDiv.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <span class="font-semibold text-green-700">⚽ GOL!</span>
+                            <span class="text-gray-700">${event.player}</span>
+                            <span class="text-sm px-2 py-1 rounded-full text-white ml-2" 
+                                  style="background-color: ${event.teamColor}">
+                                ${event.team}
+                            </span>
+                        </div>
+                        <span class="text-sm text-gray-500">${event.time}</span>
+                    </div>
+                `;
+            } else if (event.type === 'goal_removed') {
+                eventDiv.classList.add('border-red-500');
+                eventDiv.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <span class="font-semibold text-red-700">❌ Gol removido</span>
+                            <span class="text-gray-700">${event.player}</span>
+                            <span class="text-sm px-2 py-1 rounded-full text-white ml-2" 
+                                  style="background-color: ${event.teamColor}">
+                                ${event.team}
+                            </span>
+                        </div>
+                        <span class="text-sm text-gray-500">${event.time}</span>
+                    </div>
+                `;
+            } else if (event.type === 'substitution_alert') {
+                eventDiv.classList.add('border-orange-500');
+                eventDiv.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <span class="font-semibold text-orange-700">🔄 ALERTA DE TROCA!</span>
+                            <span class="text-gray-700">Momento para substituições</span>
+                        </div>
+                        <span class="text-sm text-gray-500">${event.time}</span>
+                    </div>
+                `;
+            }
+            
+            eventsLog.prepend(eventDiv);
         }
 
         function formatTime(seconds) {
@@ -1789,103 +2299,193 @@
             return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
         }
 
-        function calculateNextSubstitution() {
-            if (matchData.substitutions.enabled) {
-                matchData.substitutions.nextSubstitution = matchData.timer + matchData.substitutions.interval;
-                matchData.substitutions.alertShown = false;
-                updateSubstitutionControls();
-            }
+        function updateTimer() {
+            document.getElementById('matchTimer').textContent = formatTime(matchData.timer);
+            checkSubstitutionAlert();
+            updateSubstitutionControls();
         }
 
-        function checkSubstitutionTime() {
-            if (matchData.substitutions.enabled && 
-                matchData.timer >= matchData.substitutions.nextSubstitution && 
-                !matchData.substitutions.alertShown) {
+        function startTimer() {
+            // Initialize audio on first timer start (user interaction)
+            if (!audioInitialized && matchData.substitutions.soundEnabled) {
+                initializeAudio();
+            }
+            
+            if (!matchData.isRunning) {
+                matchData.isRunning = true;
+                matchData.startTime = Date.now() - (matchData.timer * 1000);
                 
-                showSubstitutionAlert();
-                playWhistleSound();
-                calculateNextSubstitution();
-                matchData.substitutions.alertShown = true;
-            }
-        }
-
-        function showSubstitutionAlert() {
-            const alertBanner = document.getElementById('substitutionAlertBanner');
-            if (alertBanner) {
-                alertBanner.classList.remove('hidden');
-                
-                setTimeout(() => {
-                    alertBanner.classList.add('hidden');
-                }, 5000);
-            }
-        }
-
-        function dismissSubstitutionAlert() {
-            const alertBanner = document.getElementById('substitutionAlertBanner');
-            if (alertBanner) {
-                alertBanner.classList.add('hidden');
-            }
-        }
-
-        function updateSubstitutionControls() {
-            const nextSubElement = document.getElementById('nextSubstitution');
-            if (nextSubElement) {
-                if (matchData.substitutions.enabled && matchData.substitutions.nextSubstitution > 0) {
-                    nextSubElement.textContent = formatTime(matchData.substitutions.nextSubstitution);
-                } else {
-                    nextSubElement.textContent = '--:--';
+                if (matchData.substitutions.enabled && matchData.substitutions.nextSubstitution === 0) {
+                    calculateNextSubstitution();
                 }
+                
+                // Use more accurate timing method
+                function updateAccurateTimer() {
+                    if (matchData.isRunning) {
+                        const now = Date.now();
+                        const elapsed = Math.floor((now - matchData.startTime) / 1000);
+                        matchData.timer = elapsed;
+                        updateTimer();
+                        requestAnimationFrame(updateAccurateTimer);
+                    }
+                }
+                updateAccurateTimer();
             }
         }
 
-        function undoLastGoal() {
-            alert('Funcionalidade de desfazer gol em desenvolvimento!');
+        function pauseTimer() {
+            if (matchData.isRunning) {
+                matchData.isRunning = false;
+            }
+        }
+
+        function resetTimer() {
+            pauseTimer();
+            matchData.timer = 0;
+            matchData.startTime = Date.now();
+            matchData.substitutions.nextSubstitution = 0;
+            matchData.substitutions.alertShown = false;
+            dismissSubstitutionAlert();
+            updateTimer();
         }
 
         function clearEvents() {
-            const eventsLog = document.getElementById('eventsLog');
-            if (eventsLog) {
-                eventsLog.innerHTML = '<p class="text-gray-500 text-center py-8">Nenhum evento registrado ainda</p>';
+            if (confirm('Tem certeza que deseja limpar todos os eventos?')) {
+                matchData.events = [];
+                matchData.lastGoal = null; // Clear last goal reference
+                document.getElementById('eventsLog').innerHTML = '<p class="text-gray-500 text-center py-8">Nenhum evento registrado ainda</p>';
             }
         }
 
-        // Data persistence functions
-        function toggleSavedListsSection() {
-            const content = document.getElementById('savedListsContent');
-            const icon = document.getElementById('savedListsIcon');
+        function updateStatistics() {
+            updateTopScorers();
+            updateTeamChart();
+        }
+
+        function updateTopScorers() {
+            const topScorers = document.getElementById('topScorers');
             
-            if (!content || !icon) return;
+            const allPlayers = [];
+            currentTeams.forEach(team => {
+                team.players.forEach(player => {
+                    if (player.goals > 0) {
+                        allPlayers.push({
+                            name: player.name,
+                            goals: player.goals,
+                            team: team.name,
+                            teamColor: team.color
+                        });
+                    }
+                });
+            });
             
-            savedListsExpanded = !savedListsExpanded;
+            allPlayers.sort((a, b) => b.goals - a.goals);
             
-            if (savedListsExpanded) {
-                content.classList.remove('hidden');
-                icon.classList.add('rotated');
-                updateSavedListsDisplay();
-            } else {
-                content.classList.add('hidden');
-                icon.classList.remove('rotated');
+            if (allPlayers.length === 0) {
+                topScorers.innerHTML = '<p class="text-gray-500 text-center py-4">Nenhum gol marcado ainda</p>';
+                return;
             }
+            
+            topScorers.innerHTML = allPlayers.map((player, index) => `
+                <div class="flex items-center justify-between p-3 rounded-lg mb-2 ${index === 0 ? 'top-scorer' : 'player-stats'}">
+                    <div class="flex items-center space-x-3">
+                        <span class="text-2xl">${index === 0 ? '👑' : '⚽'}</span>
+                        <div>
+                            <div class="font-semibold">${player.name}</div>
+                            <div class="text-sm opacity-75">
+                                <span class="px-2 py-1 rounded-full text-white text-xs" 
+                                      style="background-color: ${player.teamColor}">
+                                    ${player.team}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-xl font-bold">${player.goals}</div>
+                </div>
+            `).join('');
         }
 
-        function saveCurrentList() {
-            alert('Funcionalidade de salvar listas em desenvolvimento!');
-        }
-
-        function clearAllLists() {
-            alert('Funcionalidade de limpar listas em desenvolvimento!');
-        }
-
-        function updateSavedListsDisplay() {
-            const display = document.getElementById('savedListsDisplay');
-            if (display) {
-                display.innerHTML = '<p class="text-gray-500 text-center py-4">Nenhuma lista salva ainda</p>';
+        function updateTeamChart() {
+            const ctx = document.getElementById('teamStatsChart').getContext('2d');
+            
+            if (teamStatsChart) {
+                teamStatsChart.destroy();
             }
+            
+            teamStatsChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: currentTeams.map(team => team.name),
+                    datasets: [{
+                        data: currentTeams.map(team => team.goals),
+                        backgroundColor: currentTeams.map(team => team.color),
+                        borderWidth: 2,
+                        borderColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
         }
 
-        function createTournament() {
-            alert('Funcionalidade de torneio em desenvolvimento!');
-        }
+        // Event listeners
+        document.getElementById('playersInput').addEventListener('input', updatePlayerCount);
+        document.getElementById('teamsCount').addEventListener('change', generateColorSelectors);
+        document.getElementById('drawTeams').addEventListener('click', drawTeams);
+        document.getElementById('startMatch').addEventListener('click', setupMatchInterface);
+        document.getElementById('addPlayerBtn').addEventListener('click', addNewPlayer);
+        document.getElementById('undoLastGoal').addEventListener('click', undoLastGoal);
+        document.getElementById('newPlayerName').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addNewPlayer();
+            }
+        });
+        
+        document.getElementById('newDraw').addEventListener('click', () => {
+            // Allow multiple draws - don't hide results, just regenerate
+            drawTeams();
+        });
+
+        // Timer controls
+        document.getElementById('startTimer').addEventListener('click', startTimer);
+        document.getElementById('pauseTimer').addEventListener('click', pauseTimer);
+        document.getElementById('resetTimer').addEventListener('click', resetTimer);
+        document.getElementById('clearEvents').addEventListener('click', clearEvents);
+
+        // Tab navigation
+        document.getElementById('tabDrawing').addEventListener('click', () => showSection('drawingSection'));
+        document.getElementById('tabMatch').addEventListener('click', () => showSection('matchSection'));
+        document.getElementById('tabStats').addEventListener('click', () => {
+            showSection('statsSection');
+            updateStatistics();
+        });
+        document.getElementById('tabManual').addEventListener('click', () => showSection('manualSection'));
+
+        // Initialize
+        generateColorSelectors();
+
+        // Sample data
+        document.getElementById('playersInput').value = `João Silva*
+Maria Costa* 
+Pedro Santos#
+Ana Lima
+Carlos Silva
+Maria@ 
+Roberto@
+Juliana Oliveira
+Marcos Souza#
+Patrícia Lima
+André Mendes
+Camila Santos`;
+
+        updatePlayerCount();
     </script>
 </body>
 </html>

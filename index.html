@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FutFácil - Sistema Profissional de Peladas</title>
+    <title>Sistema Profissional de Peladas</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -397,10 +397,10 @@
         .sound-toggle.disabled {
             background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%);
         }
-		
-		/* Fixed Add Player Button Styling */
+
+        /* Add Player Button Fix */
         .add-player-btn {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            background: linear-gradient(135deg, #38b2ac 0%, #319795 100%);
             color: white;
             border: none;
             padding: 0.75rem 1.5rem;
@@ -408,18 +408,91 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+        }
+        
+        .add-player-btn:hover {
+            background: linear-gradient(135deg, #319795 0%, #2c7a7b 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(56, 178, 172, 0.4);
+        }
+
+        /* ENHANCED DRAG AND DROP STYLES - FIXED AND IMPROVED */
+        .player-draggable {
+            cursor: move;
+            transition: all 0.3s ease;
+            user-select: none;
+            position: relative;
+        }
+
+        .player-draggable:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .team-drop-zone {
+            min-height: 200px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .team-drop-zone.drag-over {
+            background: linear-gradient(135deg, #e6fffa 0%, #f0fff4 100%);
+            border: 3px dashed #38b2ac;
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(56, 178, 172, 0.2);
+        }
+
+        .dragging {
+            opacity: 0.5;
+            transform: rotate(3deg) scale(0.95);
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .drag-preview {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1001;
+            background: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transform: rotate(5deg);
+            font-weight: bold;
+        }
+
+        .drag-indicator {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(56, 178, 172, 0.9);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 1rem;
+            font-weight: bold;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        /* Drag handle indicator */
+        .player-draggable::before {
+            content: '⋮⋮';
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(0, 0, 0, 0.3);
+            font-size: 12px;
+            line-height: 1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .player-draggable:hover::before {
+            opacity: 1;
         }
     </style>
-	<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HL8DRMJQSM"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-HL8DRMJQSM');
-</script
 </head>
 <body class="bg-gray-50 min-h-screen">
     <!-- Floating Manual Button -->
@@ -437,10 +510,10 @@
                     </div>
                     <div>
                         <h1 class="app-title text-2xl lg:text-4xl font-black mb-1">
-                            FutFácil Pro
+                            Fut-Fácil Pro
                         </h1>
                         <p class="text-sm lg:text-lg opacity-90 font-medium">
-                            Sistema Profissional de Peladas
+                            Sistema Profissional de Peladas...
                         </p>
                     </div>
                 </div>
@@ -489,7 +562,7 @@
                         </label>
                         <textarea 
                             id="playersInput" 
-                            placeholder="Exemplo:&#10;João Silva&#10;Maria* (goleira)&#10;Pedro Santos#(rival)&#10;Ana* (goleira)&#10;Carlos Lima#(rival)&#10;Maria@ (aliada)&#10;Roberto@ (aliado)"
+                            placeholder="Exemplo:&#10;João Silva&#10;Maria* (goleira)&#10;Pedro Santos#&#10;Ana* (goleira)&#10;Carlos Lima#&#10;Fernanda@ (aliada)&#10;Roberto@ (aliado)"
                             class="w-full h-48 p-4 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none resize-none transition-colors"
                         ></textarea>
                         <div class="text-sm text-gray-500 mt-2 space-y-1">
@@ -656,8 +729,7 @@
                                 <div>
                                     <button 
                                         id="addPlayerBtn" 
-                                        class="add-player-btn w-full py-3 px-4 rounded-lg"
-                                        onclick="addNewPlayer()"
+                                        class="add-player-btn w-full"
                                     >
                                         <i class="fas fa-plus mr-2"></i>
                                         Adicionar
@@ -837,7 +909,7 @@
                     Manual do Sistema
                 </h2>
                 <p class="text-lg text-gray-700 mb-8">
-                    Guia completo de todas as funcionalidades do Sistema Profissional de Futebol
+                    Guia completo de todas as funcionalidades do Sistema Profissional de Peladas
                 </p>
 
                 <div class="grid gap-8">
@@ -886,43 +958,37 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
 
+                    <!-- Drag & Drop System -->
+                    <div class="manual-card rounded-xl p-6 card-shadow">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-hand-pointer mr-3 text-blue-600"></i>
+                            Sistema Drag & Drop
+                        </h3>
+                        
+                        <div class="space-y-6">
                             <div>
-                                <h4 class="text-lg font-semibold text-gray-700 mb-3">Novo Sorteio</h4>
-                                <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
-                                    <h5 class="font-semibold text-blue-800">Sorteios Ilimitados!</h5>
-                                    <p class="text-sm text-blue-700 mt-2">Não gostou da divisão? Clique novamente em "Sortear Times" para gerar uma nova distribuição. Funciona quantas vezes quiser até encontrar a combinação ideal!</p>
-                                </div>
-                            </div>
-
-                            <div>
-                                <h4 class="text-lg font-semibold text-gray-700 mb-3">Adicionar Jogadores Atrasados</h4>
-                                <div class="bg-teal-50 p-4 rounded-lg border-l-4 border-teal-500">
-                                    <h5 class="font-semibold text-teal-800">Funcionalidade Flexível!</h5>
-                                    <p class="text-sm text-teal-700 mt-2">Após sortear os times, você pode adicionar jogadores que chegaram atrasados. A seção fica recolhida por padrão para manter a interface limpa. Clique na seta para expandir quando necessário.</p>
-                                </div>
-                            </div>
-
-                            <div>
-                                <h4 class="text-lg font-semibold text-gray-700 mb-3">Casos de Uso</h4>
-                                <div class="grid md:grid-cols-2 gap-4">
-                                    <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
-                                        <h5 class="font-semibold text-blue-800">Peladas com Equipes Pré-formadas</h5>
-                                        <p class="text-sm text-blue-700 mt-2">Use @ para manter seu grupo unido contra outros</p>
-                                    </div>
-                                    <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
-                                        <h5 class="font-semibold text-green-800">Balanceamento de Nível</h5>
-                                        <p class="text-sm text-green-700 mt-2">Use # para separar jogadores muito experientes</p>
-                                    </div>
-                                    <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-500">
-                                        <h5 class="font-semibold text-yellow-800">Distribuição de Goleiros</h5>
-                                        <p class="text-sm text-yellow-700 mt-2">Use * para garantir goleiros em todos os times</p>
-                                    </div>
-                                    <div class="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-500">
-                                        <h5 class="font-semibold text-purple-800">Evitar Conflitos</h5>
-                                        <p class="text-sm text-purple-700 mt-2">Use # para separar jogadores que não se dão bem</p>
-                                    </div>
-                                </div>
+                                <h4 class="text-lg font-semibold text-gray-700 mb-3">Como Usar</h4>
+                                <ul class="space-y-2 text-gray-600">
+                                    <li class="flex items-center">
+                                        <i class="fas fa-mouse text-blue-600 mr-2"></i>
+                                        <strong>Arraste jogadores</strong> entre times após o sorteio
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-arrows-alt text-green-600 mr-2"></i>
+                                        <strong>Solte sobre o time</strong> desejado
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-sync text-purple-600 mr-2"></i>
+                                        <strong>Atualização automática</strong> de contadores
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-infinity text-orange-600 mr-2"></i>
+                                        <strong>Funciona ilimitadamente</strong> durante toda a sessão
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -957,233 +1023,6 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <div>
-                                    <h4 class="text-lg font-semibold text-gray-700 mb-3">Cronômetro</h4>
-                                    <ul class="space-y-2 text-gray-600">
-                                        <li class="flex items-center">
-                                            <i class="fas fa-play text-green-600 mr-2"></i>
-                                            <strong>Precisão perfeita</strong> - sincronizado com relógio real
-                                        </li>
-                                        <li class="flex items-center">
-                                            <i class="fas fa-thumbtack text-blue-600 mr-2"></i>
-                                            <strong>Cronômetro fixo</strong> durante a partida
-                                        </li>
-                                        <li class="flex items-center">
-                                            <i class="fas fa-pause text-yellow-600 mr-2"></i>
-                                            <strong>Controles</strong> start/pause/reset
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Alertas de Troca -->
-                    <div class="manual-card rounded-xl p-6 card-shadow">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
-                            <i class="fas fa-exchange-alt mr-3 text-orange-600"></i>
-                            Sistema de Alertas de Troca
-                        </h3>
-                        
-                        <div class="space-y-6">
-                            <div class="grid md:grid-cols-2 gap-6">
-                                <div>
-                                    <h4 class="text-lg font-semibold text-gray-700 mb-3">Configuração</h4>
-                                    <ul class="space-y-2 text-gray-600">
-                                        <li class="flex items-center">
-                                            <i class="fas fa-clock text-blue-600 mr-2"></i>
-                                            <strong>Intervalos:</strong> 1, 2, 5, 10, 15 ou 20 minutos
-                                        </li>
-                                        <li class="flex items-center">
-                                            <i class="fas fa-toggle-on text-green-600 mr-2"></i>
-                                            <strong>Ativar/Desativar</strong> a qualquer momento
-                                        </li>
-                                        <li class="flex items-center">
-                                            <i class="fas fa-eye text-purple-600 mr-2"></i>
-                                            <strong>Sempre visível</strong> no cronômetro fixo
-                                        </li>
-                                        <li class="flex items-center">
-                                            <i class="fas fa-volume-up text-orange-600 mr-2"></i>
-                                            <strong>Som de apito</strong> opcional para alertas
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div>
-                                    <h4 class="text-lg font-semibold text-gray-700 mb-3">Alertas</h4>
-                                    <ul class="space-y-2 text-gray-600">
-                                        <li class="flex items-center">
-                                            <i class="fas fa-bell text-orange-600 mr-2"></i>
-                                            <strong>Automáticos</strong> - aparecem automaticamente
-                                        </li>
-                                        <li class="flex items-center">
-                                            <i class="fas fa-eye-slash text-red-600 mr-2"></i>
-                                            <strong>Auto-ocultar</strong> após 5 segundos
-                                        </li>
-                                        <li class="flex items-center">
-                                            <i class="fas fa-volume-up text-blue-600 mr-2"></i>
-                                            <strong>Som de apito</strong> audível durante o jogo
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            
-                            <div class="bg-orange-50 p-4 rounded-lg border-l-4 border-orange-500">
-                                <h5 class="font-semibold text-orange-800 mb-2">Perfeito para Peladas com Reservas</h5>
-                                <p class="text-sm text-orange-700">
-                                    Configure o tempo de troca e nunca mais esqueça de fazer as substituições! 
-                                    O som de apito garante que você ouça o alerta mesmo sem olhar para a tela.
-                                    Ideal para manter todos os jogadores ativos e engajados.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Estatísticas e Personalização -->
-                    <div class="manual-card rounded-xl p-6 card-shadow">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
-                            <i class="fas fa-chart-bar mr-3 text-indigo-600"></i>
-                            Estatísticas e Personalização
-                        </h3>
-                        
-                        <div class="space-y-6">
-                            <div class="grid md:grid-cols-2 gap-6">
-                                <div>
-                                    <h4 class="text-lg font-semibold text-gray-700 mb-3">Estatísticas em Tempo Real</h4>
-                                    <ul class="space-y-2 text-gray-600">
-                                        <li class="flex items-center">
-                                            <i class="fas fa-crown text-yellow-600 mr-2"></i>
-                                            <strong>Artilheiros</strong> com cores dos times
-                                        </li>
-                                        <li class="flex items-center">
-                                            <i class="fas fa-chart-pie text-green-600 mr-2"></i>
-                                            <strong>Gráfico de gols</strong> por time
-                                        </li>
-                                        <li class="flex items-center">
-                                            <i class="fas fa-list text-blue-600 mr-2"></i>
-                                            <strong>Histórico de eventos</strong> colorido
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div>
-                                    <h4 class="text-lg font-semibold text-gray-700 mb-3">Personalização</h4>
-                                    <ul class="space-y-2 text-gray-600">
-                                        <li class="flex items-center">
-                                            <i class="fas fa-palette text-purple-600 mr-2"></i>
-                                            <strong>Cores personalizadas</strong> para cada time
-                                        </li>
-                                        <li class="flex items-center">
-                                            <i class="fas fa-edit text-orange-600 mr-2"></i>
-                                            <strong>Nomes dos times</strong> editáveis
-                                        </li>
-                                        <li class="flex items-center">
-                                            <i class="fas fa-mobile-alt text-teal-600 mr-2"></i>
-                                            <strong>Design responsivo</strong> para qualquer tela
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Dicas Avançadas -->
-                    <div class="manual-card rounded-xl p-6 card-shadow">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
-                            <i class="fas fa-lightbulb mr-3 text-yellow-600"></i>
-                            Dicas Avançadas de Uso
-                        </h3>
-                        
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <div class="space-y-4">
-                                <div class="bg-blue-50 p-4 rounded-lg">
-                                    <h5 class="font-semibold text-blue-800 mb-2">🏢 Peladas de Empresa</h5>
-                                    <p class="text-sm text-blue-700">
-                                        Use @ para manter departamentos juntos e # para separar chefes/subordinados
-                                    </p>
-                                </div>
-                                
-                                <div class="bg-green-50 p-4 rounded-lg">
-                                    <h5 class="font-semibold text-green-800 mb-2">👨‍👩‍👧‍👦 Peladas Familiares</h5>
-                                    <p class="text-sm text-green-700">
-                                        Configure alertas de 5-10 minutos para revezar pais e filhos
-                                    </p>
-                                </div>
-                                
-                                <div class="bg-purple-50 p-4 rounded-lg">
-                                    <h5 class="font-semibold text-purple-800 mb-2">🏆 Campeonatos</h5>
-                                    <p class="text-sm text-purple-700">
-                                        Use estatísticas para ranking e exportar resultados
-                                    </p>
-                                </div>
-                            </div>
-                            
-                            <div class="space-y-4">
-                                <div class="bg-orange-50 p-4 rounded-lg">
-                                    <h5 class="font-semibold text-orange-800 mb-2">🎓 Educação Física</h5>
-                                    <p class="text-sm text-orange-700">
-                                        Alertas automáticos liberam o professor para focar no jogo
-                                    </p>
-                                </div>
-                                
-                                <div class="bg-teal-50 p-4 rounded-lg">
-                                    <h5 class="font-semibold text-teal-800 mb-2">⚽ Peladas Grandes</h5>
-                                    <p class="text-sm text-teal-700">
-                                        Combine todas as marcações para organização perfeita
-                                    </p>
-                                </div>
-                                
-                                <div class="bg-red-50 p-4 rounded-lg">
-                                    <h5 class="font-semibold text-red-800 mb-2">📱 Uso em Campo</h5>
-                                    <p class="text-sm text-red-700">
-                                        Cronômetro fixo facilita marcação de gols durante o jogo
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Resumo das Funcionalidades -->
-                    <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl p-6 card-shadow">
-                        <h3 class="text-2xl font-bold mb-4 flex items-center">
-                            <i class="fas fa-star mr-3"></i>
-                            Resumo das Funcionalidades
-                        </h3>
-                        
-                        <div class="grid md:grid-cols-3 gap-6">
-                            <div>
-                                <h4 class="font-semibold mb-3">✨ Sorteio Inteligente</h4>
-                                <ul class="text-sm opacity-90 space-y-1">
-                                    <li>• Distribuição automática de goleiros</li>
-                                    <li>• Separação garantida de rivais</li>
-                                    <li>• Manutenção de grupos aliados</li>
-                                    <li>• Balanceamento equilibrado</li>
-                                    <li>• Contador em tempo real</li>
-                                    <li>• Sorteios ilimitados</li>
-                                    <li>• Adicionar jogadores atrasados</li>
-                                </ul>
-                            </div>
-                            
-                            <div>
-                                <h4 class="font-semibold mb-3">⚽ Controle de Partida</h4>
-                                <ul class="text-sm opacity-90 space-y-1">
-                                    <li>• Cronômetro preciso e fixo</li>
-                                    <li>• Placar interativo com animações</li>
-                                    <li>• Marcação por jogador ou genérica</li>
-                                    <li>• Alertas automáticos de troca</li>
-                                    <li>• Som de apito para alertas</li>
-                                    <li>• Histórico de eventos</li>
-                                    <li>• Desfazer último gol</li>
-                                </ul>
-                            </div>
-                            
-                            <div>
-                                <h4 class="font-semibold mb-3">📊 Estatísticas e Mais</h4>
-                                <ul class="text-sm opacity-90 space-y-1">
-                                    <li>• Artilheiros em tempo real</li>
-                                    <li>• Gráficos de desempenho</li>
-                                    <li>• Personalização completa</li>
-                                    <li>• Design responsivo</li>
-                                    <li>• Interface profissional</li>
-                                </ul>
                             </div>
                         </div>
                     </div>
@@ -1199,21 +1038,20 @@
                 <div class="text-center md:text-left">
                     <h3 class="text-lg font-bold mb-2 flex items-center justify-center md:justify-start">
                         <i class="fas fa-futbol mr-2"></i>
-                        FutFácil PRO
+                        Fut-Fácil Pro
                     </h3>
                     <p class="text-gray-300 footer-text">
-                        Sistema Profissional de Peladas. Agora ficou fácil de organizar aquela pelada.
+                        Sistema completo para organização de peladas.
                     </p>
                 </div>
                 
                 <div class="text-center">
-                    <h4 class="font-semibold mb-2">Contato & Feedback</h4>
+                    <h4 class="font-semibold mb-2">Contato</h4>
                     <div class="footer-text">
-                        <a href="mailto:futfacil@gmail.com" class="footer-link flex items-center justify-center">
+                        <a href="mailto:feedback@futebolpro.com" class="footer-link flex items-center justify-center">
                             <i class="fas fa-envelope mr-2 text-blue-400"></i>
                             futfacil@gmail.com
                         </a>
-                        
                     </div>
                 </div>
                 
@@ -1221,7 +1059,7 @@
                     <div class="footer-text text-gray-300">
                         <div class="flex items-center justify-center md:justify-end mb-1">
                             <i class="fas fa-code-branch mr-2 text-purple-400"></i>
-                            <span>v3.0 Stable</span>							
+                            <span>v3.3 Fixed</span>
                         </div>
                         <div class="flex items-center justify-center md:justify-end">
                             <i class="fas fa-calendar mr-2 text-yellow-400"></i>
@@ -1230,18 +1068,11 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="border-t border-gray-600 mt-4 pt-4 text-center">
-                <div class="flex flex-col md:flex-row justify-between items-center">
-                    <p class="footer-text text-gray-400 mb-2 md:mb-0">
-                        © 2025 FutFácil Pro. Sistema desenvolvido com ❤️ para a comunidade do futebol.
-                    </p>                    
-                </div>
-            </div>
         </div>
     </footer>
 
     <script>
+        // Global variables
         let defaultColors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD', '#98D8C8', '#F7DC6F', '#BB8FCE', '#85C1E9'];
         let currentTeams = [];
         let matchData = {
@@ -1251,10 +1082,10 @@
             events: [],
             playerStats: {},
             startTime: null,
-            lastGoal: null, // Track last goal for undo functionality
+            lastGoal: null,
             substitutions: {
                 enabled: false,
-                interval: 300, // 5 minutes default
+                interval: 300,
                 nextSubstitution: 0,
                 alertShown: false,
                 soundEnabled: true
@@ -1264,36 +1095,38 @@
         let isMatchActive = false;
         let addPlayerSectionExpanded = false;
         
-        // Audio context for whistle sound - Initialize lazily
+        // Audio context for whistle sound
         let audioContext = null;
         let whistleAudio = null;
         let audioInitialized = false;
+
+        // Drag and Drop variables
+        let draggedPlayer = null;
+        let draggedFromTeam = null;
+        let dragPreview = null;
 
         // Initialize audio only on first user interaction
         function initializeAudio() {
             if (audioInitialized) return;
             
             try {
-                // Use a user interaction event to initialize audio context
                 audioContext = new (window.AudioContext || window.webkitAudioContext)();
                 
-                // Create whistle sound data (simple beep)
                 const sampleRate = 44100;
-                const duration = 3;
-                const frequency = 3000;
+                const duration = 0.3;
+                const frequency = 800;
                 const length = sampleRate * duration;
                 const buffer = audioContext.createBuffer(1, length, sampleRate);
                 const data = buffer.getChannelData(0);
                 
                 for (let i = 0; i < length; i++) {
                     const t = i / sampleRate;
-                    data[i] = Math.sin(2 * Math.PI * frequency * t) * Math.exp(-t * 1.5) * 0.3;
+                    data[i] = Math.sin(2 * Math.PI * frequency * t) * Math.exp(-t * 3) * 0.3;
                 }
                 
                 whistleAudio = buffer;
                 audioInitialized = true;
                 
-                // Resume audio context if it's suspended
                 if (audioContext.state === 'suspended') {
                     audioContext.resume();
                 }
@@ -1308,7 +1141,6 @@
             if (!matchData.substitutions.soundEnabled || !audioContext || !whistleAudio) return;
             
             try {
-                // Resume context if suspended
                 if (audioContext.state === 'suspended') {
                     audioContext.resume();
                 }
@@ -1323,7 +1155,6 @@
         }
 
         function toggleSound() {
-            // Initialize audio on first user interaction
             if (!audioInitialized) {
                 initializeAudio();
             }
@@ -1346,6 +1177,207 @@
                 icon.className = 'fas fa-volume-mute';
                 text.textContent = 'Som OFF';
             }
+        }
+
+        // ENHANCED DRAG & DROP IMPLEMENTATION - COMPLETELY FIXED
+        function enableDragAndDrop() {
+            console.log('Enabling drag and drop...');
+            
+            // Clear any existing event listeners by removing and re-adding the class
+            const existingDraggables = document.querySelectorAll('.player-draggable');
+            existingDraggables.forEach(element => {
+                element.draggable = false;
+                element.classList.remove('player-draggable');
+            });
+            
+            const existingDropZones = document.querySelectorAll('.team-drop-zone');
+            existingDropZones.forEach(element => {
+                element.classList.remove('team-drop-zone');
+                // Remove all event listeners by cloning and replacing
+                const newElement = element.cloneNode(true);
+                element.parentNode.replaceChild(newElement, element);
+            });
+            
+            // Re-enable drag and drop for all team cards in results section
+            const teamCards = document.querySelectorAll('#teamsResults .team-card');
+            teamCards.forEach((card, teamIndex) => {
+                setupTeamDropZone(card, teamIndex);
+                
+                // Make players draggable
+                const playerItems = card.querySelectorAll('.player-item');
+                playerItems.forEach((playerItem, playerIndex) => {
+                    setupDraggablePlayer(playerItem, teamIndex, playerIndex);
+                });
+            });
+            
+            console.log(`Drag and drop enabled for ${teamCards.length} teams`);
+        }
+
+        function setupDraggablePlayer(playerItem, teamIndex, playerIndex) {
+            playerItem.draggable = true;
+            playerItem.classList.add('player-draggable');
+            
+            // Remove existing event listeners
+            playerItem.ondragstart = null;
+            playerItem.ondragend = null;
+            
+            playerItem.addEventListener('dragstart', function(e) {
+                console.log(`Dragging player: ${currentTeams[teamIndex].players[playerIndex].name}`);
+                
+                draggedPlayer = {
+                    teamIndex: teamIndex,
+                    playerIndex: playerIndex,
+                    player: currentTeams[teamIndex].players[playerIndex]
+                };
+                draggedFromTeam = teamIndex;
+                
+                this.classList.add('dragging');
+                
+                // Create drag preview
+                createDragPreview(e, draggedPlayer.player.name);
+                
+                // Set drag data
+                e.dataTransfer.effectAllowed = 'move';
+                e.dataTransfer.setData('text/html', this.outerHTML);
+            });
+
+            playerItem.addEventListener('dragend', function(e) {
+                this.classList.remove('dragging');
+                removeDragPreview();
+                
+                // Don't reset drag data here - let drop handler do it
+            });
+        }
+
+        function setupTeamDropZone(teamCard, teamIndex) {
+            teamCard.classList.add('team-drop-zone');
+            
+            // Remove existing event listeners
+            teamCard.ondragover = null;
+            teamCard.ondragleave = null;
+            teamCard.ondrop = null;
+            
+            teamCard.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+                
+                if (draggedFromTeam !== teamIndex) {
+                    this.classList.add('drag-over');
+                    showDragIndicator(this);
+                }
+            });
+
+            teamCard.addEventListener('dragleave', function(e) {
+                // Only remove drag-over if we're really leaving the drop zone
+                if (!this.contains(e.relatedTarget)) {
+                    this.classList.remove('drag-over');
+                    hideDragIndicator(this);
+                }
+            });
+
+            teamCard.addEventListener('drop', function(e) {
+                e.preventDefault();
+                this.classList.remove('drag-over');
+                hideDragIndicator(this);
+                
+                if (draggedPlayer && draggedFromTeam !== teamIndex) {
+                    console.log(`Dropping player in team ${teamIndex}`);
+                    // Perform the player transfer
+                    transferPlayer(draggedFromTeam, teamIndex, draggedPlayer.playerIndex);
+                }
+                
+                // Reset drag data
+                draggedPlayer = null;
+                draggedFromTeam = null;
+            });
+        }
+
+        function createDragPreview(e, playerName) {
+            dragPreview = document.createElement('div');
+            dragPreview.className = 'drag-preview';
+            dragPreview.textContent = `Movendo: ${playerName}`;
+            document.body.appendChild(dragPreview);
+            
+            // Position preview near mouse
+            dragPreview.style.left = (e.clientX + 10) + 'px';
+            dragPreview.style.top = (e.clientY - 10) + 'px';
+            
+            // Update position during drag
+            document.addEventListener('dragover', updateDragPreview);
+        }
+
+        function updateDragPreview(e) {
+            if (dragPreview) {
+                dragPreview.style.left = (e.clientX + 10) + 'px';
+                dragPreview.style.top = (e.clientY - 10) + 'px';
+            }
+        }
+
+        function removeDragPreview() {
+            if (dragPreview) {
+                document.body.removeChild(dragPreview);
+                dragPreview = null;
+                document.removeEventListener('dragover', updateDragPreview);
+            }
+        }
+
+        function showDragIndicator(teamCard) {
+            if (!teamCard.querySelector('.drag-indicator')) {
+                const indicator = document.createElement('div');
+                indicator.className = 'drag-indicator';
+                indicator.innerHTML = '<i class="fas fa-plus-circle mr-2"></i>Solte aqui';
+                teamCard.style.position = 'relative';
+                teamCard.appendChild(indicator);
+            }
+        }
+
+        function hideDragIndicator(teamCard) {
+            const indicator = teamCard.querySelector('.drag-indicator');
+            if (indicator) {
+                teamCard.removeChild(indicator);
+            }
+        }
+
+        function transferPlayer(fromTeamIndex, toTeamIndex, playerIndex) {
+            if (fromTeamIndex === toTeamIndex) return;
+            
+            console.log(`Transferring player from team ${fromTeamIndex} to team ${toTeamIndex}`);
+            
+            // Remove player from origin team
+            const player = currentTeams[fromTeamIndex].players.splice(playerIndex, 1)[0];
+            
+            // Add player to destination team
+            currentTeams[toTeamIndex].players.push(player);
+            
+            // Update player stats if needed
+            if (matchData.playerStats[player.name]) {
+                matchData.playerStats[player.name].team = currentTeams[toTeamIndex].name;
+                matchData.playerStats[player.name].teamColor = currentTeams[toTeamIndex].color;
+            }
+            
+            // Refresh displays
+            displayTeams(currentTeams);
+            setupAddPlayerSection();
+            
+            if (isMatchActive) {
+                setupMatchTeams();
+                updateStatistics();
+            }
+            
+            // Add event to log
+            addEventToLog({
+                time: formatTime(matchData.timer || 0),
+                type: 'player_transfer',
+                player: player.name,
+                fromTeam: currentTeams[fromTeamIndex].name,
+                toTeam: currentTeams[toTeamIndex].name,
+                timestamp: Date.now()
+            });
+            
+            // CRITICAL: Re-enable drag and drop after transfer
+            setTimeout(() => {
+                enableDragAndDrop();
+            }, 100);
         }
         
         // Navigation
@@ -1383,11 +1415,14 @@
                 }
             }
 
-            // Handle sticky scoreboard and match mode styling
+            // Handle match mode styling
             if (sectionName === 'matchSection' && isMatchActive) {
                 document.getElementById('mainContainer').classList.add('match-active');
                 document.getElementById('scoreboard').classList.add('sticky');
-                document.getElementById('matchTeams').classList.add('match-mode');
+                const matchTeamsElement = document.getElementById('matchTeams');
+                if (matchTeamsElement) {
+                    matchTeamsElement.classList.add('match-mode');
+                }
             } else {
                 document.getElementById('mainContainer').classList.remove('match-active');
                 document.getElementById('scoreboard').classList.remove('sticky');
@@ -1435,7 +1470,7 @@
             const goalkeepers = allPlayers.filter(player => player.includes('*'));
             const rivalPlayers = allPlayers.filter(player => player.includes('#'));
             const alliedPlayers = allPlayers.filter(player => player.includes('@'));
-            // Fixed: Field players = All players except goalkeepers (includes rivals, allies, and regular players)
+            // FIXED: Field players = All players except goalkeepers
             const fieldPlayers = allPlayers.filter(player => !player.includes('*'));
 
             animateCounterUpdate('totalCount', allPlayers.length);
@@ -1497,7 +1532,6 @@
                 `;
                 colorSelectors.appendChild(colorDiv);
                 
-                // Update color preview when color changes
                 document.getElementById(`color${i}`).addEventListener('change', function() {
                     this.parentElement.style.backgroundColor = this.value;
                 });
@@ -1531,17 +1565,16 @@
             };
         }
 
-        // NEW: Fixed distribution algorithm that properly handles rivals
+        // FIXED: Improved distribution algorithm with better rival separation
         function distributePlayersIntelligently(allPlayers, teamsCount) {
             const teams = Array.from({ length: teamsCount }, () => []);
             
             // Separate players by type
             const goalkeepers = shuffleArray(allPlayers.filter(p => p.isGoalkeeper));
-            const rivalPlayers = shuffleArray(allPlayers.filter(p => p.isRival && !p.isGoalkeeper && !p.isAllied));
             const alliedPlayers = shuffleArray(allPlayers.filter(p => p.isAllied && !p.isGoalkeeper));
+            const rivalPlayers = shuffleArray(allPlayers.filter(p => p.isRival && !p.isGoalkeeper && !p.isAllied));
             const regularPlayers = shuffleArray(allPlayers.filter(p => !p.isGoalkeeper && !p.isRival && !p.isAllied));
             
-            // Helper function to get team with minimum players
             function getTeamWithMinPlayers() {
                 let minIndex = 0;
                 for (let i = 1; i < teamsCount; i++) {
@@ -1552,18 +1585,13 @@
                 return minIndex;
             }
             
-            // Helper function to check if a team has a rival
-            function teamHasRival(teamIndex) {
-                return teams[teamIndex].some(player => player.isRival);
-            }
-            
             // Step 1: Distribute goalkeepers evenly
             goalkeepers.forEach((goalkeeper, index) => {
                 const teamIndex = index % teamsCount;
                 teams[teamIndex].push(goalkeeper);
             });
             
-            // Step 2: Place allied players together in team with least players
+            // Step 2: Place allied players together
             if (alliedPlayers.length > 0) {
                 const bestTeamIndex = getTeamWithMinPlayers();
                 alliedPlayers.forEach(player => {
@@ -1571,31 +1599,23 @@
                 });
             }
             
-            // Step 3: Distribute rival players - FIXED LOGIC
-            // Try to place each rival in a team that doesn't have any other rival
-            for (let i = 0; i < rivalPlayers.length; i++) {
-                const rival = rivalPlayers[i];
-                let placed = false;
+            // Step 3: IMPROVED - Distribute rival players with better separation
+            for (const rival of rivalPlayers) {
+                let bestTeamIndex = -1;
+                let minRivalsInTeam = Infinity;
                 
-                // First, try to find a team with no rivals and minimum players
-                let availableTeams = [];
-                for (let teamIndex = 0; teamIndex < teamsCount; teamIndex++) {
-                    if (!teamHasRival(teamIndex)) {
-                        availableTeams.push(teamIndex);
+                // Find team with fewest rivals and minimum total players
+                for (let i = 0; i < teamsCount; i++) {
+                    const rivalsInTeam = teams[i].filter(p => p.isRival).length;
+                    
+                    if (rivalsInTeam < minRivalsInTeam || 
+                        (rivalsInTeam === minRivalsInTeam && teams[i].length < teams[bestTeamIndex]?.length)) {
+                        minRivalsInTeam = rivalsInTeam;
+                        bestTeamIndex = i;
                     }
                 }
                 
-                if (availableTeams.length > 0) {
-                    // Sort available teams by player count (ascending)
-                    availableTeams.sort((a, b) => teams[a].length - teams[b].length);
-                    teams[availableTeams[0]].push(rival);
-                    placed = true;
-                } else {
-                    // If all teams have rivals, place in team with minimum players
-                    const minTeamIndex = getTeamWithMinPlayers();
-                    teams[minTeamIndex].push(rival);
-                    placed = true;
-                }
+                teams[bestTeamIndex].push(rival);
             }
             
             // Step 4: Distribute regular players to balance teams
@@ -1626,28 +1646,7 @@
             }
 
             const allPlayers = allPlayerTexts.map(parsePlayer);
-            
-            const goalkeepers = allPlayers.filter(p => p.isGoalkeeper);
-            const rivalPlayers = allPlayers.filter(p => p.isRival && !p.isGoalkeeper && !p.isAllied);
-            const alliedPlayers = allPlayers.filter(p => p.isAllied && !p.isGoalkeeper);
-            const regularPlayers = allPlayers.filter(p => !p.isGoalkeeper && !p.isRival && !p.isAllied);
-
-            if (goalkeepers.length > 0 && goalkeepers.length < teamsCount) {
-                const proceed = confirm(`Você tem ${goalkeepers.length} goleiro(s) para ${teamsCount} times. Alguns times ficarão sem goleiro. Deseja continuar?`);
-                if (!proceed) return;
-            }
-
-            // Use fixed distribution algorithm
             const teamPlayers = distributePlayersIntelligently(allPlayers, teamsCount);
-            
-            // Validate rival separation
-            let rivalConflicts = 0;
-            for (let i = 0; i < teamPlayers.length; i++) {
-                const teamRivals = teamPlayers[i].filter(p => p.isRival);
-                if (teamRivals.length > 1) {
-                    rivalConflicts++;
-                }
-            }
             
             const teams = teamPlayers.map((players, i) => ({
                 name: document.getElementById(`teamName${i}`).value || `Time ${i + 1}`,
@@ -1658,15 +1657,18 @@
 
             currentTeams = teams;
             initializeMatchData();
-
-            const distributionInfo = generateDistributionInfo(goalkeepers, rivalPlayers, alliedPlayers, regularPlayers, teamsCount, rivalConflicts);
-            displayTeams(teams, distributionInfo);
+            displayTeams(teams);
             setupAddPlayerSection();
             
-            // Reset collapsible section to closed state
+            // Reset collapsible section
             addPlayerSectionExpanded = false;
             document.getElementById('addPlayerContent').classList.remove('expanded');
             document.getElementById('expandIcon').classList.remove('rotated');
+
+            // CRITICAL: Enable drag and drop after display
+            setTimeout(() => {
+                enableDragAndDrop();
+            }, 200);
         }
 
         function initializeMatchData() {
@@ -1678,7 +1680,7 @@
                 events: [],
                 playerStats: {},
                 startTime: null,
-                lastGoal: null, // Track for undo functionality
+                lastGoal: null,
                 substitutions: {
                     enabled: false,
                     interval: 300,
@@ -1699,50 +1701,6 @@
                     };
                 });
             });
-        }
-
-        function generateDistributionInfo(goalkeepers, rivalPlayers, alliedPlayers, regularPlayers, teamsCount, rivalConflicts) {
-            let info = [];
-            
-            if (goalkeepers.length > 0) {
-                if (goalkeepers.length >= teamsCount) {
-                    info.push(`✅ Goleiros distribuídos: cada time tem pelo menos 1 goleiro`);
-                } else {
-                    info.push(`⚠️ Apenas ${goalkeepers.length} goleiro(s) para ${teamsCount} times`);
-                }
-            }
-            
-            if (rivalPlayers.length > 0) {
-                if (rivalConflicts === 0) {
-                    info.push(`✅ Jogadores rivais separados com sucesso - nenhum conflito`);
-                } else {
-                    info.push(`⚠️ ${rivalConflicts} time(s) com rivais juntos - tente sortear novamente`);
-                }
-            }
-
-            if (alliedPlayers.length > 0) {
-                info.push(`✅ ${alliedPlayers.length} jogadores aliados mantidos no mesmo time`);
-            }
-            
-            // Show team balance info
-            const teamSizes = currentTeams.map(team => team.players.length);
-            const minSize = Math.min(...teamSizes);
-            const maxSize = Math.max(...teamSizes);
-            
-            if (maxSize - minSize <= 1) {
-                info.push(`✅ Times perfeitamente balanceados: diferença máxima de 1 jogador`);
-            } else {
-                info.push(`⚠️ Times com pequeno desbalanceamento: ${minSize}-${maxSize} jogadores`);
-            }
-            
-            info.push(`📊 Distribuição total: ${goalkeepers.length + rivalPlayers.length + alliedPlayers.length + regularPlayers.length} jogadores em ${teamsCount} times`);
-            
-            // Add re-draw suggestion if there are conflicts
-            if (rivalConflicts > 0) {
-                info.push(`🔄 Sugestão: Clique em "Sortear Times" novamente para tentar uma nova distribuição`);
-            }
-            
-            return info;
         }
 
         function setupAddPlayerSection() {
@@ -1769,7 +1727,6 @@
                 return;
             }
             
-            // Check if player already exists
             const existingPlayer = currentTeams.some(team => 
                 team.players.some(player => player.name.toLowerCase() === playerName.toLowerCase())
             );
@@ -1790,7 +1747,6 @@
             
             currentTeams[teamIndex].players.push(newPlayer);
             
-            // Update match data if needed
             if (matchData.playerStats) {
                 matchData.playerStats[newPlayer.name] = {
                     goals: 0,
@@ -1811,32 +1767,22 @@
             setTimeout(() => addBtn.classList.remove('success-animation'), 600);
             
             // Refresh displays
-            displayTeams(currentTeams, []);
+            displayTeams(currentTeams);
             setupAddPlayerSection();
             
-            // If match is active, update match interface
             if (isMatchActive) {
                 setupMatchTeams();
             }
+
+            // CRITICAL: Re-enable drag and drop after adding player
+            setTimeout(() => {
+                enableDragAndDrop();
+            }, 100);
         }
 
-        function displayTeams(teams, distributionInfo) {
+        function displayTeams(teams) {
             const resultsSection = document.getElementById('resultsSection');
             const teamsResults = document.getElementById('teamsResults');
-            const distributionInfoDiv = document.getElementById('distributionInfo');
-            
-            if (distributionInfo.length > 0) {
-                distributionInfoDiv.innerHTML = `
-                    <h3 class="font-semibold text-green-800 mb-2 flex items-center">
-                        <i class="fas fa-info-circle mr-2"></i>
-                        Informações da Distribuição
-                    </h3>
-                    ${distributionInfo.map(info => `<p class="text-sm text-green-700">${info}</p>`).join('')}
-                `;
-                distributionInfoDiv.classList.remove('hidden');
-            } else {
-                distributionInfoDiv.classList.add('hidden');
-            }
             
             teamsResults.innerHTML = '';
             
@@ -1910,12 +1856,10 @@
             isMatchActive = true;
             showSection('matchSection');
             
-            // Initialize audio when match starts with user interaction
             if (matchData.substitutions.soundEnabled && !audioInitialized) {
                 initializeAudio();
             }
             
-            // Show undo button
             document.getElementById('undoLastGoal').classList.remove('hidden');
         }
 
@@ -1972,7 +1916,6 @@
                 
                 showSubstitutionAlert();
                 matchData.substitutions.alertShown = true;
-                // Automatically schedule next substitution
                 calculateNextSubstitution();
                 updateSubstitutionControls();
             }
@@ -1982,17 +1925,14 @@
             const banner = document.getElementById('substitutionAlertBanner');
             banner.classList.remove('hidden');
             
-            // Play whistle sound
             if (matchData.substitutions.soundEnabled) {
                 playWhistleSound();
             }
             
-            // Auto-hide after 5 seconds
             setTimeout(() => {
                 dismissSubstitutionAlert();
             }, 5000);
             
-            // Add to events log
             addEventToLog({
                 time: formatTime(matchData.timer),
                 type: 'substitution_alert',
@@ -2106,20 +2046,16 @@
                 timestamp: Date.now()
             };
             
-            // Store as last goal for undo functionality
             matchData.lastGoal = event;
             matchData.events.unshift(event);
             
             updateMatchDisplay();
             addEventToLog(event);
-            
-            // Goal celebration animation
             animateGoal(teamIndex);
         }
 
         function addTeamGoal(teamIndex, increment) {
             if (increment > 0) {
-                // Add generic goal
                 currentTeams[teamIndex].goals += increment;
                 const event = {
                     time: formatTime(matchData.timer),
@@ -2132,16 +2068,12 @@
                     timestamp: Date.now()
                 };
                 
-                // Store as last goal for undo functionality
                 matchData.lastGoal = event;
                 matchData.events.unshift(event);
                 addEventToLog(event);
-                
-                // Same animation as player goals
                 animateGoal(teamIndex);
                 
             } else if (increment < 0 && currentTeams[teamIndex].goals > 0) {
-                // Remove goal - this is handled by undo function now
                 undoLastGoal();
                 return;
             }
@@ -2149,7 +2081,7 @@
             updateMatchDisplay();
         }
 
-        // NEW: Fixed undo goal functionality
+        // FIXED: Undo goal functionality
         function undoLastGoal() {
             if (!matchData.lastGoal) {
                 alert('Nenhum gol para desfazer!');
@@ -2159,12 +2091,10 @@
             const lastGoal = matchData.lastGoal;
             const team = currentTeams[lastGoal.teamIndex];
             
-            // Remove goal from team
             if (team.goals > 0) {
                 team.goals--;
             }
             
-            // If it was a specific player goal, remove from player stats
             if (lastGoal.playerIndex !== null) {
                 const player = team.players[lastGoal.playerIndex];
                 if (player && player.goals > 0) {
@@ -2173,7 +2103,6 @@
                 }
             }
             
-            // Remove from events (find and remove the last goal)
             const eventIndex = matchData.events.findIndex(e => 
                 e.timestamp === lastGoal.timestamp && e.type === 'goal'
             );
@@ -2181,7 +2110,6 @@
                 matchData.events.splice(eventIndex, 1);
             }
             
-            // Add undo event to log
             const undoEvent = {
                 time: formatTime(matchData.timer),
                 type: 'goal_removed',
@@ -2194,7 +2122,6 @@
             matchData.events.unshift(undoEvent);
             addEventToLog(undoEvent);
             
-            // Clear last goal
             matchData.lastGoal = null;
             
             updateMatchDisplay();
@@ -2224,7 +2151,6 @@
         }
 
         function updateMatchDisplay() {
-            // Update scoreboard
             currentTeams.forEach((team, index) => {
                 const scoreElement = document.getElementById(`score${index}`);
                 if (scoreElement) {
@@ -2232,7 +2158,6 @@
                 }
             });
             
-            // Update match teams display
             setupMatchTeams();
             updateStatistics();
         }
@@ -2288,6 +2213,18 @@
                         <span class="text-sm text-gray-500">${event.time}</span>
                     </div>
                 `;
+            } else if (event.type === 'player_transfer') {
+                eventDiv.classList.add('border-blue-500');
+                eventDiv.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <span class="font-semibold text-blue-700">🔄 TRANSFERÊNCIA</span>
+                            <span class="text-gray-700">${event.player}</span>
+                            <span class="text-xs text-gray-500">de ${event.fromTeam} para ${event.toTeam}</span>
+                        </div>
+                        <span class="text-sm text-gray-500">${event.time}</span>
+                    </div>
+                `;
             }
             
             eventsLog.prepend(eventDiv);
@@ -2306,7 +2243,6 @@
         }
 
         function startTimer() {
-            // Initialize audio on first timer start (user interaction)
             if (!audioInitialized && matchData.substitutions.soundEnabled) {
                 initializeAudio();
             }
@@ -2319,7 +2255,6 @@
                     calculateNextSubstitution();
                 }
                 
-                // Use more accurate timing method
                 function updateAccurateTimer() {
                     if (matchData.isRunning) {
                         const now = Date.now();
@@ -2352,7 +2287,7 @@
         function clearEvents() {
             if (confirm('Tem certeza que deseja limpar todos os eventos?')) {
                 matchData.events = [];
-                matchData.lastGoal = null; // Clear last goal reference
+                matchData.lastGoal = null;
                 document.getElementById('eventsLog').innerHTML = '<p class="text-gray-500 text-center py-8">Nenhum evento registrado ainda</p>';
             }
         }
@@ -2449,7 +2384,6 @@
         });
         
         document.getElementById('newDraw').addEventListener('click', () => {
-            // Allow multiple draws - don't hide results, just regenerate
             drawTeams();
         });
 
@@ -2468,22 +2402,23 @@
         });
         document.getElementById('tabManual').addEventListener('click', () => showSection('manualSection'));
 
-        // Initialize
+        // Initialize - ENSURE IT STARTS ON DRAWING SECTION
         generateColorSelectors();
+        showSection('drawingSection');
 
         // Sample data
         document.getElementById('playersInput').value = `João Silva*
 Maria Costa* 
 Pedro Santos#
-Ana Lima
-Carlos Silva
-Maria@ 
+Ana Lima*
+Carlos Silva#
+Maria 
 Roberto@
 Juliana Oliveira
-Marcos Souza#
+Marcos Souza
 Patrícia Lima
 André Mendes
-Camila Santos`;
+Camila Santos@`;
 
         updatePlayerCount();
     </script>
